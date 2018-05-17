@@ -9,11 +9,11 @@ Repository for CS5610-Web Development course at Northeastern University.
 
 > We have a Tomcat/[Java server](https://github.com/karantyagi/CS5610-web-dev-java-server) which is connected to MySQL database and is the React client is connected to [this same Tomcat/Java middle tier](https://github.com/karantyagi/CS5610-web-dev-java-server).
 
-> java-server repository: https://github.com/karantyagi/CS5610-web-dev-java-server 
-
 ## `Links`
 
-coming up soon !
+* Course Manager Module: coming up soon !
+* User Admin Module: https://kt-web-dev-java-server.herokuapp.com/
+* User Admin Module: [java server repository](https://github.com/karantyagi/CS5610-web-dev-java-server)
 
 ## `Karan Tyagi`<br/>
 
