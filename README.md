@@ -5,8 +5,11 @@ Repository for CS5610-Web Development course at Northeastern University.
 
 ## `Purpose` <br/>
 
-> Deploying a Spring Boot web app on heroku.<br>
-> We have a Tomcat/Java server which is connected to MySQL database, and is hosting the jQuery client.
+> Implementing a Course Manager Module Client, built with React and Spring Boot, deployed on Heroku.<br>
+> We have a Tomcat/[Java server](https://github.com/karantyagi/CS5610-web-dev-java-server) which is connected to MySQL database and is the .
+> React client is connected to [this same Tomcat/Java](https://github.com/karantyagi/CS5610-web-dev-java-server) middle tier.
+>
+> java-server repository: https://github.com/karantyagi/CS5610-web-dev-java-server 
 
 __Link__: 
 
