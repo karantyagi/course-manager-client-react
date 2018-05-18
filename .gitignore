@@ -1,6 +1,16 @@
 # See https://help.github.com/ignore-files/ for more about ignoring files.
 
-.idea/
+**/desktop.ini
+desktop.ini
+
+### IntelliJ IDEA ###
+.idea
+.idea/workspace.xml
+*.iws
+*.iml
+*.ipr
+.idea/*
+
 
 # dependencies
 /node_modules
