@@ -1,8 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import HelloWorld from './hello'
-ReactDOM.render(
-    <HelloWorld/>,
+import CourseManager from './containers/CourseManager'
+import '../node_modules/bootstrap/dist/css/bootstrap.css';
+
+
+    ReactDOM.render(
+    <CourseManager/>,
     document.getElementById('root')
 );
 
