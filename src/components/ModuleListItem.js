@@ -10,8 +10,8 @@ export default class ModuleListItem
                 Module 1
                 <span className="float-right">
                     <button className="edit btn btn-outline-secondary"><i className="fa fa-pencil"></i></button>
-                    &nbsp;&nbsp;&nbsp;
-                    <button className="delete btn btn-outline-dark"><i className="fa fa-trash"></i></button>
+                    &nbsp;
+                    <button className="delete btn btn-outline-secondary"><i className="fa fa-trash"></i></button>
                  </span>
             </li>
         );
