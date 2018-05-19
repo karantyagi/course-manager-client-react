@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import CourseCard from './CourseCard'
+import CourseCard from '../components/CourseCard'
 
 export default
     class CourseDeck extends React.Component {

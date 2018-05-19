@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import CourseCard from './CourseCard'
+import ModuleList from './ModuleList'
 import CourseDeck from './CourseDeck'
 
 class CourseManager extends React.Component {
@@ -20,20 +20,24 @@ class CourseManager extends React.Component {
                             <button className="btn btn-success my-2 my-sm-0" type="button">Search</button>
                     </form>
                 </nav>
+                <br/>
 
                 {/*make a grid here    */}
+                <ModuleList/>
+                <br/>
 
-                <br/>
-                <CourseDeck/>
-                <br/>
-                <CourseDeck/>
-                <br/>
-                <div className="card-deck">
-                    <CourseCard/>
-                    <CourseCard/>
-                    <CourseCard/>
-                    <CourseCard/>
+                <div className="row">
+                    <div className="col-md-4 offset-md-8">
+                        <button className="delete btn btn-outline-danger pull-right">
+                        <i className="fa fa-plus fa-2x"></i>
+                    </button>
+                    </div>
                 </div>
+                <br/>
+                <CourseDeck/>
+                <br/>
+                <CourseDeck/>
+                <br/>
                 <br/>
             </div>
         )
