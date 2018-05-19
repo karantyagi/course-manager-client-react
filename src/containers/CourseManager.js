@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import ModuleList from './ModuleList'
 import CourseDeck from './CourseDeck'
+import CourseEditor from './CourseEditor'
 
 class CourseManager extends React.Component {
     render() {
@@ -22,18 +22,33 @@ class CourseManager extends React.Component {
                 </nav>
                 <br/>
 
-                {/*make a grid here    */}
-                <ModuleList/>
-                <br/>
+                <CourseEditor/>
+                <hr/>
+
+                {/*Lesson Tabs*/}
+
+                {/*<LessonTabs/>*/}
+                {/*<br/>*/}
+
+                {/*<ModuleList/>*/}
+                {/*<br/>*/}
 
                 <div className="row">
-                    <div className="col-md-4 offset-md-8">
-                        <button className="delete btn btn-outline-danger pull-right">
-                        <i className="fa fa-plus fa-2x"></i>
-                    </button>
+                    <div className="col-11">
+                        <h2>&nbsp;Courses</h2>
+                    </div>
+                    <div className="col-1">
+                        <button className="delete btn btn-outline-danger">
+                            <i className="fa fa-plus fa-2x"></i>
+                        </button>
                     </div>
                 </div>
+
                 <br/>
+
+                {/*Courses Grid*/}
+                {/*make a grid here    */}
+
                 <CourseDeck/>
                 <br/>
                 <CourseDeck/>
