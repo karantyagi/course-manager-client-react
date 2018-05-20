@@ -7,12 +7,14 @@ export default class ModuleListItem
 
     constructor(props) {
         super(props);
+        console.log("module title :",this.props.module.title );
     }
 
     render() {
         return (
             <li className="list-group-item pt-2 pb-1 text-white mt-1 mb-1 pr-1 pl-3 rounded bg-dark">
-                {this.props.title}
+                {this.props.module.title}
+
                 <span className="float-right">
                     <button className="edit btn btn-outline-secondary pr-1 pl-1 pt-0 pb-0" style={{border:'0px solid transparent'}}>
                         <i className="fa fa-pencil fa-2x"></i></button>

@@ -21,6 +21,8 @@ export default class CourseEditor
     }
 
 
+
+
     render() { return(
         <div>
             {/*<h2>Editing course ID : {this.state.courseId}</h2>*/}
@@ -29,8 +31,7 @@ export default class CourseEditor
             </div>
             <div className="row">
                 <div className="col-4">
-                <h3>&nbsp;Modules</h3>
-                    <ModuleList/>
+                    <ModuleList courseId={this.state.courseId}/>
                 </div>
                 <div className="col-8">
                     <h3>&nbsp;Lessons</h3>
