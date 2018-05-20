@@ -1,17 +1,26 @@
 import React, {Component} from 'react';
 import CourseGrid from './CourseGrid'
 import CourseEditor from './CourseEditor'
-import {BrowserRouter as Router, Route} from 'react-router-dom'
+import Description from '../components/Description'
+import Description2 from '../components/Description2'
+import '../../node_modules/bootstrap/dist/css/bootstrap.css';
+import '../../node_modules/font-awesome/css/font-awesome.min.css';
+import {BrowserRouter as Router, Route, Link} from 'react-router-dom'
+
+
 class CourseManager extends React.Component {
 
 
 
     render() {
         return (
-            <Router>
+            <Router >
             <div className="container-fluid">
                 {/*font awesome icon bars*/}
 
+
+                <Route path="/home" component={Description}>
+                </Route>
                 <br/>
                 <nav className="navbar navbar-dark bg-dark">
                     <button className="navbar-toggler" type="button" id={"settings"}>
@@ -24,7 +33,11 @@ class CourseManager extends React.Component {
                             <button className="btn btn-success my-2 my-sm-0" type="button">Search</button>
                     </form>
                 </nav>
-                <br/>
+
+                <hr/>
+
+                <Route path="/home" component={Description2}>
+                </Route>
 
                 <Route path="/course/grid"
                        component={CourseGrid}>
@@ -35,7 +48,6 @@ class CourseManager extends React.Component {
                 </Route>
 
                 {/*<CourseEditor/>*/}
-                <hr/>
 
                 {/*Lesson Tabs*/}
 
