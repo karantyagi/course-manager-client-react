@@ -9,7 +9,6 @@ export default class CourseEditor
             <div className="row">
                 <div className="col-4">
                 <h3>&nbsp;Modules</h3>
-                    <br/>
                     <ModuleList/>
                 </div>
                 <div className="col-8">
