@@ -1,14 +1,14 @@
 import React, {Component} from 'react';
 import CourseGrid from './CourseGrid'
 import CourseEditor from './CourseEditor'
-import CourseService from "../services/CourseService";
-
+import {BrowserRouter as Router, Route} from 'react-router-dom'
 class CourseManager extends React.Component {
 
 
 
     render() {
         return (
+            <Router>
             <div className="container-fluid">
                 {/*font awesome icon bars*/}
 
@@ -26,7 +26,15 @@ class CourseManager extends React.Component {
                 </nav>
                 <br/>
 
-                <CourseEditor/>
+                <Route path="/course/grid"
+                       component={CourseGrid}>
+                </Route>
+
+                <Route path="/course/:courseId/edit"
+                       component={CourseEditor}>
+                </Route>
+
+                {/*<CourseEditor/>*/}
                 <hr/>
 
                 {/*Lesson Tabs*/}
@@ -38,9 +46,10 @@ class CourseManager extends React.Component {
                 {/*<br/>*/}
                 {/*Courses Grid*/}
                 {/*make a grid here    */}
-                <CourseGrid/>
+                {/*<CourseGrid/>*/}
 
             </div>
+            </Router>
         )
     }
 }

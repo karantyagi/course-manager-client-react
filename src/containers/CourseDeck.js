@@ -3,6 +3,8 @@ import CourseCard from '../components/CourseCard'
 import BlankCourseCard from '../components/BlankCourseCard'
 import CourseService from '../services/CourseService'
 
+
+
 var decks;
 var grid;
 var total;
@@ -19,6 +21,9 @@ export default
         total = 0;
         this.titleChanged = this.titleChanged.bind(this);
         this.createCourse = this.createCourse.bind(this);
+        // this.deleteCourse = this.deleteCourse.bind(this);
+       // this.updateCourse = this.updateCourse.bind(this);
+
 
 
     }
@@ -32,17 +37,36 @@ export default
 
         }
         createCourse() {
+
+            if(this.state.course == null)
+            {
+                alert("\nType a name for the course which you want to add.");
+            }
+            else{
+                console.log("create course");
+                console.log(this.state);
+                this.courseService
+                    .createCourse(this.state.course)
+                    .then(() => { this.findAllCourses(); });
+            }
             // this.courseService
             //     .createCourse(this.state.course)
             //     .then(() => { this.findAllCourses(); });
-            console.log("create course");
-            console.log(this.state);
-            this.courseService
-                .createCourse(this.state.course)
-                .then(() => { this.findAllCourses(); });
-
 
         }
+
+        // deleteCourse(id) {
+        //
+        // }
+
+        //
+        // editCourse() {
+        // console.log('edit course');
+        // alert("\n Update course functionality coming soon!")
+        // }
+
+
+
 
         // componentDidMount() {
         //     this.courseService.findAllCourses()
@@ -128,6 +152,7 @@ export default
                 //console.log("Decks: ", decks);
 
                 var counter = 0;
+                var blank =  0;
                 let cardDecks = [];
                 let singleDeck;
                 var four = [];
@@ -135,14 +160,18 @@ export default
                 for(var i =0;i< decks;i++) {
                     for (var j = 0; j < 4; j++) {
                         if(counter<total){
-                           // console.log("Course ",counter," : ",courses[counter]);
+                           //console.log("Course ",counter," : ",courses[counter]);
                             four.push(courses[counter]);
                             counter++;
                         }
-                         else{four.push(<BlankCourseCard key={(Math.random()).toString()+"CD"}/>)}
+                        else{
+                            four.push(<BlankCourseCard key={(blank*7).toString()+"blankcard"}/>)
+                            blank++;
+                        }
+                       // console.log("Blank Course "," : ",<BlankCourseCard key={(Math.random()).toString()+"CD"}/>);
                     }
                     // console.log("four -> ",four);
-                    singleDeck = (<div className="card-deck mb-4 m4-2 ml-2" key={(counter).toString()+"CD"}>{four}</div>);
+                    singleDeck = (<div className="card-deck mb-4 mr-2 ml-2" key={(counter).toString()+"CD"}>{four}</div>);
                     cardDecks.push(singleDeck);
                    // console.log("Single deck -> ",singleDeck);
                     four = [];
@@ -180,7 +209,7 @@ export default
                            placeholder="cs101"></input>
                 </div>
                 <div className="col-1">
-                    <button onClick={this.createCourse} className="delete btn btn-outline-danger">
+                    <button onClick={this.createCourse} className="btn btn-outline-danger">
                         <i className="fa fa-plus fa-1x"></i>
                     </button>
                 </div>
