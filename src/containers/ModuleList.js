@@ -51,18 +51,16 @@ export default class ModuleList
 
 
                 {/*<li className="list-group-item">*/}
-                <div class="row">
-                    <div className="col-10">
+                <div class="row pb-0 mb-2">
+                    <div className="col-10 pr-0 mr-0 pb-0 mb-0">
                         <input onChange={this.titleChanged} id="newModule" className="form-control" placeholder="Add new module"/>
                     </div>
-                    <div className="col-1">
+                    <div className="col-1 ml-0 pl-2 pb-0 mb-0">
                         <button onClick={this.createModule}  className="btn btn-outline-dark">
                             <i className="fa fa-plus"></i></button>
-
                     </div>
 
                 </div>
-                <br/>
                 {/*TO DO : make list scrollable   */}
                 <ul className="list-group">
                 {/*</li>*/}
