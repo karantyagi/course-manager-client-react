@@ -1,7 +1,5 @@
 import React from 'react';
 import ModuleListItem from '../components/ModuleListItem';
-import ModuleList2 from './/ModuleList2';
-// import styles from '../style/vertical.css';
 
 export default class ModuleList
     extends React.Component {
@@ -51,7 +49,7 @@ export default class ModuleList
 
 
                 {/*<li className="list-group-item">*/}
-                <div class="row pb-0 mb-2">
+                <div className="row pb-0 mb-2">
                     <div className="col-10 pr-0 mr-0 pb-0 mb-0">
                         <input onChange={this.titleChanged} id="newModule" className="form-control" placeholder="Add new module"/>
                     </div>

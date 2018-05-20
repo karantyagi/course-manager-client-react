@@ -5,12 +5,17 @@ import '../../node_modules/font-awesome/css/font-awesome.min.css';
 
 export default class CourseCard
     extends React.Component
-{ render() {
+{
+    constructor(props) {
+        super(props)
+    }
+
+    render() {
     return (
         <div className="card shadow rounded"
              styles={{width: '12rem'}}>
             <div className="card-header text-center ">
-                Information Retrieval
+                {this.props.course.title}
             </div>
             <div className="card-body">
                 <img className="card-img-top"
@@ -20,7 +25,7 @@ export default class CourseCard
                     {/*Course Card title*/}
                 {/*</h5>*/}
             </div>
-            <div class="card-footer">
+            <div className="card-footer">
                 <p className="card-text">
                    Course card description text...
 
@@ -34,7 +39,7 @@ export default class CourseCard
                     <i className=" fa fa-trash-o"></i>
 
                 </a>
-                <div class="float-right">
+                <div className="float-right">
 
                         <button className="btn btn-light" type="button">
                             <i className="fa fa-ellipsis-v"></i>

@@ -1,8 +1,12 @@
 import React, {Component} from 'react';
-import CourseDeck from './CourseDeck'
+import CourseGrid from './CourseGrid'
 import CourseEditor from './CourseEditor'
+import CourseService from "../services/CourseService";
 
 class CourseManager extends React.Component {
+
+
+
     render() {
         return (
             <div className="container-fluid">
@@ -32,28 +36,10 @@ class CourseManager extends React.Component {
 
                 {/*<ModuleList/>*/}
                 {/*<br/>*/}
-
-                <div className="row">
-                    <div className="col-11">
-                        <h2>&nbsp;Courses</h2>
-                    </div>
-                    <div className="col-1">
-                        <button className="delete btn btn-outline-danger">
-                            <i className="fa fa-plus fa-2x"></i>
-                        </button>
-                    </div>
-                </div>
-
-                <br/>
-
                 {/*Courses Grid*/}
                 {/*make a grid here    */}
+                <CourseGrid/>
 
-                <CourseDeck/>
-                <br/>
-                <CourseDeck/>
-                <br/>
-                <br/>
             </div>
         )
     }
