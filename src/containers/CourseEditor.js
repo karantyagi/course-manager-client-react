@@ -1,6 +1,9 @@
 import React from 'react'
 import ModuleList from './ModuleList'
 import LessonTabs from './LessonTabs'
+import Description from "../components/Description";
+import {BrowserRouter as Router, Route, Link} from 'react-router-dom'
+
 
 export default class CourseEditor
     extends React.Component {
@@ -24,9 +27,9 @@ export default class CourseEditor
 
 
     render() { return(
+        <Router>
         <div>
-            {/*<h2>Editing course ID : {this.state.courseId}</h2>*/}
-            <div className="alert alert-info" role="alert ">
+            <div className="alert alert-info p-3" role="alert ">
                 <h3 className="alert-heading">Editing course ID : <strong> {this.state.courseId}</strong> </h3>
             </div>
             <div className="row">
@@ -34,12 +37,15 @@ export default class CourseEditor
                     <ModuleList courseId={this.state.courseId}/>
                 </div>
                 <div className="col-8">
-                    <h3>&nbsp;Lessons</h3>
 
-                    <LessonTabs/>
+                    <Route path="/course/2/edit/module/2/edit"
+                           component={LessonTabs}>
+                    </Route>
+                    {/*<LessonTabs/>*/}
                 </div>
             </div>
         </div>
+        </Router>
     );
     }
 }

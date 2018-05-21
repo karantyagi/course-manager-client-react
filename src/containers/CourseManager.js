@@ -10,6 +10,21 @@ import {BrowserRouter as Router, Route, Link} from 'react-router-dom'
 
 class CourseManager extends React.Component {
 
+    constructor()
+    {
+        super();
+        this.searchCourse = this.searchCourse.bind(this);
+        this.settings = this.settings.bind(this);
+    }
+
+    searchCourse(){
+        alert("\nSEARCH coming soon !");
+    }
+
+    settings(){
+        alert("\nSETTINGS coming soon !");
+    }
+
 
 
     render() {
@@ -23,14 +38,15 @@ class CourseManager extends React.Component {
                 </Route>
                 <br/>
                 <nav className="navbar navbar-dark bg-dark">
-                    <button className="navbar-toggler" type="button" id={"settings"}>
+                    <button onClick={this.settings}  className="navbar-toggler" type="button" id={"settings"}>
                         <span className="navbar-toggler-icon" ></span>
                     </button>
                     <h2 className={"text-white "}>Course Manager</h2>
                     <form className="form-inline mt-2 mt-md-0">
                         <input className="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
                         </input>
-                            <button className="btn btn-success my-2 my-sm-0" type="button">Search</button>
+                            <button onClick={this.searchCourse}
+                                className="btn btn-success my-2 my-sm-0" type="button">Search</button>
                     </form>
                 </nav>
 

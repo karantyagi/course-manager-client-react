@@ -112,7 +112,7 @@ import ModuleService from '../services/ModuleService'
             <div>
 
                 <h3>&nbsp;Modules</h3>
-                <p>&nbsp;[course ID: {this.state.courseId}] </p>
+                {/*<p>&nbsp;[course ID: {this.state.courseId}] </p>*/}
                 <div>
 
                 {/*<li className="list-group-item">*/}
