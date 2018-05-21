@@ -28,6 +28,17 @@ export default class ModuleService {
         { return response.json(); })
     }
 
+    deleteModule(moduleId) {
+        return fetch(MODULE_API_URL + '/' + moduleId,
+            {
+                method: 'DELETE'
+            }).then(function (response) {
+            return response;
+        })
+
+    }
+
+
     static get instance() {
         if(!this[_singleton])
             this[_singleton] = new ModuleService(_singleton);

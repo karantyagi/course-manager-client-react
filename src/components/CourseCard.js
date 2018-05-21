@@ -10,42 +10,13 @@ export default class CourseCard
 {
     constructor(props) {
         super(props);
-        this.deleteButtonClicked = this.deleteButtonClicked.bind(this);
-        this.editButtonClicked = this.editButtonClicked.bind(this);
         this.courseService = CourseService.instance;
-    }
-
-    deleteButtonClicked() {
-        console.log("Delete : ", (this.props.course.id));
-        // this.courseService
-        //     .deleteCourse(this.props.course.id);
-
-        // DIALOG
-
-        var result = window.confirm("\n Do you really want to delete this course ?");
-        if (!result) {
-            console.log("ok");
-        }
-        else{
-            window.location.reload();
-            this.courseService
-                .deleteCourse(this.props.course.id)
-                .then(() => {
-
-                    alert("\n" + this.props.course.title + " Deleted");
-                });
-        }
-
 
     }
 
-    editButtonClicked() {
-        alert("\n Update functionality coming soon !");
-    }
 
 
-
-    render() {
+     render() {
     return (
         <div className="card shadow rounded"
              >
@@ -74,12 +45,15 @@ export default class CourseCard
                         </button>
 
                     <span className="float-right">
-                    <button onClick={this.editButtonClicked}
+                    <button onClick={() =>
+                    {this.props.update(this.props.course.id)}}
                             className="edit btn btn-outline-success pr-1 pl-1 pt-0 pb-0" style={{border:'0px solid transparent'}}>
                         <i className="fa fa-pencil fa-2x"></i></button>
                         &nbsp;
                         {/*<a href="#"><i className="fa fa-times"></i></a>*/}
-                        <button onClick={this.deleteButtonClicked}
+                        <button
+                            onClick={() =>
+                            {this.props.delete(this.props.course.id)}}
                             className="delete btn btn-outline-danger pr-1 pl-1 pt-0 pb-0" style={{border:'0px solid transparent'}}>
                         <i className="fa fa-times fa-2x"></i></button>
                  </span>

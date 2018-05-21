@@ -5,13 +5,18 @@ import ModuleService from '../services/ModuleService'
     export default class ModuleList
         extends React.Component {
     constructor(props) {
+        console.log("c")
         super(props);
         this.state = {
             courseId: '',
-            // module: { title: '' },
+            module: { title: '' },
             modules: []
         };
+
+        // this.deleteModule = this.deleteModule.bind(this);
         this.createModule = this.createModule.bind(this);
+
+        //this.updateModule = this.updateModule.bind(this);
         this.titleChanged = this.titleChanged.bind(this);
 
         this.setCourseId =
@@ -41,31 +46,54 @@ import ModuleService from '../services/ModuleService'
     }
 
     createModule() {
-        console.log(this.state.module);
-        this.moduleService
-            .createModule(this.props.courseId, this.state.module)
+        if(this.state.module.title == '')
+        {
+            alert("\nType a name for the Module which you want to add.");
+        }
+        else {
+            console.log("ADD Module: ", this.state.module);
+            this.moduleService
+                .createModule(this.props.courseId, this.state.module)
+                .then(() => { this.findAllModulesForCourse(this.props.courseId); });
+        }
     }
+
+
+        // deleteModule() {
+        //     console.log('delete');
+            // this.courseService
+            //     .deleteCourse(this.props.course.id);
+
+            // DIALOG
+
+            // var result = window.confirm("\n Do you really want to delete this course ?");
+            // if (!result) {
+            //     console.log("ok");
+            // }
+            // else{
+            //     console.log("Delete module");
+            // }
+        // }
+
     titleChanged(event) {
-        console.log(event.target.value);
+       // console.log(event.target.value);
         this.setState({module: {title: event.target.value}});
     }
     renderListOfModules() {
-
         let modules = null;
-        if(this.state.modules.length != 0){
-            console.log("STATE:", this.state);
+        if(this.state.modules.length != 0 && this.moduleService!=null){
             modules = this.state.modules.map(function(module){
                 return <ModuleListItem module={module}
                                        key={module.id}/>
             });
-           // console.log(modules);
 
+            
         }
-
         return modules;
     }
 
         render() {
+
         return (
             <div>
 

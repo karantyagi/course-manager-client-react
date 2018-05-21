@@ -12,8 +12,7 @@ var total;
 export default
     class CourseDeck extends React.Component {
 
-
-    constructor() {
+        constructor() {
         super();
         this.courseService = CourseService.instance;
         decks = 1;
@@ -21,13 +20,27 @@ export default
         total = 0;
         this.titleChanged = this.titleChanged.bind(this);
         this.createCourse = this.createCourse.bind(this);
-        // this.deleteCourse = this.deleteCourse.bind(this);
-       // this.updateCourse = this.updateCourse.bind(this);
-
-
+        this.deleteCourse = this.deleteCourse.bind(this);
+        this.updateCourse = this.updateCourse.bind(this);
 
     }
+        componentDidMount() {
+            this.findAllCourses();
+        }
 
+        componentWillReceiveProps(newProps) {
+
+        }
+
+        findAllCourses() {
+            this.courseService
+                .findAllCourses()
+                .then((courses) => {
+                    console.log("No. of Courses: ", courses.length);
+                    total = courses.length;
+                    this.setState({courses: courses});
+                })
+        }
 
         titleChanged(event) {
             this.setState({
@@ -55,9 +68,28 @@ export default
 
         }
 
-        // deleteCourse(id) {
-        //
-        // }
+        deleteCourse(courseId) {
+            console.log('delete ',courseId);
+            var result = window.confirm("\n Do you really want to delete this course ?");
+            if (!result) {
+                console.log("ok");
+            }
+            else{
+                this.courseService
+                    .deleteCourse(courseId)
+                    .then(() => {
+                        this.findAllCourses();
+                        alert("\n" + "Course: "+courseId + " Deleted");
+                    });
+            }
+
+        }
+
+        updateCourse(courseId) {
+            console.log('update ',courseId);
+            alert("\nUpdate Course ID: "+courseId+"\n\Update functionality coming soon !")
+        }
+
 
         //
         // editCourse() {
@@ -77,19 +109,7 @@ export default
         //
         // }
 
-        componentDidMount() {
-            this.findAllCourses();
-        }
 
-        findAllCourses() {
-            this.courseService
-                .findAllCourses()
-                .then((courses) => {
-                    console.log("No. of Courses: ", courses.length);
-                    total = courses.length;
-                    this.setState({courses: courses});
-                })
-        }
 
         // renderCourseCards(){
         //     let courses = null;
@@ -140,13 +160,16 @@ export default
 
 
             if(this.state) {
-                //console.log(this.state);
-               //console.log("inside renderdecks IF")
-                courses = this.state.courses.map(
-                    function (course) {
-                        return <CourseCard key={course.id}
-                                           course={course}/>
-                    })
+
+               // console.log("inside renderdecks IF")
+
+
+                courses= this.state.courses.map((course) => {
+                    return <CourseCard course={course} key={course.id}
+                                      delete={this.deleteCourse}
+                                        update = {this.updateCourse}/>
+                });
+
 
                 decks = Math.ceil(courses.length / 4);
                 //console.log("Decks: ", decks);
@@ -186,7 +209,7 @@ export default
             else{
                 return(
                     <div className="card-deck">
-                    </div>)
+                    </div>);
 
 
             }
@@ -214,13 +237,10 @@ export default
                     </button>
                 </div>
             </div>
-
             <br/>
-
-            <div>
-                    {this.renderGrid()}
-            </div>
-
+                <div>
+                     {this.renderGrid()}
+                </div>
             </div>
         )
     }
