@@ -1,11 +1,13 @@
 import React from 'react';
 import ModuleListItem from '../components/ModuleListItem';
 import ModuleService from '../services/ModuleService'
+import {BrowserRouter as Router, Route, Link} from 'react-router-dom'
+import ModuleEditor from "./ModuleEditor";
 
     export default class ModuleList
         extends React.Component {
     constructor(props) {
-        console.log("c")
+        //console.log("c")
         super(props);
         this.state = {
             courseId: '',
@@ -96,7 +98,8 @@ import ModuleService from '../services/ModuleService'
             });
 
             modules = this.state.modules.map((module) => {
-                return <ModuleListItem module={module}
+                return <ModuleListItem course = {this.state.courseId}
+                                        module={module}
                                        key={module.id}
                                         delete={this.deleteModule}
                                        update = {this.updateModule}/>
@@ -109,7 +112,14 @@ import ModuleService from '../services/ModuleService'
         render() {
 
         return (
-            <div>
+            <Router>
+
+                <div>
+                    <div className="alert alert-info p-3" role="alert ">
+                        <h3 className="alert-heading">Editing course ID : <strong> {this.state.courseId}</strong> </h3>
+                    </div>
+                    <div className="row">
+            <div className="col-4">
 
                 <h3>&nbsp;Modules</h3>
                 {/*<p>&nbsp;[course ID: {this.state.courseId}] </p>*/}
@@ -130,14 +140,21 @@ import ModuleService from '../services/ModuleService'
                 <ul className="list-group">
                 {/*</li>*/}
                 {this.renderListOfModules()}
-                {/*<ModuleListItem title={"Javascript Module"}/>*/}
-                {/*<ModuleListItem title={"jQuery Module"}/>*/}
-                {/*<ModuleListItem title={"React Module"}/>*/}
-                {/*<ModuleListItem title={"Node Module"}/>*/}
-                {/*<ModuleListItem title={"Angular Module"}/>*/}
+
             </ul>
             </div>
             </div>
+                <div className="col-8">
+
+                    <Route path="/course/:courseID/edit/module/:moduleID/edit"
+                           component={ModuleEditor}>
+                    </Route>
+                </div>
+            </div>
+            </div>
+        </Router>
+
+
         );
     }
 
