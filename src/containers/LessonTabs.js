@@ -33,7 +33,7 @@ export default class LessonTabs
         var mId = url.substring(start,stop);
         this.setModuleId(mId);
     }
-    
+
     render() { return(
         <div>
             <div className="alert alert-danger p-2" role="alert ">

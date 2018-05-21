@@ -43,10 +43,20 @@ export default class Description
                                 {/*</li>*/}
                                 {/*&nbsp;&nbsp;&nbsp;*/}
 
-                                <li><a className="nav-link " href="http://localhost:8080/api/course">Courses (Webservice endpoint)</a>
+
+                                <li><a className="nav-link " href="/course/grid">Courses (Grid View)</a>
                                 </li>
                                 &nbsp;&nbsp;&nbsp;
-                                <li><a className="nav-link " href="/course/grid">Courses (Grid View)</a>
+                                <li><a className="nav-link " href="http://localhost:8080/api/course">Courses(endpoint)</a>
+                                </li>
+                                &nbsp;&nbsp;&nbsp;
+                                <li><a className="nav-link " href="http://localhost:8080/api/module">Modules(endpoint)</a>
+                                </li>
+                                &nbsp;&nbsp;&nbsp;
+                                <li><a className="nav-link " href="http://localhost:8080/api/lesson">Lessons(endpoint)</a>
+                                </li>
+                                &nbsp;&nbsp;&nbsp;
+                                <li><a className="nav-link " href="http://localhost:8080/api/topic">Topics(endpoint)</a>
                                 </li>
                                 &nbsp;&nbsp;&nbsp;
 
