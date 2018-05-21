@@ -28,8 +28,8 @@ export default class ModuleService {
         { return response.json(); })
     }
 
-    deleteModule(moduleId) {
-        return fetch(MODULE_API_URL + '/' + moduleId,
+    deleteModule(courseId,moduleId) {
+        return fetch(MODULE_API_URL.replace('CID', courseId)+ '/' + moduleId,
             {
                 method: 'DELETE'
             }).then(function (response) {

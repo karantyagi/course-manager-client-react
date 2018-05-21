@@ -79,7 +79,8 @@ export default
                     .deleteCourse(courseId)
                     .then(() => {
                         this.findAllCourses();
-                        alert("\n" + "Course: "+courseId + " Deleted");
+                        //alert("\n" + "Course: "+courseId + " Deleted");
+                        console.log("Course: ",courseId," Deleted");
                     });
             }
 

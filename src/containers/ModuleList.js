@@ -13,7 +13,8 @@ import ModuleService from '../services/ModuleService'
             modules: []
         };
 
-        // this.deleteModule = this.deleteModule.bind(this);
+        this.deleteModule = this.deleteModule.bind(this);
+        this.updateModule = this.updateModule.bind(this);
         this.createModule = this.createModule.bind(this);
 
         //this.updateModule = this.updateModule.bind(this);
@@ -58,22 +59,29 @@ import ModuleService from '../services/ModuleService'
         }
     }
 
+        deleteModule(moduleId) {
+            console.log('delete ',moduleId);
+            var result = window.confirm("\n Do you really want to delete this course ?");
+            if (!result) {
+                console.log("ok");
+            }
+            else{
+                this.moduleService
+                    .deleteModule(this.props.courseId,  moduleId)
+                    .then(() => {
+                        this.findAllModulesForCourse(this.props.courseId);
+                        //alert("\n" + "");
+                        console.log("Module:",moduleId," Deleted.");
+                    });
+            }
 
-        // deleteModule() {
-        //     console.log('delete');
-            // this.courseService
-            //     .deleteCourse(this.props.course.id);
+        }
 
-            // DIALOG
+        updateModule(moduleId) {
+            console.log('update ',moduleId);
+            alert("\nUpdate Module ID: "+moduleId+"\n\Update functionality coming soon !")
+        }
 
-            // var result = window.confirm("\n Do you really want to delete this course ?");
-            // if (!result) {
-            //     console.log("ok");
-            // }
-            // else{
-            //     console.log("Delete module");
-            // }
-        // }
 
     titleChanged(event) {
        // console.log(event.target.value);
@@ -87,7 +95,13 @@ import ModuleService from '../services/ModuleService'
                                        key={module.id}/>
             });
 
-            
+            modules = this.state.modules.map((module) => {
+                return <ModuleListItem module={module}
+                                       key={module.id}
+                                        delete={this.deleteModule}
+                                       update = {this.updateModule}/>
+            });
+
         }
         return modules;
     }

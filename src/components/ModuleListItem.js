@@ -7,14 +7,8 @@ export default class ModuleListItem
 
     constructor(props) {
         super(props);
-        console.log("module title :",this.props.module.title );
-        this.deleteModuleClicked = this.deleteModuleClicked.bind(this);
     }
 
-    deleteModuleClicked(){
-        //console.log("Deleting module ID: ",this.props.module.id);
-        this.props.delete(this.props.module.id);
-    }
 
     render() {
         return (
@@ -22,12 +16,16 @@ export default class ModuleListItem
                 {this.props.module.title}
 
                 <span className="float-right">
-                    <button className="edit btn btn-outline-secondary pr-1 pl-1 pt-0 pb-0" style={{border:'0px solid transparent'}}>
+                    <button
+                        onClick={() =>
+                        {this.props.update(this.props.module.id)}}
+                        className="edit btn btn-outline-secondary pr-1 pl-1 pt-0 pb-0" style={{border:'0px solid transparent'}}>
                         <i className="fa fa-pencil fa-2x"></i></button>
                     &nbsp;
                     {/*<a href="#"><i className="fa fa-times"></i></a>*/}
                     <button
-                        onClick={this.deleteModuleClicked}
+                        onClick={() =>
+                        {this.props.delete(this.props.module.id)}}
                         className="delete btn btn-outline-secondary pr-1 pl-1 pt-0 pb-0" style={{border:'0px solid transparent'}}>
                         <i className="fa fa-times fa-2x"></i></button>
                  </span>
