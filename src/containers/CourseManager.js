@@ -33,9 +33,9 @@ class CourseManager extends React.Component {
             <div className="container-fluid">
                 {/*font awesome icon bars*/}
 
-
-                <Route path="/home" component={Description}>
-                </Route>
+                <Description/>
+                {/*<Route path="/home" component={Description}>*/}
+                {/*</Route>*/}
                 <br/>
                 <nav className="navbar navbar-dark bg-dark">
                     <button onClick={this.settings}  className="navbar-toggler" type="button" id={"settings"}>
