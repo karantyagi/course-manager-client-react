@@ -25,6 +25,11 @@ export default class LessonTabs
         this.setModuleId = this.setModuleId.bind(this);
         this.setCourseId = this.setCourseId.bind(this);
 
+        this.deleteLesson = this.deleteLesson.bind(this);
+        this.updateLesson = this.updateLesson.bind(this);
+        this.createLesson = this.createLesson.bind(this);
+        this.titleChanged = this.titleChanged.bind(this);
+
         this.lessonService = LessonService.instance;
 
     }
@@ -57,13 +62,11 @@ export default class LessonTabs
         //console.log("State", this.state);
 
     componentDidMount() {
-
-
             console.log("Lesson tabs mounted");
-        console.log("props: ",this.props);
+            console.log("props: ",this.props);
 
             var url = window.location.href;
-        console.log("url:" ,url);
+            console.log("url:" ,url);
             var stop = url.lastIndexOf('edit')-1;
             var start = url.indexOf('module')+ 7;
             var mId = url.substring(start,stop);
@@ -76,8 +79,7 @@ export default class LessonTabs
                 this.findAllLessonsForModule(cId,mId);
                 console.log(this.state.lessons);
             }
-
-        console.log("exit components mounted");
+            console.log("exit components mounted");
     }
 
     componentWillReceiveProps(newProps)
@@ -100,6 +102,7 @@ export default class LessonTabs
         console.log("exit reloading");
     }
 
+
     renderListOfLessons(cId, mId) {
         if(cId != '' && mId != '') {
            // this.findAllLessonsForModule(cId, mId);
@@ -114,8 +117,8 @@ export default class LessonTabs
                                        module={this.state.moduleId}
                                        lesson={lesson}
                                        key={lesson.id}
-                                       // delete={this.deleteLesson}
-                                       // update = {this.updateLesson}
+                                       delete={this.deleteLesson}
+                                       update ={this.updateLesson}
                 />
             });
 
@@ -124,8 +127,34 @@ export default class LessonTabs
     }
 
 
+    titleChanged(event) {
+        //console.log("state: ", this.state);
+        this.setState({lesson: {title: event.target.value}});
+    }
+
+    createLesson() {
+        if(this.state.lesson.title == '')
+        {
+            alert("\nType a name for the Lesson which you want to add.");
+        }
+        else {
+            console.log("ADD Lesson: ", this.state.lesson);
+            this.lessonService
+                .createLesson(this.state.courseId, this.state.moduleId, this.state.lesson)
+                .then(() => {
+
+                    console.log("Reload =>", "/course/"+this.state.courseId+"/edit/"
+                        +this.state.moduleId+"/edit/");
+                    this.findAllLessonsForModule(this.state.courseId, this.state.moduleId);
+                    // window.location.href = "/course/"+this.state.courseId+"/edit/"
+                    //     +this.state.moduleId+"/edit/";
+                });
+        }
+    }
 
 
+
+    
 
 
     render() {
@@ -145,7 +174,7 @@ export default class LessonTabs
                                className="form-control" placeholder="Add new lessons for this module"/>
                     </div>
                     <div className="  ml-0 pl-2  pb-0 mr-0 pr-0 mb-0">
-                        <button onClick={this.createModule}  className="btn btn-outline-info">
+                        <button onClick={this.createLesson}  className="btn btn-outline-info">
                             <i className="fa fa-plus"></i></button>
                     </div>
 
