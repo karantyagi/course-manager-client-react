@@ -1,7 +1,7 @@
 import React from 'react';
 import '../../node_modules/bootstrap/dist/css/bootstrap.css';
 import '../../node_modules/font-awesome/css/font-awesome.min.css';
-import TopicPills from '../components/TopicPills'
+import TopicManager from '../components/TopicManager'
 import CourseEditor from "./CourseEditor";
 import LessonTabs from './LessonTabs'
 import {BrowserRouter as Router, Route, Link} from 'react-router-dom'

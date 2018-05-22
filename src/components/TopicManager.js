@@ -2,7 +2,7 @@ import React from 'react';
 import '../../node_modules/bootstrap/dist/css/bootstrap.css';
 import '../../node_modules/font-awesome/css/font-awesome.min.css';
 
-export default class TopicPills
+export default class TopicManager
     extends React.Component {
     render() { return(
         <ul className="nav nav-pills">

@@ -2,7 +2,7 @@ import React from 'react';
 import '../../node_modules/bootstrap/dist/css/bootstrap.css';
 import '../../node_modules/font-awesome/css/font-awesome.min.css';
 import LessonService from '../services/LessonService'
-import TopicPills from '../components/TopicPills'
+import TopicManager from '../components/TopicManager'
 import {BrowserRouter as Router, Route, Link} from 'react-router-dom'
 import CourseEditor from "./CourseEditor";
 import ModuleService from "../services/ModuleService";
@@ -67,9 +67,8 @@ export default class LessonTabs
 
             var url = window.location.href;
            // console.log("url:" ,url);
-            var stop = url.lastIndexOf('edit')-1;
-            var start = url.indexOf('module')+ 7;
-            var mId = url.substring(start,stop);
+            var mId = url.substring(url.indexOf('module')+7);
+            mId = mId.substring(0,mId.indexOf('/'));
             this.setModuleId(mId);
              //console.log("mID: ", mId);
             var cId = url.substring(url.indexOf('course')+7,url.indexOf('module')-6);
@@ -87,9 +86,8 @@ export default class LessonTabs
         //console.log("Lesson tabs reloading");
         // console.log("cID: ",this.state.courseId );
         var url = window.location.href;
-        var stop = url.lastIndexOf('edit')-1;
-        var start = url.indexOf('module')+ 7;
-        var mId = url.substring(start,stop);
+        var mId = url.substring(url.indexOf('module')+7);
+        mId = mId.substring(0,mId.indexOf('/'));
         this.setModuleId(mId);
         // console.log("mID: ", this.state.moduleId);
         var cId = url.substring(url.indexOf('course')+7,url.indexOf('module')-6);
@@ -183,6 +181,7 @@ export default class LessonTabs
     render() {
 
         return(
+            <Router>
         <div>
             <div className="alert alert-danger p-1 pt-2" role="alert ">
                 <h5 className="alert-heading text-center">Editing Lessons for ModuleID : <strong> {this.state.moduleId}</strong> </h5>
@@ -210,9 +209,15 @@ export default class LessonTabs
                     <li className="nav-item">&nbsp;&nbsp;&nbsp;</li>
                 </ul>
                 <br/>
-                <h3>Topic Pills Coming up !</h3>
-                {/*<TopicPills/>*/}
-        </div>
-        </div>
+                <div className="border-dark rounded pt-3 pb-2"
+                     style={{backgroundColor:'rgba(0,255,255,0.16)'}}>
+                <h3>&nbsp;Topics</h3>
+                <Route path="/course/:courseID/edit/module/:moduleID/edit/:lessonID/lesson/edit" component={TopicManager}>
 
+                </Route>
+                {/*<TopicPills/>*/}
+                </div>
+        </div>
+        </div>
+            </Router>
     );}}
