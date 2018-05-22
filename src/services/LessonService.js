@@ -18,7 +18,10 @@ export default class LessonService {
             })
     }
 
-    createLesson(moduleId, lesson) {
+    createLesson(courseId, moduleId, lesson) {
+
+        //console.log("TEST : ",LESSON_API_URL.replace('CID', courseId).replace('MID', moduleId));
+        // /api/course/{courseId}/module/{moduleId}/lesson
         return fetch(LESSON_API_URL.replace('CID', courseId).replace('MID', moduleId),
             {
                 body: JSON.stringify(lesson),
@@ -28,8 +31,8 @@ export default class LessonService {
         { return response.json(); })
     }
 
-    deleteLesson(courseId,moduleId,LessonId) {
-        return fetch(MODULE_API_URL.replace('CID', courseId).replace('MID', moduleId)+ '/' + lessonId,
+    deleteLesson(courseId,moduleId,lessonId) {
+        return fetch(LESSON_API_URL.replace('CID', courseId).replace('MID', moduleId)+ '/' + lessonId,
             {
                 method: 'DELETE'
             }).then(function (response) {

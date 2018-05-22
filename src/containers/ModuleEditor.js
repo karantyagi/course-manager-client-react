@@ -11,7 +11,7 @@ export default class ModuleEditor
 
     constructor(props) {
         super(props);
-        console.log("in module editor : ",this.props);
+        console.log("Props in module editor : ",this.props.module);
     }
 
 
@@ -21,8 +21,6 @@ export default class ModuleEditor
             {/*<div className="alert alert-danger p-2" role="alert ">*/}
                 {/*<h4 className="alert-heading">Editing Module ID : <strong> </strong> </h4>*/}
             {/*</div>*/}
-            <h3>&nbsp;Lessons</h3>
-            <br/>
             <LessonTabs/>
             </div>
 

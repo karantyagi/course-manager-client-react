@@ -57,7 +57,10 @@ import ModuleEditor from "./ModuleEditor";
             console.log("ADD Module: ", this.state.module);
             this.moduleService
                 .createModule(this.props.courseId, this.state.module)
-                .then(() => { this.findAllModulesForCourse(this.props.courseId); });
+                .then(() => {
+                    this.findAllModulesForCourse(this.props.courseId);
+                    window.location.href = "/course/"+this.props.courseId+"/edit/";
+                    });
         }
     }
 
@@ -66,12 +69,14 @@ import ModuleEditor from "./ModuleEditor";
             var result = window.confirm("\n Do you really want to delete this course ?");
             if (!result) {
                 console.log("ok");
+                console.log(this.props.courseId);
             }
             else{
                 this.moduleService
                     .deleteModule(this.props.courseId,  moduleId)
                     .then(() => {
                         this.findAllModulesForCourse(this.props.courseId);
+                        window.location.href = "/course/"+this.props.courseId+"/edit/";
                         //alert("\n" + "");
                         console.log("Module:",moduleId," Deleted.");
                     });
@@ -92,10 +97,10 @@ import ModuleEditor from "./ModuleEditor";
     renderListOfModules() {
         let modules = null;
         if(this.state.modules.length != 0 && this.moduleService!=null){
-            modules = this.state.modules.map(function(module){
-                return <ModuleListItem module={module}
-                                       key={module.id}/>
-            });
+            // modules = this.state.modules.map(function(module){
+            //     return <ModuleListItem module={module}
+            //                            key={module.id}/>
+            // });
 
             modules = this.state.modules.map((module) => {
                 return <ModuleListItem course = {this.state.courseId}
@@ -116,10 +121,10 @@ import ModuleEditor from "./ModuleEditor";
 
                 <div>
                     <div className="alert alert-info p-3" role="alert ">
-                        <h3 className="alert-heading">Editing course ID : <strong> {this.state.courseId}</strong> </h3>
+                        <h3 className="alert-heading">Editing modules for course ID: <strong> {this.state.courseId}</strong> </h3>
                     </div>
                     <div className="row">
-            <div className="col-4">
+            <div className="border-danger rounded bg-success mr-2 ml-3 p-2" style={{width: '21%'}}>
 
                 <h3>&nbsp;Modules</h3>
                 {/*<p>&nbsp;[course ID: {this.state.courseId}] </p>*/}
@@ -127,7 +132,7 @@ import ModuleEditor from "./ModuleEditor";
 
                 {/*<li className="list-group-item">*/}
                 <div className="row pb-0 mb-2">
-                    <div className="col-10 pr-0 mr-0 pb-0 mb-0">
+                    <div className="col-9 pr-0 mr-0 pb-0 mb-0">
                         <input onChange={this.titleChanged} id="newModule" className="form-control" placeholder="Add new module"/>
                     </div>
                     <div className="col-1 ml-0 pl-2 pb-0 mb-0">
@@ -142,10 +147,11 @@ import ModuleEditor from "./ModuleEditor";
                 {this.renderListOfModules()}
 
             </ul>
-            </div>
-            </div>
-                <div className="col-8">
 
+            </div>
+            </div>
+                <div className=" rounded border-info p-2 mr-2 ml-1" style={{width: '75%',backgroundColor:'rgba(255,0,0,0.05)'}}>
+                    <h3>&nbsp;Lessons</h3>
                     <Route path="/course/:courseID/edit/module/:moduleID/edit"
                            component={ModuleEditor}>
                     </Route>

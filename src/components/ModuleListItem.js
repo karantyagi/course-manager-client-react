@@ -10,14 +10,14 @@ export default class ModuleListItem
 
     constructor(props) {
         super(props);
-        console.log("Course ", this.props.course);
+       // console.log("Course ", this.props);
     }
 
 
 
     render() {
         return (
-            <li className="list-group-item pt-2 pb-1 text-white mt-1 mb-1 pr-1 pl-3 rounded bg-dark">
+            <li className="list-group-item pt-1 pb-1 text-white mt-1 mb-1 pr-1 pl-2 rounded bg-dark">
                 {/*<Link to=*/}
                           {/*{`/course/module/${this.props.module.id}/edit`}>*/}
                 {/*{this.props.module.title}*/}
@@ -26,7 +26,8 @@ export default class ModuleListItem
                 <Link to=
                           {`/course/${this.props.course}/edit/module/${this.props.module.id}/edit`}
                       >
-                    {this.props.module.title} &nbsp; {this.props.module.id}
+                    {this.props.module.title}
+                    {/*&nbsp; {this.props.module.id}*/}
                     {/*COURSE: {this.props.course}*/}
 
                 </Link>
@@ -35,15 +36,15 @@ export default class ModuleListItem
                     <button
                         onClick={() =>
                         {this.props.update(this.props.module.id)}}
-                        className="edit btn btn-outline-secondary pr-1 pl-1 pt-0 pb-0" style={{border:'0px solid transparent'}}>
-                        <i className="fa fa-pencil fa-2x"></i></button>
+                        className="edit btn btn-outline-secondary pr-0 pl-0 pt-0 pb-0" style={{border:'0px solid transparent'}}>
+                        <i className="fa fa-pencil fa-1x"></i></button>
                     &nbsp;
                     {/*<a href="#"><i className="fa fa-times"></i></a>*/}
                     <button
                         onClick={() =>
                         {this.props.delete(this.props.module.id)}}
-                        className="delete btn btn-outline-secondary pr-1 pl-1 pt-0 pb-0" style={{border:'0px solid transparent'}}>
-                        <i className="fa fa-times fa-2x"></i></button>
+                        className="delete btn btn-outline-secondary pr-0 pl-0 pt-0 pb-0 " style={{border:'0px solid transparent'}}>
+                        <i className="fa fa-times"></i></button>
                  </span>
             </li>
         );
