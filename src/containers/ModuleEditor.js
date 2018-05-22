@@ -11,7 +11,7 @@ export default class ModuleEditor
 
     constructor(props) {
         super(props);
-        console.log("Props in module editor : ",this.props.module);
+        //console.log("Props in module editor : ",this.props.module);
     }
 
 

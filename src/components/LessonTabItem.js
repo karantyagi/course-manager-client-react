@@ -26,11 +26,15 @@ export default class LessonTabItem
                     {this.props.lesson.title}
                     <span className="ml-3">
                     <button
-                        className="edit btn btn-outline-success pt-0 pb-0 pr-0 pl-0" style={{border:'0px solid transparent'}}>
+                        onClick={() =>
+                        {this.props.update(this.props.lesson.id)}}
+                        className="btn btn-outline-success pt-0 pb-0 pr-0 pl-0" style={{border:'0px solid transparent'}}>
                         <i className="fa fa-pencil fa-1x"></i></button>
                         &nbsp;
                         {/*<a href="#"><i className="fa fa-times"></i></a>*/}
                         <button
+                            onClick={() =>
+                            {this.props.delete(this.props.lesson.id)}}
                             className="delete btn btn-outline-danger pr-0 pl-0 pt-0 pb-0 mr-2" style={{border:'0px solid transparent'}}>
                         <i className="fa fa-times"></i></button>
                  </span>

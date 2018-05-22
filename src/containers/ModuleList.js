@@ -66,7 +66,7 @@ import ModuleEditor from "./ModuleEditor";
 
         deleteModule(moduleId) {
             console.log('delete ',moduleId);
-            var result = window.confirm("\n Do you really want to delete this course ?");
+            var result = window.confirm("\n Do you really want to delete this module ?");
             if (!result) {
                 console.log("ok");
                 console.log(this.props.courseId);

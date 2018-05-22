@@ -13,7 +13,7 @@ export default class LessonTabs
 
     constructor(props) {
         super(props);
-        console.log("1 props:", props);
+        //console.log("1 props:", props);
         this.state = {
             courseId: '',
             moduleId: '',
@@ -51,7 +51,7 @@ export default class LessonTabs
 
         var LESSON_API_URL =
             'http://localhost:8080/api/course/CID/module/MID/lesson';
-        console.log("Fetchh ...... ",LESSON_API_URL.replace('CID', courseId).replace('MID', moduleId));
+       // console.log("Fetchh ...... ",LESSON_API_URL.replace('CID', courseId).replace('MID', moduleId));
         // console.log()
         this.lessonService
             .findAllLessonsForModule(courseId,moduleId)
@@ -62,29 +62,29 @@ export default class LessonTabs
         //console.log("State", this.state);
 
     componentDidMount() {
-            console.log("Lesson tabs mounted");
-            console.log("props: ",this.props);
+           // console.log("Lesson tabs mounted");
+           // console.log("props: ",this.props);
 
             var url = window.location.href;
-            console.log("url:" ,url);
+           // console.log("url:" ,url);
             var stop = url.lastIndexOf('edit')-1;
             var start = url.indexOf('module')+ 7;
             var mId = url.substring(start,stop);
             this.setModuleId(mId);
-             console.log("mID: ", mId);
+             //console.log("mID: ", mId);
             var cId = url.substring(url.indexOf('course')+7,url.indexOf('module')-6);
             this.setCourseId(cId);
-            console.log("cId: ",cId );
+            //console.log("cId: ",cId );
             if(mId != '' && cId != ''){
                 this.findAllLessonsForModule(cId,mId);
-                console.log(this.state.lessons);
+                //console.log(this.state.lessons);
             }
-            console.log("exit components mounted");
+           // console.log("exit components mounted");
     }
 
     componentWillReceiveProps(newProps)
     {
-        console.log("Lesson tabs reloading");
+        //console.log("Lesson tabs reloading");
         // console.log("cID: ",this.state.courseId );
         var url = window.location.href;
         var stop = url.lastIndexOf('edit')-1;
@@ -94,20 +94,20 @@ export default class LessonTabs
         // console.log("mID: ", this.state.moduleId);
         var cId = url.substring(url.indexOf('course')+7,url.indexOf('module')-6);
         this.setCourseId(cId);
-        console.log("cId: ",this.state.courseId );
+       // console.log("cId: ",this.state.courseId );
         if(cId != '' && mId != ''){
             this.findAllLessonsForModule(cId,mId);
-            console.log(this.state.lessons);
+            //console.log(this.state.lessons);
         }
-        console.log("exit reloading");
+       // console.log("exit reloading");
     }
 
 
     renderListOfLessons(cId, mId) {
-        if(cId != '' && mId != '') {
-           // this.findAllLessonsForModule(cId, mId);
-        }
-            console.log("renderLessons -> ", this.state.lessons);
+        // if(cId != '' && mId != '') {
+        //    // this.findAllLessonsForModule(cId, mId);
+        // }
+           // console.log("renderLessons -> ", this.state.lessons);
 
         let lessons = null;
         if(this.state.lessons.length != 0 && this.lessonService!=null){
@@ -152,9 +152,32 @@ export default class LessonTabs
         }
     }
 
+    deleteLesson(lessonId) {
+        var result = window.confirm("\n Do you really want to delete this lesson ?");
+        if (!result) {
+            console.log("ok");
+
+        }
+        else{
+            //console.log("Delete Lesson: ", lessonId);
+            this.lessonService
+                .deleteLesson(this.state.courseId, this.state.moduleId,  lessonId)
+                .then(() => {
+                    console.log("Reload =>", "/course/"+this.state.courseId+"/edit/"
+                        +this.state.moduleId+"/edit/");
+                    this.findAllLessonsForModule(this.state.courseId, this.state.moduleId);
+                    console.log("Lesson:",lessonId," Deleted.");
+                });
+        }
+    }
 
 
-    
+
+    updateLesson(lessonId) {
+        console.log('update ',lessonId);
+        alert("\nUpdate Lesson ID: "+lessonId+"\n\Update functionality coming soon !")
+    }
+
 
 
     render() {
