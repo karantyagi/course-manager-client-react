@@ -2,11 +2,11 @@ import React from 'react';
 import '../../node_modules/bootstrap/dist/css/bootstrap.css';
 import '../../node_modules/font-awesome/css/font-awesome.min.css';
 import LessonService from '../services/LessonService'
-import TopicManager from './TopicManager'
+import TopicEditor from './TopicEditor'
 import {BrowserRouter as Router, Route, Link} from 'react-router-dom'
 import LessonTabItem from "../components/LessonTabItem";
 
-export default class LessonTabs
+export default class LessonEditor
     extends React.Component {
 
     constructor(props) {
@@ -55,9 +55,7 @@ export default class LessonTabs
             .findAllLessonsForModule(courseId,moduleId)
             .then((lessons) => {this.setLessons(lessons)});
     }
-
-
-        //console.log("State", this.state);
+     //console.log("State", this.state);
 
     componentDidMount() {
            // console.log("Lesson tabs mounted");
@@ -211,7 +209,7 @@ export default class LessonTabs
                 <div className="rounded pt-3 pr-3 pl-3 pb-3"
                      style={{backgroundColor:'rgba(0,255,255,0.16)'}}>
                 <h3>&nbsp;Topics</h3>
-                <Route path="/course/:courseID/edit/module/:moduleID/edit/lesson/:lessonID/edit" component={TopicManager}>
+                <Route path="/course/:courseID/edit/module/:moduleID/edit/lesson/:lessonID/edit" component={TopicEditor}>
 
                 </Route>
                 {/*<TopicPills/>*/}

@@ -10,9 +10,11 @@ export default class TopicService {
     }
 
     findAllTopicsForLesson(courseId,moduleId,lessonId) {
+        console.log("cool:",TOPIC_API_URL
+            .replace('CID', courseId).replace('MID', moduleId).replace('LID',lessonId));
         return fetch(
             TOPIC_API_URL
-                .replace('CID', courseId).replace('MID', moduleId).replace('LID',lessonId))
+                .replace('CID', courseId).replace('MID', moduleId).replace('LID', lessonId))
             .then(function (response) {
                 return response.json();
             })

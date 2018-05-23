@@ -22,6 +22,7 @@ export default
         this.createCourse = this.createCourse.bind(this);
         this.deleteCourse = this.deleteCourse.bind(this);
         this.updateCourse = this.updateCourse.bind(this);
+        this.convertUTCDateToLocalDate = this.convertUTCDateToLocalDate.bind(this);
 
     }
         componentDidMount() {
@@ -42,9 +43,24 @@ export default
                 })
         }
 
+        convertUTCDateToLocalDate(date) {
+            var newDate = date;
+            // 2018-05-22T20:57:26
+            date = date.toISOString().slice(0,10)+'T';
+            newDate= newDate.toString();
+            var n = newDate.indexOf('GMT');
+            newDate = newDate.substring(n-9,n);
+            newDate = date+newDate;
+            //console.log(newDate);
+            return newDate;
+        }
+
         titleChanged(event) {
+            var currentDate = new Date();
+            currentDate = this.convertUTCDateToLocalDate(currentDate)
+            //console.log(currentDate);
             this.setState({
-                course: { title: event.target.value }
+                course: { title: event.target.value , created: currentDate, modified: currentDate}
             });
             //console.log(this.state);
 
@@ -57,6 +73,7 @@ export default
             }
             else{
                 console.log("create course");
+                console.log("created: ", this.state.course);
                 console.log(this.state);
                 this.courseService
                     .createCourse(this.state.course)

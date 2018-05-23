@@ -10,7 +10,7 @@ export default class LessonTabItem
 
     constructor(props) {
         super(props);
-        console.log("! TAB Properties: ", this.props);
+        // console.log("! TAB Properties: ", this.props);
     }
 
 
@@ -20,9 +20,9 @@ export default class LessonTabItem
 
             <li className="nav-item">
 
-                <a className="nav-link bg-light border-info
+                <a className="nav-link bg-light border-info rounded
                  pt-2 pb-2 pr-0 pl-2 mr-1 ml-0 mb-2 mt-1"
-                  href={`/course/${this.props.course}/edit/module/${this.props.module}/edit/${this.props.lesson.id}/lesson/edit`}>
+                  href={`/course/${this.props.course}/edit/module/${this.props.module}/edit/lesson/${this.props.lesson.id}/edit`}>
                     {/*<Link className*/}
                         {/*to=*/}
                         {/*{`/course/${this.props.course}/edit/module/${this.props.module}/edit`}*/}

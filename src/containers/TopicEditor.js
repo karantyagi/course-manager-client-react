@@ -3,13 +3,147 @@ import '../../node_modules/bootstrap/dist/css/bootstrap.css';
 import '../../node_modules/font-awesome/css/font-awesome.min.css';
 import TopicPill from "../components/TopicPill";
 import TopicService from '../services/TopicService'
+import LessonService from "../services/LessonService";
 
 
-export default class TopicManager
+export default class TopicEditor
     extends React.Component {
 
+    constructor(props) {
+        super(props);
+        //console.log("1 props:", props);
+        this.state = {
+            courseId: '',
+            moduleId: '',
+            lessonId: '',
+            topic: {title: ''},
+            topics: []
+        };
+
+        // bind all functions
+
+        this.setLessonId = this.setLessonId.bind(this);
+        this.setModuleId = this.setModuleId.bind(this);
+        this.setCourseId = this.setCourseId.bind(this);
+
+        // this.deleteTopic = this.deleteTopic.bind(this);
+        // this.updateTopic = this.updateTopic.bind(this);
+        // this.createTopic = this.createTopic.bind(this);
+        // this.titleChanged = this.titleChanged.bind(this);
+
+        this.topicService = TopicService.instance;
+    }
+
+    setLessonId(lessonId) {
+        this.setState({lessonId: lessonId});
+    }
+
+    setModuleId(moduleId) {
+        this.setState({moduleId: moduleId});
+    }
+
+    setTopics(topics) {
+        this.setState({topics: topics})
+
+    }
+
+    setCourseId(courseId) {
+        this.setState({courseId: courseId});
+    }
+
+    findAllTopicsForLesson(courseId,moduleId,lessonId) {
+
+        var TOPIC_API_URL =
+            'http://localhost:8080/api/course/CID/module/MID/lesson/LID/topic';
+        // console.log("Fetchh ...... ",TOPIC_API_URL.replace('CID', courseId)
+        // .replace('MID', moduleId).replace('LID', lessonId));
+        // console.log()
+        this.topicService
+            .findAllTopicsForLesson(courseId,moduleId,lessonId)
+            .then((topics) => {
+                console.log("this is fine, topics: ", topics)
+                this.setTopics(topics)});
+    }
+
+    componentDidMount() {
+        // console.log("Lesson tabs mounted");
+        // console.log("props: ",this.props);
+
+        var url = window.location.href;
+        console.log("url:" ,url);
+        var lId = url.substring(url.indexOf('lesson')+7);
+        lId = lId.substring(0,lId.indexOf('/'));
+        this.setLessonId(lId);
+        console.log("lID: ", lId);
+
+        var mId = url.substring(url.indexOf('module')+7,url.indexOf('lesson'));
+        mId = mId.substring(0,mId.indexOf('/'));
+        this.setModuleId(mId);
+        console.log("mID: ", mId);
+
+        var cId = url.substring(url.indexOf('course')+7,url.indexOf('module')-6);
+        this.setCourseId(cId);
+        console.log("cId: ",cId );
+
+        if(mId != '' && cId != '' && lId != ''){
+            this.findAllTopicsForLesson(cId,mId,lId);
+            //console.log(this.state.lessons);
+        }
+        // console.log("exit components mounted");
+    }
+
+    componentWillReceiveProps(newProps)
+    {
+        //console.log("Lesson tabs reloading");
+        // console.log("cID: ",this.state.courseId );
+
+        var url = window.location.href;
+        console.log("url:" ,url);
+        var lId = url.substring(url.indexOf('lesson')+7);
+        lId = lId.substring(0,lId.indexOf('/'));
+        this.setLessonId(lId);
+        console.log("lID: ", lId);
+
+        var mId = url.substring(url.indexOf('module')+7,url.indexOf('lesson'));
+        mId = mId.substring(0,mId.indexOf('/'));
+        this.setModuleId(mId);
+        console.log("mID: ", mId);
+
+        var cId = url.substring(url.indexOf('course')+7,url.indexOf('module')-6);
+        this.setCourseId(cId);
+        console.log("cId: ",cId );
 
 
+        if(cId != '' && mId != '' && lId != ''){
+            this.findAllTopicsForLesson(cId,mId,lId);
+            //console.log(this.state.lessons);
+        }
+        // console.log("exit reloading");
+    }
+
+    renderListOfTopics(cId, mId, lId) {
+        // if(cId != '' && mId != '') {
+        //    // this.findAllLessonsForModule(cId, mId);
+        // }
+        // console.log("renderLessons -> ", this.state.lessons);
+
+        let topics = null;
+        if(this.state.topics.length != 0 && this.topicService!=null){
+
+            topics = this.state.topics.map((topic) => {
+                return <TopicPill course = {this.state.courseId}
+                                      module={this.state.moduleId}
+                                      lesson = {this.state.lessonId}
+                                      topic={topic}
+                                      key={topic.id}
+                                      // delete={this.deleteTopic}
+                                      // update ={this.updateTopic}
+                />
+            });
+
+        }
+        return topics;
+    }
 
 
 
@@ -17,7 +151,7 @@ export default class TopicManager
 
         <div>
             <div className="alert alert-secondary p-1 pt-2" role="alert ">
-                <h5 className="alert-heading text-center">Editing Topics for LessonID : <strong> ? ? ? </strong> </h5>
+                <h5 className="alert-heading text-center">Editing Topics for LessonID : <strong> {this.state.lessonId} </strong> </h5>
             </div>
 
             <div className="row pb-0 mb-2 mr-0">
@@ -39,9 +173,9 @@ export default class TopicManager
 
             <div>
                 <ul className="nav nav-pills">
-                    <TopicPill/>
-                    <TopicPill/>
-                    {/*{this.renderListOfLessons(this.state.courseId, this.state.moduleId,this.state.lessonId)}*/}
+                    {/*<TopicPill/>*/}
+                    {/*<TopicPill/>*/}
+                    {this.renderListOfTopics(this.state.courseId, this.state.moduleId,this.state.lessonId)}
 
                 </ul>
             </div>

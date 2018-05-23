@@ -28,12 +28,12 @@ export default class CourseCard
          if(ld != null){
              ld = ld.substring(0, ld.indexOf('.')).replace('T',' | ');
          }
-         else{ld='YYYY-MM-DD | 00:00:00';}
+         else{ld='YYYY-MM-DD | HH:MM:SS';}
 
     return (
-        <div className="card shadow rounded " style={{backgroundColor:'rgba(0,240,100,0.01)'}}>
+        <div className="card shadow rounded " style={{width:'54rem', backgroundColor:'rgba(0,240,100,0.01)'}}>
 
-            <div className="card-header text-center ">
+            <div className="card-header">
                 <Link to=
                           {`/course/${this.props.course.id}/edit`}>
                 {this.props.course.title}

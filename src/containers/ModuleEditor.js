@@ -1,9 +1,9 @@
 import React from 'react';
 import '../../node_modules/bootstrap/dist/css/bootstrap.css';
 import '../../node_modules/font-awesome/css/font-awesome.min.css';
-import TopicManager from './TopicManager'
+import TopicEditor from './TopicEditor'
 import CourseEditor from "./CourseEditor";
-import LessonTabs from './LessonTabs'
+import LessonEditor from './LessonEditor'
 import {BrowserRouter as Router, Route, Link} from 'react-router-dom'
 
 export default class ModuleEditor
@@ -21,7 +21,7 @@ export default class ModuleEditor
             {/*<div className="alert alert-danger p-2" role="alert ">*/}
                 {/*<h4 className="alert-heading">Editing Module ID : <strong> </strong> </h4>*/}
             {/*</div>*/}
-            <LessonTabs/>
+            <LessonEditor/>
             </div>
 
     );}}

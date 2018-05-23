@@ -9,7 +9,7 @@ export default class BlankCourseCard
 
     render() {
     return (
-            <div className="card border border-white rounded" style={{backgroundColor:'rgba(0,240,100,0.01)'}}>
+            <div className="card border border-white rounded" style={{width:'54rem'}}>
 
                 <div className="card-body">
                 </div>
