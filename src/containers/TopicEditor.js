@@ -26,10 +26,10 @@ export default class TopicEditor
         this.setModuleId = this.setModuleId.bind(this);
         this.setCourseId = this.setCourseId.bind(this);
 
-        // this.deleteTopic = this.deleteTopic.bind(this);
-        // this.updateTopic = this.updateTopic.bind(this);
-        // this.createTopic = this.createTopic.bind(this);
-        // this.titleChanged = this.titleChanged.bind(this);
+        this.deleteTopic = this.deleteTopic.bind(this);
+        this.updateTopic = this.updateTopic.bind(this);
+        this.createTopic = this.createTopic.bind(this);
+        this.titleChanged = this.titleChanged.bind(this);
 
         this.topicService = TopicService.instance;
     }
@@ -61,7 +61,6 @@ export default class TopicEditor
         this.topicService
             .findAllTopicsForLesson(courseId,moduleId,lessonId)
             .then((topics) => {
-                console.log("this is fine, topics: ", topics)
                 this.setTopics(topics)});
     }
 
@@ -121,6 +120,55 @@ export default class TopicEditor
         // console.log("exit reloading");
     }
 
+    titleChanged(event) {
+        //console.log("state: ", this.state);
+        this.setState({topic: {title: event.target.value}});
+    }
+
+    createTopic() {
+        if(this.state.topic.title == '')
+        {
+            alert("\nType a name for the topic that you want to add.");
+        }
+        else {
+            console.log("ADD topic: ", this.state.topic);
+            this.topicService
+                .createTopic(this.state.courseId, this.state.moduleId, this.state.lessonId, this.state.topic)
+                .then(() => {
+                    this.findAllTopicsForLesson(this.state.courseId, this.state.moduleId, this.state.lessonId);
+                });
+        }
+    }
+
+    deleteTopic(topicId) {
+        var result = window.confirm("\n Do you really want to delete this topic ?");
+        if (!result) {
+            console.log("ok");
+
+        }
+        else{
+            //console.log("Delete Topic: ", topicId);
+            this.topicService
+                .deleteTopic(this.state.courseId, this.state.moduleId,this.state.lessonId, topicId)
+                .then(() => {
+                    console.log("Reload =>", "/course/"+this.state.courseId+"/edit/"
+                        +this.state.moduleId+"/edit/lesson/"+this.state.lessonId+"/edit/");
+                    this.findAllTopicsForLesson(this.state.courseId, this.state.moduleId, this.state.lessonId);
+                    window.location.href = "/course/"+this.state.courseId+"/edit/module/"+this.state.moduleId+"/edit/lesson/"
+                    +this.state.lessonId+"/edit/";
+                    console.log("Topic:",topicId," Deleted.");
+                });
+        }
+    }
+
+
+
+    updateTopic(topicId) {
+        console.log('update ',topicId);
+        this.findAllTopicsForLesson(this.state.courseId, this.state.moduleId, this.state.lessonId);
+        alert("\nUpdate Topic ID: "+topicId+"\n\Update functionality coming soon !")
+    }
+
     renderListOfTopics(cId, mId, lId) {
         // if(cId != '' && mId != '') {
         //    // this.findAllLessonsForModule(cId, mId);
@@ -136,8 +184,8 @@ export default class TopicEditor
                                       lesson = {this.state.lessonId}
                                       topic={topic}
                                       key={topic.id}
-                                      // delete={this.deleteTopic}
-                                      // update ={this.updateTopic}
+                                      delete={this.deleteTopic}
+                                      update ={this.updateTopic}
                 />
             });
 
@@ -159,12 +207,12 @@ export default class TopicEditor
                 </div>
                 <div className="col-4 pr-0 mr-0 pb-0 mb-0">
                     <input
-                        // onChange={this.titleChanged}
+                        onChange={this.titleChanged}
                            className="form-control" placeholder="Add new topics for this lesson"/>
                 </div>
                 <div className=" ml-0 pl-2  pb-0 mr-0 pr-0 mb-0">
                     <button
-                        // onClick={this.createLesson}
+                        onClick={this.createTopic}
                         className="btn btn-outline-info">
                         <i className="fa fa-plus"></i></button>
                 </div>

@@ -136,12 +136,7 @@ export default class LessonEditor
             this.lessonService
                 .createLesson(this.state.courseId, this.state.moduleId, this.state.lesson)
                 .then(() => {
-
-                    console.log("Reload =>", "/course/"+this.state.courseId+"/edit/"
-                        +this.state.moduleId+"/edit/");
                     this.findAllLessonsForModule(this.state.courseId, this.state.moduleId);
-                    // window.location.href = "/course/"+this.state.courseId+"/edit/"
-                    //     +this.state.moduleId+"/edit/";
                 });
         }
     }

@@ -10,8 +10,6 @@ export default class TopicService {
     }
 
     findAllTopicsForLesson(courseId,moduleId,lessonId) {
-        console.log("cool:",TOPIC_API_URL
-            .replace('CID', courseId).replace('MID', moduleId).replace('LID',lessonId));
         return fetch(
             TOPIC_API_URL
                 .replace('CID', courseId).replace('MID', moduleId).replace('LID', lessonId))
@@ -20,28 +18,30 @@ export default class TopicService {
             })
     }
 
-    // createLesson(courseId, moduleId, lesson) {
-    //
-    //     //console.log("TEST : ",LESSON_API_URL.replace('CID', courseId).replace('MID', moduleId));
-    //     // /api/course/{courseId}/module/{moduleId}/lesson
-    //     return fetch(LESSON_API_URL.replace('CID', courseId).replace('MID', moduleId),
-    //         {
-    //             body: JSON.stringify(lesson),
-    //             headers: { 'Content-Type': 'application/json' },
-    //             method: 'POST'
-    //         }).then(function (response)
-    //     { return response.json(); })
-    // }
-    //
-    // deleteLesson(courseId,moduleId,lessonId) {
-    //     return fetch(LESSON_API_URL.replace('CID', courseId).replace('MID', moduleId)+ '/' + lessonId,
-    //         {
-    //             method: 'DELETE'
-    //         }).then(function (response) {
-    //         return response;
-    //     })
-    //
-    // }
+    createTopic(courseId, moduleId, lessonId, topic) {
+
+        //console.log("TEST : ",LESSON_API_URL.replace('CID', courseId).replace('MID', moduleId));
+        // /api/course/{courseId}/module/{moduleId}/lesson
+        return fetch(TOPIC_API_URL.replace('CID', courseId).replace('MID', moduleId).replace('LID',lessonId),
+            {
+                body: JSON.stringify(topic),
+                headers: { 'Content-Type': 'application/json' },
+                method: 'POST'
+            }).then(function (response)
+        { return response.json(); })
+    }
+
+
+
+    deleteTopic(courseId,moduleId,lessonId,topicId) {
+        return fetch(TOPIC_API_URL.replace('CID', courseId).replace('MID', moduleId).replace('LID',lessonId)+ '/' + topicId,
+            {
+                method: 'DELETE'
+            }).then(function (response) {
+            return response;
+        })
+
+    }
 
 
     static get instance() {

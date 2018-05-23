@@ -31,15 +31,15 @@ export default class TopicPill
                     {/*</Link>*/}
                     <span className="ml-3">
                     <button
-                        // onClick={() =>
-                        // {this.props.update(this.props.lesson.id)}}
+                        onClick={() =>
+                        {this.props.update(this.props.topic.id)}}
                         className="btn btn-outline-dark pt-0 pb-0 pr-0 pl-0" style={{border:'0px solid transparent'}}>
                         <i className="fa fa-pencil fa-1x"></i></button>
                         &nbsp;
                         {/*<a href="#"><i className="fa fa-times"></i></a>*/}
                         <button
-                            // onClick={() =>
-                            // {this.props.delete(this.props.lesson.id)}}
+                            onClick={() =>
+                            {this.props.delete(this.props.topic.id)}}
                             className="delete btn btn-outline-danger pr-0 pl-0 pt-0 pb-0 mr-2" style={{border:'0px solid transparent'}}>
                         <i className="fa fa-times fa-1x"></i></button>
                  </span>
