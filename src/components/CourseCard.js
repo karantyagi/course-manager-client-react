@@ -17,9 +17,22 @@ export default class CourseCard
 
 
      render() {
+
+         var c = this.props.course.created;
+         if(c != null){
+             c = c.substring(0, c.indexOf('T'));
+         }
+         else{c='YYYY-MM-DD';}
+
+         var ld = this.props.course.modified;
+         if(ld != null){
+             ld = ld.substring(0, ld.indexOf('.')).replace('T',' | ');
+         }
+         else{ld='YYYY-MM-DD | 00:00:00';}
+
     return (
-        <div className="card shadow rounded"
-             >
+        <div className="card shadow rounded " style={{backgroundColor:'rgba(0,240,100,0.01)'}}>
+
             <div className="card-header text-center ">
                 <Link to=
                           {`/course/${this.props.course.id}/edit`}>
@@ -29,16 +42,20 @@ export default class CourseCard
             <div className="card-body">
                 <img className="card-img-top"
                      src="https://cdn.magnapubs.com/media/newspics/mos-course-design-PC18HA-4-10-18.jpg"/>
-
+                <div className="mt-2">
+                <b>Created:</b> <br/>{c}
+                <br/>
+                <b>Last Modified:</b> <br/> {ld}
+                </div>
                 {/*<h5 className="card-title">*/}
                     {/*Course Card title*/}
                 {/*</h5>*/}
             </div>
             <div className="card-footer">
-                <p className="card-text">
-                   Course card description text...
+                {/*<p className="card-text">*/}
+                   {/*Course card description text...*/}
 
-                </p>
+                {/*</p>*/}
 
                         <button className="btn btn-light" type="button">
                             <i className="fa fa-ellipsis-v"></i>

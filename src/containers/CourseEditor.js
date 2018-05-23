@@ -1,7 +1,6 @@
 import React from 'react'
 import ModuleList from './ModuleList'
 import ModuleEditor from './ModuleEditor'
-import Description from "../components/Description";
 import {BrowserRouter as Router, Route, Link} from 'react-router-dom'
 
 

@@ -2,10 +2,8 @@ import React from 'react';
 import '../../node_modules/bootstrap/dist/css/bootstrap.css';
 import '../../node_modules/font-awesome/css/font-awesome.min.css';
 import LessonService from '../services/LessonService'
-import TopicManager from '../components/TopicManager'
+import TopicManager from './TopicManager'
 import {BrowserRouter as Router, Route, Link} from 'react-router-dom'
-import CourseEditor from "./CourseEditor";
-import ModuleService from "../services/ModuleService";
 import LessonTabItem from "../components/LessonTabItem";
 
 export default class LessonTabs
@@ -164,6 +162,7 @@ export default class LessonTabs
                     console.log("Reload =>", "/course/"+this.state.courseId+"/edit/"
                         +this.state.moduleId+"/edit/");
                     this.findAllLessonsForModule(this.state.courseId, this.state.moduleId);
+                    window.location.href = "/course/"+this.state.courseId+"/edit/module/"+this.state.moduleId+"/edit/";
                     console.log("Lesson:",lessonId," Deleted.");
                 });
         }
@@ -196,7 +195,7 @@ export default class LessonTabs
                                className="form-control" placeholder="Add new lessons for this module"/>
                     </div>
                     <div className="  ml-0 pl-2  pb-0 mr-0 pr-0 mb-0">
-                        <button onClick={this.createLesson}  className="btn btn-outline-info">
+                        <button onClick={this.createLesson}  className="btn btn-outline-danger">
                             <i className="fa fa-plus"></i></button>
                     </div>
 
@@ -209,10 +208,10 @@ export default class LessonTabs
                     <li className="nav-item">&nbsp;&nbsp;&nbsp;</li>
                 </ul>
                 <br/>
-                <div className="border-dark rounded pt-3 pb-2"
+                <div className="rounded pt-3 pr-3 pl-3 pb-3"
                      style={{backgroundColor:'rgba(0,255,255,0.16)'}}>
                 <h3>&nbsp;Topics</h3>
-                <Route path="/course/:courseID/edit/module/:moduleID/edit/:lessonID/lesson/edit" component={TopicManager}>
+                <Route path="/course/:courseID/edit/module/:moduleID/edit/lesson/:lessonID/edit" component={TopicManager}>
 
                 </Route>
                 {/*<TopicPills/>*/}

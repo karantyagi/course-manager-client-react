@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import CourseGrid from './CourseGrid'
 import CourseEditor from './CourseEditor'
 import Description from '../components/Description'
-import Description2 from '../components/Description2'
 import '../../node_modules/bootstrap/dist/css/bootstrap.css';
 import '../../node_modules/font-awesome/css/font-awesome.min.css';
 import {BrowserRouter as Router, Route, Link} from 'react-router-dom'
@@ -32,27 +31,33 @@ class CourseManager extends React.Component {
             <Router >
             <div className="container-fluid">
                 {/*font awesome icon bars*/}
-
-                <Description/>
-                {/*<Route path="/home" component={Description}>*/}
-                {/*</Route>*/}
                 <br/>
                 <nav className="navbar navbar-dark bg-dark">
-                    <button onClick={this.settings}  className="navbar-toggler" type="button" id={"settings"}>
-                        <span className="navbar-toggler-icon" ></span>
-                    </button>
-                    <h2 className={"text-white "}>Course Manager</h2>
+                    <button onClick={this.settings}  className="navbar-toggler" type="button">
+                    {/*<span className="navbar-toggler-icon" ></span>*/}
+                    <i className="fa fa-cog fa-2x"></i>
+                </button>
+
+                    <h2 className={"text-white "}>Course Manager&nbsp;
+                        <span style={{fontSize:'28px',color:'gray'}}> (@author)</span></h2>
+
                     <form className="form-inline mt-2 mt-md-0">
+                        <a href="/course/grid/">
+                            <i className="fa fa-th fa-2x" aria-hidden="true"></i>
+                        </a>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <input className="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
                         </input>
                             <button onClick={this.searchCourse}
                                 className="btn btn-success my-2 my-sm-0" type="button">Search</button>
+
                     </form>
+
                 </nav>
 
                 <hr/>
 
-                <Route path="/home" component={Description2}>
+                <Route path="/home" component={Description}>
                 </Route>
 
                 <Route path="/course/grid"
