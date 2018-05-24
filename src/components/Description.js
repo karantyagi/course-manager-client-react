@@ -15,33 +15,34 @@ export default class Description
 
       <div className="card mb-4 rounded" style={{backgroundColor:'rgb(80,180,240,0.05)'}}>
   		<div className="card-body">
-        <h2>Course Manager Web Appication</h2>
-        <p><strike>We have a Tomcat/Java server which is connected to MySQL database, and is hosting the jQuery client.
-        </strike></p>
+        <h2>Course Manager Web Application</h2>
+        <p>We have a Node.js server which is hosting a react client.<br/>
+            We have another Tomcat/Java server which is connected to MySQL database.
+        </p>
         <h3>Features</h3>
-        {/*<ul>*/}
-        	{/*<li>User Admin module allows admin users to create, find, update and delete users (CRUD operations)</li>*/}
-        	{/*<li>Registration module allows anyone to register as a user </li>*/}
-        	{/*<li>Login module allows anyone to login</li>*/}
-        	{/*<li>Profile module allows logged in users to update their profile information</li>*/}
+        <ul>
+        	<li>Faculty user can view all courses created by him/her</li>
+        	<li>Course editor interface allows faculty users to create, find, update and delete courses (CRUD operations)</li>
+        	<li>Courses consist of modules. Modules consist of lessons, which further consist of topics</li>
+            <li>Module Editor allows faculty user to to create, find, update and delete modules</li>
+            <li>Lesson Editor allows faculty user to to create, find, update and delete lessons</li>
+            <li>Topic Editor allows faculty user to to create, find, update and delete topics</li>
 
-        {/*</ul>*/}
+        </ul>
         <hr/>
         <h3>Architecture</h3>
         <h5>Front end</h5>
-        <p> <strike>
-        The front end will consist of HTML pages dynamically rendered using JQuery,
-         a popular JavaScript library for programmatically manipulating the DOM.
-        The HTML and JQuery will be used to create a browser based client application.
-        </strike>
+        <p>
+            The front end consists of a React UI which manipulates the virtual DOM.<br/>
+            React components are used for developing the UI and React Router is used
+            for navigating in the Single Page client application.
         </p>
         <h5>Middle tier and database</h5>
-        <p><strike>
-            The client application will use AJAX to communicate with a Java based middle
-         tier running on a tomcat server. The Spring boot framework will provide useful
-          abstractions and boilerplate behaviors to define Web services, Java data modeling, and object relational mapping to a relational database. JPA will map Java data models to a MySQL database.
-        </strike>
-        </p>
+        <p>The react client application runs on a node server and it communicates with a Java-based middle
+            tier running on a java server.
+            <br/>The Spring boot framework provides useful abstractions and boilerplate behaviors to define Web services,
+            <br/>Java data modeling, and object-relational mapping to a relational database.
+            <br/>JPA maps Java data models to a MySQL database.</p>
             <h5>
                 Links
             </h5>
