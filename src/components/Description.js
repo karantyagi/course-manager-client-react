@@ -80,21 +80,25 @@ export default class Description
                     </li>
                     {/*&nbsp;&nbsp;&nbsp;*/}
                     <li>
-                        <a href="http://localhost:8080/api/course">Courses&nbsp;</a>: Web service endpoint for courses
+                        {/*<a href="http://localhost:8080/api/course">Courses&nbsp;</a>: Web service endpoint for courses*/}
+                        <a href="https://kt-course-manager-server.herokuapp.com/api/course">Courses&nbsp;</a>: Web service endpoint for courses
                     </li>
                     {/*&nbsp;&nbsp;&nbsp;*/}
                     <li>
-                        <a href="http://localhost:8080/api/module">Modules&nbsp;</a>
+                        {/*<a href="http://localhost:8080/api/module">Modules&nbsp;</a>*/}
+                        <a href="https://kt-course-manager-server.herokuapp.com/api/module">Modules&nbsp;</a>
                         : Web service endpoint for modules
                     </li>
                     {/*&nbsp;&nbsp;&nbsp;*/}
                     <li>
-                        <a href="http://localhost:8080/api/lesson">Lessons&nbsp;</a>
+                        {/*<a href="http://localhost:8080/api/lesson">Lessons&nbsp;</a>*/}
+                        <a href="https://kt-course-manager-server.herokuapp.com/api/lesson">Lessons&nbsp;</a>
                         : Web service endpoint for lessons
                     </li>
                     {/*&nbsp;&nbsp;&nbsp;*/}
                     <li>
-                        <a href="http://localhost:8080/api/topic">Topics&nbsp;</a>
+                        {/*<a href="http://localhost:8080/api/topic">Topics&nbsp;</a>*/}
+                        <a href="https://kt-course-manager-server.herokuapp.com/api/topic">Topics&nbsp;</a>
                         : Web service endpoint for topics
                     </li>
                     {/*&nbsp;&nbsp;&nbsp;*/}

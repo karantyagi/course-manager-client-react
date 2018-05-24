@@ -4,9 +4,6 @@ const COURSE_API_URL =
     'http://localhost:8080/api/course';
 
 // const COURSE_API_URL =
-//     'http://localhost:8080/api/course';
-//
-// const COURSE_API_URL =
 //     'https://kt-course-manager-server.herokuapp.com/api/course';
 
 
