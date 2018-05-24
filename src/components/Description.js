@@ -24,9 +24,9 @@ export default class Description
         	<li>Faculty user can view all courses created by him/her</li>
         	<li>Course editor interface allows faculty users to create, find, update and delete courses (CRUD operations)</li>
         	<li>Courses consist of modules. Modules consist of lessons, which further consist of topics</li>
-            <li>Module Editor allows faculty user to to create, find, update and delete modules</li>
-            <li>Lesson Editor allows faculty user to to create, find, update and delete lessons</li>
-            <li>Topic Editor allows faculty user to to create, find, update and delete topics</li>
+            <li>Module Editor allows faculty user to create, find, update and delete modules</li>
+            <li>Lesson Editor allows faculty user to create, find, update and delete lessons</li>
+            <li>Topic Editor allows faculty user to create, find, update and delete topics</li>
 
         </ul>
         <hr/>
