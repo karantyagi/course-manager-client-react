@@ -9,6 +9,7 @@ import {BrowserRouter as Router, Route, Link} from 'react-router-dom'
 import {Provider, connect} from 'react-redux';
 import { createStore } from 'redux';
 import * as constants from "../constants/WidgetListEditor"
+// import {findAllWidgets} from "../actions/WidgetListEditor";
 // import {addWidget} from "../actions/WidgetListEditor";
 // import {addWidget} from "../actions/WidgetListEditor";
 // import {widgetReducer} from "./reducers/widgetReducer"
@@ -18,83 +19,6 @@ import * as constants from "../constants/WidgetListEditor"
 let url = window.location.href;
 let topicId = url.substring(url.indexOf('topic')+6);
 
-class Widget extends  Component{
-    constructor(props){
-        super(props);
-        console.log("in widget: ",this.props);
-
-
-        url = window.location.href;
-        // console.log("url:" ,url);
-        topicId = url.substring(url.indexOf('topic')+6);
-        topicId = topicId.substring(0,topicId.indexOf('/'));
-        // console.log("Topic ID: ", topicId);
-    }
-
-
-
-
-    render()
-    {
-        return (
-            <li key='1' className="list-group-item rounded shadow">
-                <div>
-                    <div className={"pull-right p-0"} style={{display:'inline-block'}}>
-                        <button className={' btn btn-warning '}><i className="fa fa-arrow-up fa-1x"></i></button>
-                        &nbsp;
-                        <button className={' btn btn-warning'}><i className="fa fa-arrow-down fa-1x"></i></button>
-                        &nbsp;
-                        <button className={'btn btn-outline-secondary'}> dropdown </button>
-                        &nbsp;
-                        <button className={'btn btn-danger'}
-                                onClick={e => {
-                                return (
-                                    this.props.dispatch({type: constants.DELETE_WIDGET, id: this.props.widget.id})
-                                );
-                            }}
-                        ><i className="fa fa-times fa-1x"></i></button>
-                    </div>
-                    <h3>{this.props.widget.name}</h3>
-                </div>
-                <div className={'border rounded border-gray p-1'}> {this.props.widget.text}</div>
-                <br/>
-                <h5 style={{color:"Gray"}}>Preview</h5>
-                <h3> Actual widget displayed as html rendering</h3>
-                <hr/>
-            </li>
-
-        );
-
-    }
-}
-
-
-
-const WidgetDisplay = connect(stateToPropsMapper,dispatcherToPropsMapper)(Widget);
-
-const WidgetList = ({widgets}) => {
-    console.log("inside widget list: ", typeof(widgets), widgets)
-    return(
-        <div>
-            <ul className={"list-group"}>
-                {/*<Widget widget={widgets[0]}/>*/}
-                {/*<br/>*/}
-
-                {/*{widgets}*/}
-                {widgets.map(widget =>
-                    <div key={widget.id*23}>
-                        <WidgetDisplay key={widget.id}
-                                widget={widget}/>
-                    <br/>
-                    </div>)}
-                {/*{friends.map(p => <li key={p.id}>{p.name}</li>)}*/}
-            </ul>
-
-        </div>
-    );
-}
-
-
 let initialState =
     {widgets: [
             {id: 100, text: "headings.....", name: "**** HEADING ***"},
@@ -102,27 +26,164 @@ let initialState =
             {id: 300, text: "links.....", name: "^^^ LINK ^^^"}
         ]};
 
+const stateToPropsMapper = (state) => {
+    return (
+        { widgets: state.widgets}
+    );
+}
 
-const widgetReducer = (state = initialState, action) => {
-    switch (action.type){
+const dispatcherToPropsMapper =
+    (dispatch) =>
+        (
+            {addWidget: () => addWidget(dispatch),
+            findAllWidgets: () => findAllWidgets(dispatch)})
+
+const findAllWidgets = dispatch => {
+    fetch('http://localhost:8080/api/widget')
+        .then(response => (response.json()))
+        .then(widgets => dispatch({
+            type: constants.FIND_ALL_WIDGETS,
+            widgets: widgets }))
+}
+
+const addWidget = dispatch => (dispatch({type: constants.ADD_WIDGET}))
+
+
+
+
+// class Widget extends Component{
+//     constructor(props){
+//         super(props);
+//         console.log("props in widget get dispatch: ", this.props);
+//     }
+//
+//     render(){
+//             return(
+//         <li key={this.props.widget.id*7} className="list-group-item rounded shadow">
+//             <div>
+//                 <div className={"pull-right p-0"} style={{display:'inline-block'}}>
+//                     <button className={' btn btn-warning '}><i className="fa fa-arrow-up fa-1x"></i></button>
+//                     &nbsp;
+//                     <button className={' btn btn-warning'}><i className="fa fa-arrow-down fa-1x"></i></button>
+//                     &nbsp;
+//                     <button className={'btn btn-outline-secondary'}> dropdown </button>
+//                     &nbsp;
+//                     <button className={'btn btn-danger'}
+//                             // onClick={e => (this.props.dispatch({type:constants.DELETE_WIDGET}))}
+//                     ><i className="fa fa-times fa-1x"></i></button>
+//                 </div>
+//                 <h3>{this.props.widget.name}</h3>
+//             </div>
+//             <div className={'border rounded border-gray p-1'}> {this.props.widget.text}</div>
+//             <br/>
+//             <h5 style={{color:"Gray"}}>Preview</h5>
+//             <h3> Actual widget displayed as html rendering</h3>
+//             <hr/>
+//         </li>
+//     );
+//     }
+// }
+
+
+
+const Widget = ({widget,dispatch}) => {
+    return(
+        <li key={widget.id*7} className="list-group-item rounded shadow">
+            <div>
+                <div className={"pull-right p-0"} style={{display:'inline-block'}}>
+                    <button className={' btn btn-warning '}><i className="fa fa-arrow-up fa-1x"></i></button>
+                    &nbsp;
+                    <button className={' btn btn-warning'}><i className="fa fa-arrow-down fa-1x"></i></button>
+                    &nbsp;
+                    <button className={'btn btn-outline-secondary'}> dropdown </button>
+                    &nbsp;
+                    <button className={'btn btn-danger'}
+                            // onClick={deleteWidget}
+                            onClick={e => (dispatch({type:constants.DELETE_WIDGET , id: widget.id}))}
+                    ><i className="fa fa-times fa-1x"></i></button>
+                </div>
+                <h3>{widget.name}</h3>
+            </div>
+            <div className={'border rounded border-gray p-1'}> {widget.text}</div>
+            <br/>
+            <h5 style={{color:"Gray"}}>Preview</h5>
+            <h3> Actual widget displayed as html rendering</h3>
+            <hr/>
+        </li>
+    );
+}
+
+const WidgetContainer = connect()(Widget);
+
+//
+// const WidgetList = ({widgets, dispatch}) => {
+//     console.log("inside widget list: ", typeof(widgets), widgets)
+//     return(
+//         <div>
+//             <ul className={"list-group"}>
+//                 {widgets.map(widget =>
+//                     <div key={widget.id*23}>
+//                         <WidgetContainer key={widget.id}
+//                                  widget={widget}
+//                         />
+//                         <br/>
+//                     </div>)}
+//             </ul>
+//
+//         </div>
+//     );
+// }
+
+
+class WidgetList extends Component
+ {
+     constructor(props){
+         super(props);
+         console.log("WidgetList PROPS : ", this.props)
+     }
+
+     render(){
+         return(
+             <div>
+                 <ul className={"list-group"}>
+                     {this.props.widgets.map(widget =>
+                         <div key={widget.id*23}>
+                             <WidgetContainer key={widget.id}
+                                              widget={widget}
+                             />
+                             <br/>
+                         </div>)}
+                 </ul>
+
+             </div>
+         );
+     }
+
+}
+
+
+
+const widgetReducer = (state={widgets: []}, action) => {
+    switch(action.type){
         case constants.ADD_WIDGET:
-            console.log("add clicked");
-            console.log(state.widgets[state.widgets.length-1].id);
-            console.log("length: ",state.widgets.length);
+            console.log("Added locally but not saved to DB.")
             return (
                 {
                     widgets: [...state.widgets,
                         {
-                            id: parseInt(state.widgets[state.widgets.length-1].id)+10,
+                            // id: parseInt(state.widgets[state.widgets.length-1].id)+10,
                             text:'new widget text... lorem epsum ....', name: 'NEW WIDGET'}]
                 }
             );
+
 
         case constants.FIND_ALL_WIDGETS:
             console.log("Action widgets: ",action.widgets)
             return ({widgets: action.widgets});
 
+
         case constants.DELETE_WIDGET:
+            console.log("Deleted locally but not saved to DB.")
             return(
                 {widgets: state.widgets.filter(widget => {
                         return (
@@ -134,23 +195,26 @@ const widgetReducer = (state = initialState, action) => {
         default:
             return state;
     }
-
 }
 
 let store = createStore(widgetReducer);
 
-
-
-class WidgetContainer extends Component{
+class WidgetListContainer extends Component{
     constructor(props){
         super(props);
-        console.log("WidgetContainer :: ", this.props)
+        this.props.findAllWidgets()
+        console.log("WidgetListContainer PROPS : ", this.props)
     }
 
-    render(){
+    render()
+    {
+        var len = 0;
+        if(this.props.widgets !== null){ len = this.props.widgets.length}
         return(
             <div className={"p-1"}>
-                <p> Total Widgets : {this.props.widgets.length} </p>
+                <p> Total Widgets :
+                    {this.props.widgets.length}
+                 </p>
                 {/*{this.props.widgets.map(widget =>*/}
                 {/*(*/}
                 {/*<WidgetContainer key={widget.id} widget={widget}/>*/}
@@ -158,8 +222,8 @@ class WidgetContainer extends Component{
                 <WidgetList widgets={this.props.widgets}/>
                 <div className={"text-right mt-3 mb-3"}>
                     <button
-                        // onClick={e => (dispatch({type:constants.ADD_WIDGET}))}
-                        onClick={addWidget}
+                       // onClick={e => (this.props.dispatch({type:constants.ADD_WIDGET}))}
+                        onClick={this.props.addWidget}
                         className={"btn btn-danger"}>
                         <i className="fa fa-plus-circle fa-1x"></i></button>
                 </div>
@@ -170,32 +234,31 @@ class WidgetContainer extends Component{
 }
 
 
-const stateToPropsMapper = (state) => {
-    return (
-        { widgets: state.widgets}
-    );
-}
+//
+// const WidgetListContainer = ({widgets, dispatch}) =>
+// {
+//     return(
+//         <div className={"p-1"}>
+//             <p> Total Widgets : {widgets.length} </p>
+//             {/*{this.props.widgets.map(widget =>*/}
+//             {/*(*/}
+//             {/*<WidgetContainer key={widget.id} widget={widget}/>*/}
+//             {/*))}*/}
+//             <WidgetList widgets={widgets}/>
+//             <div className={"text-right mt-3 mb-3"}>
+//                 <button
+//                     onClick={e => (dispatch({type:constants.ADD_WIDGET}))}
+//                     // onClick={addWidget}
+//                     className={"btn btn-danger"}>
+//                     <i className="fa fa-plus-circle fa-1x"></i></button>
+//             </div>
+//
+//         </div>
+//     );
+// }
 
-const dispatcherToPropsMapper = dispatch =>
-    ({  findAllWidgets: () => findAllWidgets(dispatch),
-        addWidget: () => addWidget(dispatch)
-    })
-
-const findAllWidgets = dispatch => {
-    fetch('http://localhost:8080/api/widget')
-        .then(response => (response.json()))
-        .then(widgets => dispatch({
-            type: constants.FIND_ALL_WIDGETS,
-            widgets: widgets }))
-}
-
-
-const addWidget = dispatch => { dispatch({type:"some action"});
-}
-
-// dispatch({type: constants.ADD_WIDGET});
-
-const WidgetEditor = connect(stateToPropsMapper,dispatcherToPropsMapper)(WidgetContainer);
+const WidgetEditor
+    = connect(stateToPropsMapper,dispatcherToPropsMapper)(WidgetListContainer);
 
 export default class WidgetListEditor
     extends React.Component {
@@ -208,5 +271,7 @@ export default class WidgetListEditor
             </Provider>
         );
     }
-
 }
+
+// WidgetListEditor = index
+// WidgetEditor = App
