@@ -21,11 +21,11 @@ export const findAllWidgets = dispatch => {
             widgets: widgets }))
 }
 
-//
-// export const addWidget = dispatch => (
-//     dispatch({type: constants.ADD_WIDGET})
-// )
-//
+
+export const addWidget = dispatch => (
+    dispatch({type: constants.ADD_WIDGET})
+)
+
 //
 // export const save = dispatch => (
 //     dispatch({type: constants.SAVE})

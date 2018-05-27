@@ -239,9 +239,11 @@ export default class TopicEditor
                 </div>
             </div>
 
-            <div className={'border rounded border-gray shadow p-3 mt-2 mb-3 bg-white'}>
-                    <WidgetListEditor/>
-                </div>
+            <Route path="/course/:courseID/edit/module/:moduleID/edit/lesson/:lessonID/edit/topic/:topicID/edit"
+                   component={WidgetListEditor}>
+            </Route>
+
+
         </div>
 
         </Router>
