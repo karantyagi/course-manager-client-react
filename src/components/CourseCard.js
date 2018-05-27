@@ -40,7 +40,7 @@ export default class CourseCard
                 </Link>
             </div>
             <div className="card-body">
-                <img className="card-img-top"
+                <img className="card-img-top" alt={"course-icon"}
                      src="https://cdn.magnapubs.com/media/newspics/mos-course-design-PC18HA-4-10-18.jpg"/>
                 <div className="mt-2">
                 <b>Created:</b> <br/>{c}

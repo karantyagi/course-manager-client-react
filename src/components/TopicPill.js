@@ -22,7 +22,7 @@ export default class TopicPill
 
                 <a className="nav-link bg-light border border-info rounded
                  pt-2 pb-2 pr-0 pl-2 mr-1 ml-0 mb-2 mt-1"
-                   href="">
+                   href="/course/${this.props.course}/edit/module/${this.props.module}/edit/lesson/${this.props.lesson.id}/edit/topic/${this.props.topic.id}/edit">
                     {/*<Link className*/}
                     {/*to=*/}
                     {/*{`/course/${this.props.course}/edit/module/${this.props.module}/edit`}*/}

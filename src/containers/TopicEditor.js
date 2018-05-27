@@ -4,6 +4,8 @@ import '../../node_modules/font-awesome/css/font-awesome.min.css';
 import TopicPill from "../components/TopicPill";
 import TopicService from '../services/TopicService'
 import LessonService from "../services/LessonService";
+import WidgetListEditor from './WidgetListEditor'
+import {BrowserRouter as Router, Route, Link} from 'react-router-dom'
 
 
 export default class TopicEditor
@@ -69,20 +71,20 @@ export default class TopicEditor
         // console.log("props: ",this.props);
 
         var url = window.location.href;
-        console.log("url:" ,url);
+        // console.log("url:" ,url);
         var lId = url.substring(url.indexOf('lesson')+7);
         lId = lId.substring(0,lId.indexOf('/'));
         this.setLessonId(lId);
-        console.log("lID: ", lId);
+        // console.log("lID: ", lId);
 
         var mId = url.substring(url.indexOf('module')+7,url.indexOf('lesson'));
         mId = mId.substring(0,mId.indexOf('/'));
         this.setModuleId(mId);
-        console.log("mID: ", mId);
+        // console.log("mID: ", mId);
 
         var cId = url.substring(url.indexOf('course')+7,url.indexOf('module')-6);
         this.setCourseId(cId);
-        console.log("cId: ",cId );
+        // console.log("cId: ",cId );
 
         if(mId != '' && cId != '' && lId != ''){
             this.findAllTopicsForLesson(cId,mId,lId);
@@ -97,20 +99,20 @@ export default class TopicEditor
         // console.log("cID: ",this.state.courseId );
 
         var url = window.location.href;
-        console.log("url:" ,url);
+        // console.log("url:" ,url);
         var lId = url.substring(url.indexOf('lesson')+7);
         lId = lId.substring(0,lId.indexOf('/'));
         this.setLessonId(lId);
-        console.log("lID: ", lId);
+        // console.log("lID: ", lId);
 
         var mId = url.substring(url.indexOf('module')+7,url.indexOf('lesson'));
         mId = mId.substring(0,mId.indexOf('/'));
         this.setModuleId(mId);
-        console.log("mID: ", mId);
+        // console.log("mID: ", mId);
 
         var cId = url.substring(url.indexOf('course')+7,url.indexOf('module')-6);
         this.setCourseId(cId);
-        console.log("cId: ",cId );
+        // console.log("cId: ",cId );
 
 
         if(cId != '' && mId != '' && lId != ''){
@@ -197,6 +199,7 @@ export default class TopicEditor
 
     render() { return(
 
+        <Router>
         <div>
             <div className="alert alert-secondary p-1 pt-2" role="alert ">
                 <h5 className="alert-heading text-center">Editing Topics for LessonID : <strong> {this.state.lessonId} </strong> </h5>
@@ -224,37 +227,24 @@ export default class TopicEditor
                     {/*<TopicPill/>*/}
                     {/*<TopicPill/>*/}
                     {this.renderListOfTopics(this.state.courseId, this.state.moduleId,this.state.lessonId)}
-
                 </ul>
+                <hr/>
+                <div>
+                    <label className="switch">
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id={"editWidgets"}
+                        style={{color:"gray", fontSize:'22px'}}>Preview</span>
+                        <input type="checkbox"/>
+                        <span className="slider round"></span>
+                    </label>
+                </div>
             </div>
+
+            <div className={'border rounded border-gray shadow p-3 mt-2 mb-3 bg-white'}>
+                    <WidgetListEditor/>
+                </div>
         </div>
 
-        //     <li className="nav-item">
-        //         <a className="nav-link active" href="#">Topic 1</a>
-        //     </li>
-        //
-        //     <li className="nav-item">
-        //         <a className="nav-link" href="#">Topic 2</a>
-        //     </li>
-        //     <li className="nav-item">
-        //         <a className="nav-link" href="#">Topic 3</a>
-        //     </li>
-        //     <li className="nav-item">
-        //         <a className="nav-link" href="#">Topic 4</a>
-        //     </li>
-        //     <li className="nav-item">
-        //         <a className="nav-link" href="#">Topic 5</a>
-        //     </li>
-        //     <li className="nav-item">
-        //         &nbsp;&nbsp;
-        //     </li>
-        //     <li className="nav-item">
-        //         <span className="float-right">
-        //             <button className="btn btn-outline-primary"><i className="fa fa-plus"></i></button>
-        //          </span>
-        //     </li>
-        //
-        // </ul>
+        </Router>
     );
     }
 }

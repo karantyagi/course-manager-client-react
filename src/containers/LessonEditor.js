@@ -202,7 +202,7 @@ export default class LessonEditor
                 </ul>
                 <br/>
                 <div className="rounded pt-3 pr-3 pl-3 pb-3"
-                     style={{backgroundColor:'rgba(0,255,255,0.16)'}}>
+                     style={{backgroundColor:'rgba(2,255,255,0.1)'}}>
                 <h3>&nbsp;Topics</h3>
                 <Route path="/course/:courseID/edit/module/:moduleID/edit/lesson/:lessonID/edit" component={TopicEditor}>
 
