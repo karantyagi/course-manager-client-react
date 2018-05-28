@@ -211,7 +211,7 @@ const Widget = ({widget,dispatch}) => {
         <li key={widget.id*7} className="list-group-item rounded shadow">
                 <div className={"row mt-2 mb-1 mb-2"}>
                     <div className={'col-7 mr-4 ml-1 pt-1'}>
-                        <h4>{widget.widgetOrder}
+                        <h4>{widget.widgetOrder} &nbsp;
                             {widget.widgetType} Widget</h4>
                     </div>
                     <div className={'col-auto pl-1 pr-1 '}>
@@ -367,9 +367,9 @@ const widgetReducer = (state={widgets: []}, action) => {
 
 
 
-                // console.log("NEW ORDER done: ", upOrder.widgets);
+                // console.log("NEW : ", upOrder.widgets);
                 // console.log("OlD order: ", state.widgets);
-                return (upOrder);
+                return (JSON.parse(JSON.stringify(upOrder)))
                 // return state;
             }
 
@@ -408,7 +408,9 @@ const widgetReducer = (state={widgets: []}, action) => {
 
                 // console.log("NEW ORDER done: ", upOrder.widgets);
                 // console.log("OlD order: ", state.widgets);
-                return (downOrder);
+                // console.log("NEW : ", downOrder.widgets);
+                return (JSON.parse(JSON.stringify(downOrder)))
+                // return (downOrder);
                 // return state;
             }
 
@@ -428,10 +430,12 @@ const widgetReducer = (state={widgets: []}, action) => {
                 {
                     widgets: [...state.widgets,
                         {
-                            id: state.widgets.length + 1,
+                            id: state.widgets[state.widgets.length -1].id + 10,
                             widgetType: 'Heading',
-                            text:'new widget text... lorem epsum ....',
-                            name: 'NEW WIDGET'}]
+                            text:'... lorem epsum ....',
+                            name: 'NEW WIDGET',
+                            widgetOrder: state.widgets.length+1
+                        }]
                 }
             );
 
