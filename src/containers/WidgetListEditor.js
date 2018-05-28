@@ -9,6 +9,7 @@ import {BrowserRouter as Router, Route, Link} from 'react-router-dom'
 import {Provider, connect} from 'react-redux';
 import { createStore } from 'redux';
 import * as constants from "../constants/WidgetListEditor"
+import './sample.jpg'
 // import {findAllWidgets} from "../actions/WidgetListEditor";
 // import {addWidget} from "../actions/WidgetListEditor";
 // import {addWidget} from "../actions/WidgetListEditor";
@@ -17,9 +18,24 @@ import * as constants from "../constants/WidgetListEditor"
 const HeadingWidget = ({widget}) => {
     return (
       <div>
-          <h1> HEADING </h1>
-          <div className={'border rounded border-gray p-1'}> {widget.text}</div>
-          <br/>
+          <div className={'mb-2'}>
+              <input type="text" className="form-control"
+                     placeholder="Heading Text"></input>
+          </div>
+          <div className={'mb-2'}>
+              <select className="custom-select">
+                  <option disabled selected>Choose size</option>
+                  <option>Heading 1</option>
+                  <option>Heading 2</option>
+                  <option>Heading 3</option>
+              </select>
+          </div>
+          <div className={'mb-3'}>
+              <input type="text" className="form-control"
+                     placeholder="Widget Name"></input>
+          </div>
+          {/*<div className={'border rounded border-gray p-1'}> {widget.text}</div>*/}
+          {/*<br/>*/}
           <h5 style={{color:"Gray"}}>Preview</h5>
           <h3> Actual widget displayed as html rendering</h3>
           <hr/>
@@ -30,9 +46,15 @@ const HeadingWidget = ({widget}) => {
 const ParagraphWidget = ({widget}) => {
     return (
         <div>
-            <h1> PARAGRAPH </h1>
-            <div className={'border rounded border-gray p-1'}> {widget.text}</div>
-            <br/>
+            {/*<h1> PARAGRAPH </h1>*/}
+            {/*<div className={'border rounded border-gray p-1'}> {widget.text}</div>*/}
+            <div className={'mb-2'}>
+            <textarea className="form-control" rows="3" placeholder="lorem ipsum"></textarea>
+            </div>
+            <div className={'mb-3'}>
+                <input type="text" className="form-control"
+                       placeholder="Widget Name"></input>
+            </div>
             <h5 style={{color:"Gray"}}>Preview</h5>
             <h3> Actual widget displayed as html rendering</h3>
             <hr/>
@@ -43,9 +65,14 @@ const ParagraphWidget = ({widget}) => {
 const LinkWidget = ({widget}) => {
     return (
         <div>
-            <h1> Link </h1>
-            <div className={'border rounded border-gray p-1'}> {widget.text}</div>
-            <br/>
+            <div className={'mb-2'}>
+                <input type="text" className="form-control"
+                       placeholder="Link URL"></input>
+            </div>
+            <div className={'mb-3'}>
+                <input type="text" className="form-control"
+                       placeholder="Link text"></input>
+            </div>
             <h5 style={{color:"Gray"}}>Preview</h5>
             <h3> Actual widget displayed as html rendering</h3>
             <hr/>
@@ -56,11 +83,16 @@ const LinkWidget = ({widget}) => {
 const ImageWidget = ({widget}) => {
     return (
         <div>
-            <h1> IMAGE </h1>
-            <div className={'border rounded border-gray p-1'}> {widget.text}</div>
-            <br/>
+            <div className={'mb-2'}>
+                <input type="text" className="form-control"
+                       placeholder="Image URL"></input>
+            </div>
+            <div className={'mb-3'}>
+                <input type="text" className="form-control"
+                       placeholder="Widget Name"></input>
+            </div>
             <h5 style={{color:"Gray"}}>Preview</h5>
-            <h3> Actual widget displayed as html rendering</h3>
+            <img  src={require('./sample.jpg')} alt="imagePreview"/>
             <hr/>
         </div>
     );
@@ -69,9 +101,20 @@ const ImageWidget = ({widget}) => {
 const ListWidget = ({widget}) => {
     return (
         <div>
-            <h1> LIST </h1>
-            <div className={'border rounded border-gray p-1'}> {widget.text}</div>
-            <br/>
+            <div className={'mb-2'}>
+                <textarea className="form-control" rows="4"
+                          placeholder={'Put each\nitem in\na seperate row'}></textarea>
+            </div>
+            <div className={'mb-2'}>
+                <select className="custom-select">
+                    <option>Unordered</option>
+                    <option>Ordered</option>
+                </select>
+            </div>
+            <div className={'mb-3'}>
+                <input type="text" className="form-control"
+                       placeholder="Widget Name"></input>
+            </div>
             <h5 style={{color:"Gray"}}>Preview</h5>
             <h3> Actual widget displayed as html rendering</h3>
             <hr/>
@@ -82,12 +125,12 @@ const ListWidget = ({widget}) => {
 let url = window.location.href;
 let topicId = url.substring(url.indexOf('topic')+6);
 
-// let initialState =
-//     {widgets: [
-//             {id: 100, text: "headings.....", name: "**** HEADING ***"},
-//             {id: 200, text: "images.....", name: "~~~~~ IMAGE ~~~~~"},
-//             {id: 300, text: "links.....", name: "^^^ LINK ^^^"}
-//         ]};
+let initialState =
+    {widgets: [
+            {id: 100, text: "headings.....", name: "**** HEADING ***"},
+            {id: 200, text: "images.....", name: "~~~~~ IMAGE ~~~~~"},
+            {id: 300, text: "links.....", name: "^^^ LINK ^^^"}
+        ]};
 
 const stateToPropsMapper = (state) => {
     return (
@@ -155,9 +198,9 @@ const Widget = ({widget,dispatch}) => {
 
     return(
         <li key={widget.id*7} className="list-group-item rounded shadow">
-                <div className={"row mt-2 mb-1"}>
-                    <div className={'col-7 mr-5'}>
-                        <h3><strike>widgetType</strike> = {widget.widgetType} Widget</h3>
+                <div className={"row mt-2 mb-1 mb-2"}>
+                    <div className={'col-7 mr-4 ml-1 pt-1'}>
+                        <h4>{widget.widgetType} Widget</h4>
                     </div>
                     <div className={'col-auto pl-1 pr-1 '}>
                         <button className={' btn btn-warning '}><i className="fa fa-arrow-up fa-1x"></i></button>
@@ -166,6 +209,7 @@ const Widget = ({widget,dispatch}) => {
                     </div>
                     <div className={'col-2 pr-1 pl-0'}>
                         <select
+                            value={widget.widgetType}
                             onChange={e => dispatch(
                                 {type: constants.SELECT_WIDGET_TYPE,
                                  id: widget.id,
@@ -188,11 +232,11 @@ const Widget = ({widget,dispatch}) => {
                     </div>
                 </div>
             <div>
-                <HeadingWidget widget={widget}/>
-                <LinkWidget widget={widget}/>
-                <ImageWidget widget={widget}/>
-                <ListWidget widget={widget}/>
-                <ParagraphWidget widget={widget}/>
+                {widget.widgetType === "Heading" && <HeadingWidget widget={widget}/>}
+                {widget.widgetType === "Link" && <LinkWidget widget={widget}/>}
+                {widget.widgetType === "Image" && <ImageWidget widget={widget}/>}
+                {widget.widgetType === "List" && <ListWidget widget={widget}/>}
+                {widget.widgetType === "Paragraph" && <ParagraphWidget widget={widget}/>}
             </div>
 
             {/*<div className={'border rounded border-gray p-1'}> {widget.text}</div>*/}
@@ -334,6 +378,26 @@ class WidgetListContainer extends Component{
                 <p> Total Widgets :
                     {this.props.widgets.length}
                  </p>
+                <div className={'row mb-2 mt-0'}>
+                    <div className={'col-8 mr-4'}>
+                    </div>
+                    <div className={'col-1 ml-1'}>
+                        <button
+                            // onClick={}
+                            className={'btn btn-success'}>
+                            Save
+                        </button>
+                    </div>
+                    <div className={'col-auto pt-1 ml-3'}>
+                        <label className="switch">
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id={"editWidgets"}
+                                                                                                          style={{color:"gray", fontSize:'22px'}}>Preview</span>
+                            <input type="checkbox"/>
+                            <span className="slider round"></span>
+                        </label>
+                    </div>
+                </div>
+
                 {/*{this.props.widgets.map(widget =>*/}
                 {/*(*/}
                 {/*<WidgetContainer key={widget.id} widget={widget}/>*/}

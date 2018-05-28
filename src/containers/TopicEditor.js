@@ -229,14 +229,6 @@ export default class TopicEditor
                     {this.renderListOfTopics(this.state.courseId, this.state.moduleId,this.state.lessonId)}
                 </ul>
                 <hr/>
-                <div>
-                    <label className="switch">
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id={"editWidgets"}
-                        style={{color:"gray", fontSize:'22px'}}>Preview</span>
-                        <input type="checkbox"/>
-                        <span className="slider round"></span>
-                    </label>
-                </div>
             </div>
 
             <Route path="/course/:courseID/edit/module/:moduleID/edit/lesson/:lessonID/edit/topic/:topicID/edit"
