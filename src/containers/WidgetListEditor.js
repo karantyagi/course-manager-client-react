@@ -24,7 +24,10 @@ const stateToPropsMapper = (state) => {
 const dispatcherToPropsMapper =
     (dispatch) =>
         (
-            {addWidget: () => addWidget(dispatch),
+            {
+                addWidget: () => addWidget(dispatch),
+                save: () => saveWidgetList(dispatch),
+                preview: () => previewWidgetList(dispatch),
                 findAllWidgets: () => findAllWidgets(dispatch),
                 headingSizeChanged: (widgetId, newSize) => headingSizeChanged(dispatch, widgetId, newSize),
                 headingTextChanged: (widgetId, newText) => headingTextChanged(dispatch, widgetId, newText),
@@ -40,6 +43,10 @@ const findAllWidgets = dispatch => {
 }
 
 const addWidget = dispatch => (dispatch({type: constants.ADD_WIDGET}))
+
+const saveWidgetList = dispatch => (dispatch({type: constants.SAVE}))
+
+const previewWidgetList = dispatch => (dispatch({type: constants.PREVIEW}))
 
 const headingSizeChanged = (dispatch, widgetId, newSize) => (
     dispatch({
@@ -379,10 +386,16 @@ const reorder = (arr, to ,from) => {
     // this.splice(to, 0, this.splice(from, 1)[0]);
 
 
-const widgetReducer = (state={widgets: []}, action) => {
+const widgetReducer = (state = {widgets: [], preview: false}, action) => {
 
     let index;
     switch(action.type){
+
+        case constants.PREVIEW:
+            return {
+                widgets: state.widgets,
+                preview: !state.preview
+            }
 
         case constants.MOVE_UP:
 
@@ -535,16 +548,19 @@ const widgetReducer = (state={widgets: []}, action) => {
             }
             return (JSON.parse(JSON.stringify(newState)));
 
+
+
         case constants.SAVE:
-            fetch('http://localhost:8080/api/widget/save', {
-                method: 'post',
-                body: JSON.stringify(state.widgets),
-                headers: {
-                    'content-type': 'application/json'}
-            })
+            console.log("save fired !");
 
+            // fetch('http://localhost:8080/api/widget/save', {
+            //     method: 'post',
+            //     body: JSON.stringify(state.widgets),
+            //     headers: {
+            //         'content-type': 'application/json'}
+            // })
 
-            return (state);
+            return state;
 
 
         case constants.FIND_ALL_WIDGETS:
@@ -595,7 +611,7 @@ class WidgetListContainer extends Component{
                     </div>
                     <div className={'col-1 ml-1'}>
                         <button
-                            // onClick={}
+                            onClick={this.props.saveWidgetList}
                             className={'btn btn-success'}>
                             Save
                         </button>
@@ -604,7 +620,8 @@ class WidgetListContainer extends Component{
                         <label className="switch">
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id={"editWidgets"}
                                                                                                           style={{color:"gray", fontSize:'22px'}}>Preview</span>
-                            <input type="checkbox"/>
+                            <input type="checkbox"
+                            />
                             <span className="slider round"></span>
                         </label>
                     </div>
@@ -617,7 +634,6 @@ class WidgetListContainer extends Component{
                 <WidgetList widgets={this.props.widgets}/>
                 <div className={"text-right mt-3 mb-3"}>
                     <button
-                       // onClick={e => (this.props.dispatch({type:constants.ADD_WIDGET}))}
                         onClick={this.props.addWidget}
                         className={"btn btn-danger"}>
                         <i className="fa fa-plus-circle fa-1x"></i></button>
