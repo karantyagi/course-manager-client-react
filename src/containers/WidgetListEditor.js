@@ -14,17 +14,80 @@ import * as constants from "../constants/WidgetListEditor"
 // import {addWidget} from "../actions/WidgetListEditor";
 // import {widgetReducer} from "./reducers/widgetReducer"
 
+const HeadingWidget = ({widget}) => {
+    return (
+      <div>
+          <h1> HEADING </h1>
+          <div className={'border rounded border-gray p-1'}> {widget.text}</div>
+          <br/>
+          <h5 style={{color:"Gray"}}>Preview</h5>
+          <h3> Actual widget displayed as html rendering</h3>
+          <hr/>
+      </div>
+    );
+}
 
+const ParagraphWidget = ({widget}) => {
+    return (
+        <div>
+            <h1> PARAGRAPH </h1>
+            <div className={'border rounded border-gray p-1'}> {widget.text}</div>
+            <br/>
+            <h5 style={{color:"Gray"}}>Preview</h5>
+            <h3> Actual widget displayed as html rendering</h3>
+            <hr/>
+        </div>
+    );
+}
+
+const LinkWidget = ({widget}) => {
+    return (
+        <div>
+            <h1> Link </h1>
+            <div className={'border rounded border-gray p-1'}> {widget.text}</div>
+            <br/>
+            <h5 style={{color:"Gray"}}>Preview</h5>
+            <h3> Actual widget displayed as html rendering</h3>
+            <hr/>
+        </div>
+    );
+}
+
+const ImageWidget = ({widget}) => {
+    return (
+        <div>
+            <h1> IMAGE </h1>
+            <div className={'border rounded border-gray p-1'}> {widget.text}</div>
+            <br/>
+            <h5 style={{color:"Gray"}}>Preview</h5>
+            <h3> Actual widget displayed as html rendering</h3>
+            <hr/>
+        </div>
+    );
+}
+
+const ListWidget = ({widget}) => {
+    return (
+        <div>
+            <h1> LIST </h1>
+            <div className={'border rounded border-gray p-1'}> {widget.text}</div>
+            <br/>
+            <h5 style={{color:"Gray"}}>Preview</h5>
+            <h3> Actual widget displayed as html rendering</h3>
+            <hr/>
+        </div>
+    );
+}
 
 let url = window.location.href;
 let topicId = url.substring(url.indexOf('topic')+6);
 
-let initialState =
-    {widgets: [
-            {id: 100, text: "headings.....", name: "**** HEADING ***"},
-            {id: 200, text: "images.....", name: "~~~~~ IMAGE ~~~~~"},
-            {id: 300, text: "links.....", name: "^^^ LINK ^^^"}
-        ]};
+// let initialState =
+//     {widgets: [
+//             {id: 100, text: "headings.....", name: "**** HEADING ***"},
+//             {id: 200, text: "images.....", name: "~~~~~ IMAGE ~~~~~"},
+//             {id: 300, text: "links.....", name: "^^^ LINK ^^^"}
+//         ]};
 
 const stateToPropsMapper = (state) => {
     return (
@@ -87,28 +150,56 @@ const addWidget = dispatch => (dispatch({type: constants.ADD_WIDGET}))
 
 
 const Widget = ({widget,dispatch}) => {
+
+    let selectElement;
+
     return(
         <li key={widget.id*7} className="list-group-item rounded shadow">
-            <div>
-                <div className={"pull-right p-0"} style={{display:'inline-block'}}>
-                    <button className={' btn btn-warning '}><i className="fa fa-arrow-up fa-1x"></i></button>
-                    &nbsp;
-                    <button className={' btn btn-warning'}><i className="fa fa-arrow-down fa-1x"></i></button>
-                    &nbsp;
-                    <button className={'btn btn-outline-secondary'}> dropdown </button>
-                    &nbsp;
-                    <button className={'btn btn-danger'}
+                <div className={"row mt-2 mb-1"}>
+                    <div className={'col-7 mr-5'}>
+                        <h3><strike>widgetType</strike> = {widget.widgetType} Widget</h3>
+                    </div>
+                    <div className={'col-auto pl-1 pr-1 '}>
+                        <button className={' btn btn-warning '}><i className="fa fa-arrow-up fa-1x"></i></button>
+                        &nbsp;
+                        <button className={' btn btn-warning'}><i className="fa fa-arrow-down fa-1x"></i></button>
+                    </div>
+                    <div className={'col-2 pr-1 pl-0'}>
+                        <select
+                            onChange={e => dispatch(
+                                {type: constants.SELECT_WIDGET_TYPE,
+                                 id: widget.id,
+                                    widgetType: selectElement.value})}
+                            ref={node => selectElement = node}
+                            className="custom-select">
+                            {/*<option selected disabled> Choose...</option>*/}
+                            <option>Heading</option>
+                            <option>List</option>
+                            <option>Image</option>
+                            <option>Link</option>
+                            <option>Paragraph</option>
+                        </select>
+                    </div>
+                    <div className={'col-auto pr-0 pl-0 mr-0 ml-0'}>
+                        <button className={'btn btn-danger'}
                             // onClick={deleteWidget}
-                            onClick={e => (dispatch({type:constants.DELETE_WIDGET , id: widget.id}))}
-                    ><i className="fa fa-times fa-1x"></i></button>
+                                onClick={e => (dispatch({type:constants.DELETE_WIDGET , id: widget.id}))}
+                        ><i className="fa fa-times fa-1x"></i></button>
+                    </div>
                 </div>
-                <h3>{widget.name}</h3>
+            <div>
+                <HeadingWidget widget={widget}/>
+                <LinkWidget widget={widget}/>
+                <ImageWidget widget={widget}/>
+                <ListWidget widget={widget}/>
+                <ParagraphWidget widget={widget}/>
             </div>
-            <div className={'border rounded border-gray p-1'}> {widget.text}</div>
-            <br/>
-            <h5 style={{color:"Gray"}}>Preview</h5>
-            <h3> Actual widget displayed as html rendering</h3>
-            <hr/>
+
+            {/*<div className={'border rounded border-gray p-1'}> {widget.text}</div>*/}
+            {/*<br/>*/}
+            {/*<h5 style={{color:"Gray"}}>Preview</h5>*/}
+            {/*<h3> Actual widget displayed as html rendering</h3>*/}
+            {/*<hr/>*/}
         </li>
     );
 }
@@ -167,14 +258,42 @@ const widgetReducer = (state={widgets: []}, action) => {
     switch(action.type){
         case constants.ADD_WIDGET:
             console.log("Added locally but not saved to DB.")
+
+
+
             return (
                 {
                     widgets: [...state.widgets,
                         {
-                            // id: parseInt(state.widgets[state.widgets.length-1].id)+10,
-                            text:'new widget text... lorem epsum ....', name: 'NEW WIDGET'}]
+                            id: state.widgets.length + 1,
+                            widgetType: 'Heading',
+                            text:'new widget text... lorem epsum ....',
+                            name: 'NEW WIDGET'}]
                 }
             );
+
+        case constants.SELECT_WIDGET_TYPE:
+            console.log(action);
+            let newState = {
+                widgets: state.widgets.filter((widget) => {
+                    if(widget.id === action.id) {
+                        widget.widgetType = action.widgetType
+                    }
+                    return true;
+                })
+            }
+            return (JSON.parse(JSON.stringify(newState)));
+
+        case constants.SAVE:
+            fetch('http://localhost:8080/api/widget/save', {
+                method: 'post',
+                body: JSON.stringify(state.widgets),
+                headers: {
+                    'content-type': 'application/json'}
+            })
+
+
+            return (state);
 
 
         case constants.FIND_ALL_WIDGETS:
