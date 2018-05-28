@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0c47336f-4c12-4454-a936-5ba7a46e5277" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/src/containers/TopicEditor.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/TopicEditor.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/constants/WidgetListEditor.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/constants/WidgetListEditor.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/containers/WidgetListEditor.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/WidgetListEditor.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -23,11 +23,21 @@
       <file leaf-file-name="WidgetListEditor.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/containers/WidgetListEditor.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4479">
-              <caret line="367" column="8" selection-start-line="367" selection-start-column="8" selection-end-line="367" selection-end-column="8" />
+            <state relative-caret-position="152">
+              <caret line="348" column="96" selection-start-line="348" selection-start-column="96" selection-end-line="348" selection-end-column="96" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
+                <marker date="1527523563774" expanded="true" signature="11581:11670" ph="..." />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="WidgetListEditor.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/constants/WidgetListEditor.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="153">
+              <caret line="9" column="35" selection-start-line="9" selection-start-column="35" selection-end-line="9" selection-end-column="35" />
             </state>
           </provider>
         </entry>
@@ -55,6 +65,7 @@
       <find>course</find>
       <find>link</find>
       <find>pre</find>
+      <find>DELETE</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -97,11 +108,11 @@
         <option value="$PROJECT_DIR$/src/containers/WidgetListEditor.css" />
         <option value="$PROJECT_DIR$/src/index.js" />
         <option value="$PROJECT_DIR$/src/components/CourseCard.js" />
-        <option value="$PROJECT_DIR$/src/constants/WidgetListEditor.js" />
         <option value="$PROJECT_DIR$/src/reducers/widgetReducers.js" />
         <option value="$PROJECT_DIR$/src/actions/WidgetListEditor.js" />
         <option value="$PROJECT_DIR$/src/components/TopicPill.js" />
         <option value="$PROJECT_DIR$/src/containers/TopicEditor.js" />
+        <option value="$PROJECT_DIR$/src/constants/WidgetListEditor.js" />
         <option value="$PROJECT_DIR$/src/containers/WidgetListEditor.js" />
       </list>
     </option>
@@ -122,7 +133,7 @@
       <path value="$PROJECT_DIR$/package.json" />
     </packageJsonPaths>
   </component>
-  <component name="ProjectFrameBounds" extendedState="1">
+  <component name="ProjectFrameBounds">
     <option name="x" value="10" />
     <option name="y" value="20" />
     <option name="width" value="1346" />
@@ -219,15 +230,15 @@
       <workItem from="1527199901572" duration="8000" />
       <workItem from="1527276376752" duration="42000" />
       <workItem from="1527370466132" duration="1686000" />
-      <workItem from="1527435695586" duration="40302000" />
+      <workItem from="1527435695586" duration="46595000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="176937000" />
+    <option name="totallyTimeSpent" value="183230000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="10" y="20" width="1346" height="688" extended-state="1" />
+    <frame x="10" y="20" width="1346" height="688" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49878347" visible="true" weight="0.18730886" />
@@ -562,13 +573,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/constants/WidgetListEditor.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="33" selection-start-line="7" selection-start-column="33" selection-end-line="7" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/services/TopicService.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-119">
@@ -610,12 +614,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/constants/WidgetListEditor.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" column="35" selection-start-line="9" selection-start-column="35" selection-end-line="9" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/containers/WidgetListEditor.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4479">
-          <caret line="367" column="8" selection-start-line="367" selection-start-column="8" selection-end-line="367" selection-end-column="8" />
+        <state relative-caret-position="152">
+          <caret line="348" column="96" selection-start-line="348" selection-start-column="96" selection-end-line="348" selection-end-column="96" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
+            <marker date="1527523563774" expanded="true" signature="11581:11670" ph="..." />
           </folding>
         </state>
       </provider>

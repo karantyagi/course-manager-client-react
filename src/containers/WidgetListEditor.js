@@ -190,6 +190,17 @@ const addWidget = dispatch => (dispatch({type: constants.ADD_WIDGET}))
 //     }
 // }
 
+const moveUp = widget => {
+    return {
+        type: constants.MOVE_UP, widget: widget
+    }
+}
+
+const moveDown = widget => {
+    return {
+        type: constants.MOVE_DOWN, widget: widget
+    }
+}
 
 
 const Widget = ({widget,dispatch}) => {
@@ -200,12 +211,17 @@ const Widget = ({widget,dispatch}) => {
         <li key={widget.id*7} className="list-group-item rounded shadow">
                 <div className={"row mt-2 mb-1 mb-2"}>
                     <div className={'col-7 mr-4 ml-1 pt-1'}>
-                        <h4>{widget.widgetType} Widget</h4>
+                        <h4>{widget.widgetOrder}
+                            {widget.widgetType} Widget</h4>
                     </div>
                     <div className={'col-auto pl-1 pr-1 '}>
-                        <button className={' btn btn-warning '}><i className="fa fa-arrow-up fa-1x"></i></button>
+                        <button
+                            onClick={() => {dispatch(moveUp(widget))}}
+                            className={' btn btn-warning '}><i className="fa fa-arrow-up fa-1x"></i></button>
                         &nbsp;
-                        <button className={' btn btn-warning'}><i className="fa fa-arrow-down fa-1x"></i></button>
+                        <button
+                            onClick={() => {dispatch(moveDown(widget))}}
+                            className={' btn btn-warning'}><i className="fa fa-arrow-down fa-1x"></i></button>
                     </div>
                     <div className={'col-2 pr-1 pl-0'}>
                         <select
@@ -296,10 +312,113 @@ class WidgetList extends Component
 
 }
 
+// const orderWidgetList = (arr, from, to) =>  {
+//     console.log("array before reordering : ", arr);
+//     arr.splice(to, 0, arr.splice(from, 1)[0]);
+//     console.log("array after reordering : ", arr);
+//     return(
+//        arr);
+// }
+
+const reorder = (arr, to ,from) => {
+    arr.splice(to, 0, arr.splice(from, 1)[0]);
+    return arr;
+}
+    //
+    // = function (from, to) {
+    // this.splice(to, 0, this.splice(from, 1)[0]);
 
 
 const widgetReducer = (state={widgets: []}, action) => {
+
+    let index;
     switch(action.type){
+
+        case constants.MOVE_UP:
+
+            let upOrder = {widgets: [...state.widgets]}
+            // console.log(newState);
+            // rank = action.widget.widgetOrder
+            index = action.widget.widgetOrder - 1;
+
+            console.log("index of ",action.widget.widgetType," : ", index);
+
+            if(index !== 0){
+
+                console.log("original");
+                console.log("upOrder.widgets[index-1].widgetType :",
+                    upOrder.widgets[index-1].widgetType, upOrder.widgets[index-1].widgetOrder );
+                console.log("upOrder.widgets[index].widgetType :",
+                    upOrder.widgets[index].widgetType , upOrder.widgets[index].widgetOrder);
+
+
+
+                // newState.widgets = orderWidgetList(newState.widgets,rank-1, rank-2);
+                upOrder.widgets = reorder(upOrder.widgets, index, index - 1);
+
+                upOrder.widgets[index-1].widgetOrder = index;
+                upOrder.widgets[index].widgetOrder = index+1;
+                console.log("Move up and re-render widgets");
+
+                console.log("upDorder.widgets[index-1].widgetType :",
+                    upOrder.widgets[index-1].widgetType, upOrder.widgets[index-1].widgetOrder );
+                console.log("upOrder.widgets[index].widgetType :",
+                    upOrder.widgets[index].widgetType , upOrder.widgets[index].widgetOrder);
+
+
+
+                // console.log("NEW ORDER done: ", upOrder.widgets);
+                // console.log("OlD order: ", state.widgets);
+                return (upOrder);
+                // return state;
+            }
+
+            console.log("NEW WIDGET ORDER : ",state.widgets);
+
+            return (state);
+
+        case constants.MOVE_DOWN:
+
+            let downOrder = {widgets: [...state.widgets]}
+            // console.log(newState);
+            // rank = action.widget.widgetOrder
+            index = action.widget.widgetOrder - 1;
+
+            console.log("index of ",action.widget.widgetType," : ", index);
+
+            if(index !== state.widgets.length-1){
+
+                console.log("original");
+                console.log("downOrder.widgets[index].widgetType :",
+                    downOrder.widgets[index].widgetType , downOrder.widgets[index].widgetOrder);
+                console.log("downOrder.widgets[index+1].widgetType :",
+                    downOrder.widgets[index+1].widgetType, downOrder.widgets[index+1].widgetOrder );
+
+                downOrder.widgets = reorder(downOrder.widgets, index, index + 1);
+
+                downOrder.widgets[index].widgetOrder = index+1;
+                downOrder.widgets[index+1].widgetOrder = index+2;
+                console.log("Move up and re-render widgets");
+
+                console.log("downOrder.widgets[index].widgetType :",
+                    downOrder.widgets[index].widgetType , downOrder.widgets[index].widgetOrder);
+                console.log("downOrder.widgets[index+1].widgetType :",
+                    downOrder.widgets[index+1].widgetType, downOrder.widgets[index+1].widgetOrder );
+
+
+                // console.log("NEW ORDER done: ", upOrder.widgets);
+                // console.log("OlD order: ", state.widgets);
+                return (downOrder);
+                // return state;
+            }
+
+            console.log("NEW WIDGET ORDER : ",state.widgets);
+
+            return (state);
+
+
+
+
         case constants.ADD_WIDGET:
             console.log("Added locally but not saved to DB.")
 
@@ -341,7 +460,7 @@ const widgetReducer = (state={widgets: []}, action) => {
 
 
         case constants.FIND_ALL_WIDGETS:
-            console.log("Action widgets: ",action.widgets)
+            // console.log("Action widgets: ",action.widgets)
             return ({widgets: action.widgets});
 
 
