@@ -27,7 +27,8 @@ const dispatcherToPropsMapper =
             {addWidget: () => addWidget(dispatch),
                 findAllWidgets: () => findAllWidgets(dispatch),
                 headingSizeChanged: (widgetId, newSize) => headingSizeChanged(dispatch, widgetId, newSize),
-                headingTextChanged: (widgetId, newText) => headingTextChanged(dispatch, widgetId, newText)
+                headingTextChanged: (widgetId, newText) => headingTextChanged(dispatch, widgetId, newText),
+                headingNameChanged: (widgetId, newName) => headingNameChanged(dispatch, widgetId, newName)
             })
 
 const findAllWidgets = dispatch => {
@@ -54,13 +55,21 @@ const headingTextChanged = (dispatch, widgetId, newText) => (
         text: newText})
 )
 
-const HeadingWidget = ({widget,headingSizeChanged, headingTextChanged }) => {
+const headingNameChanged = (dispatch, widgetId, newName) => (
+    dispatch({
+        type: constants.HEADING_NAME_CHANGED,
+        id: widgetId,
+        name: newName})
+)
+
+const HeadingWidget = ({widget,headingSizeChanged, headingTextChanged, headingNameChanged }) => {
     let selectHeadingSize;
     let inputElem;
+    let inputName;
     return (
       <div>
           <div className={'mb-2'}>
-              <input type="text" className="form-control"
+              <input type="text" id="headingText" className="form-control"
                      placeholder="Heading Text"
                      onChange={() => headingTextChanged(widget.id, inputElem.value)}
                      value={widget.text}
@@ -73,7 +82,7 @@ const HeadingWidget = ({widget,headingSizeChanged, headingTextChanged }) => {
                   ref={node => selectHeadingSize  = node}
                   onChange={() => headingSizeChanged(widget.id, selectHeadingSize.value)}
                   className="custom-select">
-                  <option disabled selected>Choose size</option>
+                  <option disabled>Choose size</option>
                   <option value="1">Heading 1</option>
                   <option value="2">Heading 2</option>
                   <option value="3">Heading 3</option>
@@ -81,7 +90,10 @@ const HeadingWidget = ({widget,headingSizeChanged, headingTextChanged }) => {
           </div>
           <div className={'mb-3'}>
               <input type="text" className="form-control"
-                     placeholder="Widget Name"></input>
+                     placeholder="Widget Name"
+                     onChange={() => headingNameChanged(widget.id, inputName.value)}
+                     value={widget.name}
+                     ref={node => inputName = node}></input>
           </div>
           {/*<div className={'border rounded border-gray p-1'}> {widget.text}</div>*/}
           {/*<br/>*/}
@@ -479,10 +491,22 @@ const widgetReducer = (state={widgets: []}, action) => {
                 })
             }
 
+        case constants.HEADING_NAME_CHANGED:
+            return {
+                widgets: state.widgets.map(widget => {
+                    if(widget.id === action.id) {
+                        widget.name = action.name
+                    }
+                    return Object.assign({}, widget)
+                })
+            }
+
         case constants.ADD_WIDGET:
             console.log("Added locally but not saved to DB.")
 
             // console.log("TOPIC ID: ", topicId);
+
+
 
             return (
                 {
@@ -490,8 +514,9 @@ const widgetReducer = (state={widgets: []}, action) => {
                         {
                             id: state.widgets[state.widgets.length -1].id + 10,
                             widgetType: 'Heading',
-                            text:'... lorem epsum ....',
-                            name: 'NEW WIDGET',
+                            size: '1',
+                            text:'',
+                            name: '',
                             widgetOrder: state.widgets.length+1,
                             topicId: topicId
                         }]
@@ -604,29 +629,6 @@ class WidgetListContainer extends Component{
 }
 
 
-//
-// const WidgetListContainer = ({widgets, dispatch}) =>
-// {
-//     return(
-//         <div className={"p-1"}>
-//             <p> Total Widgets : {widgets.length} </p>
-//             {/*{this.props.widgets.map(widget =>*/}
-//             {/*(*/}
-//             {/*<WidgetContainer key={widget.id} widget={widget}/>*/}
-//             {/*))}*/}
-//             <WidgetList widgets={widgets}/>
-//             <div className={"text-right mt-3 mb-3"}>
-//                 <button
-//                     onClick={e => (dispatch({type:constants.ADD_WIDGET}))}
-//                     // onClick={addWidget}
-//                     className={"btn btn-danger"}>
-//                     <i className="fa fa-plus-circle fa-1x"></i></button>
-//             </div>
-//
-//         </div>
-//     );
-// }
-
 const WidgetEditor
     = connect(stateToPropsMapper,dispatcherToPropsMapper)(WidgetListContainer);
 
@@ -642,6 +644,3 @@ export default class WidgetListEditor
         );
     }
 }
-
-// WidgetListEditor = index
-// WidgetEditor = App

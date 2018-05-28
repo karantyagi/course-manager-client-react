@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0c47336f-4c12-4454-a936-5ba7a46e5277" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/src/actions/WidgetListEditor.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/WidgetListEditor.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/constants/WidgetListEditor.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/constants/WidgetListEditor.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/containers/WidgetListEditor.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/WidgetListEditor.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -20,15 +21,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="TopicPill.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/TopicPill.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="24" column="54" selection-start-line="24" selection-start-column="34" selection-end-line="24" selection-end-column="54" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="WidgetListEditor.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/actions/WidgetListEditor.js">
           <provider selected="true" editor-type-id="text-editor">
@@ -41,11 +33,11 @@
       <file leaf-file-name="WidgetListEditor.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/containers/WidgetListEditor.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="420">
-              <caret line="51" column="44" selection-start-line="51" selection-start-column="44" selection-end-line="51" selection-end-column="44" />
+            <state relative-caret-position="-7055">
+              <caret line="61" column="23" lean-forward="true" selection-start-line="61" selection-start-column="23" selection-end-line="61" selection-end-column="23" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
-                <marker date="1527530776023" expanded="true" signature="13096:13185" ph="..." />
+                <marker date="1527541426016" expanded="true" signature="13604:13693" ph="..." />
               </folding>
             </state>
           </provider>
@@ -112,8 +104,8 @@
         <option value="$PROJECT_DIR$/src/reducers/widgetReducers.js" />
         <option value="$PROJECT_DIR$/src/components/TopicPill.js" />
         <option value="$PROJECT_DIR$/src/containers/TopicEditor.js" />
-        <option value="$PROJECT_DIR$/src/constants/WidgetListEditor.js" />
         <option value="$PROJECT_DIR$/src/actions/WidgetListEditor.js" />
+        <option value="$PROJECT_DIR$/src/constants/WidgetListEditor.js" />
         <option value="$PROJECT_DIR$/src/containers/WidgetListEditor.js" />
       </list>
     </option>
@@ -160,12 +152,6 @@
               <item name="course-manager-client-react" type="b2602c69:ProjectViewProjectNode" />
               <item name="course-manager-client-react" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="course-manager-client-react" type="b2602c69:ProjectViewProjectNode" />
-              <item name="course-manager-client-react" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="course-manager-client-react" type="b2602c69:ProjectViewProjectNode" />
@@ -231,12 +217,12 @@
       <workItem from="1527199901572" duration="8000" />
       <workItem from="1527276376752" duration="42000" />
       <workItem from="1527370466132" duration="1686000" />
-      <workItem from="1527435695586" duration="53234000" />
+      <workItem from="1527435695586" duration="56036000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="189869000" />
+    <option name="totallyTimeSpent" value="192671000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -601,13 +587,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/constants/WidgetListEditor.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="35" selection-start-line="9" selection-start-column="35" selection-end-line="9" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/actions/WidgetListEditor.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="527">
@@ -622,13 +601,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/constants/WidgetListEditor.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="49" selection-start-line="7" selection-start-column="49" selection-end-line="7" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/containers/WidgetListEditor.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="51" column="44" selection-start-line="51" selection-start-column="44" selection-end-line="51" selection-end-column="44" />
+        <state relative-caret-position="-7055">
+          <caret line="61" column="23" lean-forward="true" selection-start-line="61" selection-start-column="23" selection-end-line="61" selection-end-column="23" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
-            <marker date="1527530776023" expanded="true" signature="13096:13185" ph="..." />
+            <marker date="1527541426016" expanded="true" signature="13604:13693" ph="..." />
           </folding>
         </state>
       </provider>
