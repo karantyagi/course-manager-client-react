@@ -12,22 +12,71 @@ import * as constants from "../constants/WidgetListEditor"
 import './sample.jpg'
 // import {findAllWidgets} from "../actions/WidgetListEditor";
 // import {addWidget} from "../actions/WidgetListEditor";
-// import {addWidget} from "../actions/WidgetListEditor";
+//  import {headingSizeChanged} from "../actions/WidgetListEditor";
 // import {widgetReducer} from "./reducers/widgetReducer"
 
-const HeadingWidget = ({widget}) => {
+const stateToPropsMapper = (state) => {
+    return (
+        { widgets: state.widgets}
+    );
+}
+
+const dispatcherToPropsMapper =
+    (dispatch) =>
+        (
+            {addWidget: () => addWidget(dispatch),
+                findAllWidgets: () => findAllWidgets(dispatch),
+                headingSizeChanged: (widgetId, newSize) => headingSizeChanged(dispatch, widgetId, newSize),
+                headingTextChanged: (widgetId, newText) => headingTextChanged(dispatch, widgetId, newText)
+            })
+
+const findAllWidgets = dispatch => {
+    fetch('http://localhost:8080/api/widget')
+        .then(response => (response.json()))
+        .then(widgets => dispatch({
+            type: constants.FIND_ALL_WIDGETS,
+            widgets: widgets }))
+}
+
+const addWidget = dispatch => (dispatch({type: constants.ADD_WIDGET}))
+
+const headingSizeChanged = (dispatch, widgetId, newSize) => (
+    dispatch({
+        type: constants.HEADING_SIZE_CHANGED,
+        id: widgetId,
+        size: newSize})
+)
+
+const headingTextChanged = (dispatch, widgetId, newText) => (
+    dispatch({
+        type: constants.HEADING_TEXT_CHANGED,
+        id: widgetId,
+        text: newText})
+)
+
+const HeadingWidget = ({widget,headingSizeChanged, headingTextChanged }) => {
+    let selectHeadingSize;
+    let inputElem;
     return (
       <div>
           <div className={'mb-2'}>
               <input type="text" className="form-control"
-                     placeholder="Heading Text"></input>
+                     placeholder="Heading Text"
+                     onChange={() => headingTextChanged(widget.id, inputElem.value)}
+                     value={widget.text}
+                     ref={node => inputElem = node}>
+              </input>
           </div>
           <div className={'mb-2'}>
-              <select className="custom-select">
+              {/*<p> "heading size:" {widget.size} </p>*/}
+              <select
+                  ref={node => selectHeadingSize  = node}
+                  onChange={() => headingSizeChanged(widget.id, selectHeadingSize.value)}
+                  className="custom-select">
                   <option disabled selected>Choose size</option>
-                  <option>Heading 1</option>
-                  <option>Heading 2</option>
-                  <option>Heading 3</option>
+                  <option value="1">Heading 1</option>
+                  <option value="2">Heading 2</option>
+                  <option value="3">Heading 3</option>
               </select>
           </div>
           <div className={'mb-3'}>
@@ -37,11 +86,18 @@ const HeadingWidget = ({widget}) => {
           {/*<div className={'border rounded border-gray p-1'}> {widget.text}</div>*/}
           {/*<br/>*/}
           <h5 style={{color:"Gray"}}>Preview</h5>
-          <h3> Actual widget displayed as html rendering</h3>
+          <div>
+              {widget.size == 1 && <h1>{widget.text}</h1>}
+              {widget.size == 2 && <h2>{widget.text}</h2>}
+              {widget.size == 3 && <h3>{widget.text}</h3>}
+          </div>
+          {/*<h3> Actual widget displayed as html rendering</h3>*/}
           <hr/>
       </div>
     );
 }
+
+const HeadingContainer = connect(stateToPropsMapper,dispatcherToPropsMapper)(HeadingWidget);
 
 const ParagraphWidget = ({widget}) => {
     return (
@@ -122,37 +178,19 @@ const ListWidget = ({widget}) => {
     );
 }
 
-let url = window.location.href;
-let topicId = url.substring(url.indexOf('topic')+6);
+let url;
+// = window.location.href;
+let topicId;
+// = url.substring(url.indexOf('topic')+6);
 
-let initialState =
-    {widgets: [
-            {id: 100, text: "headings.....", name: "**** HEADING ***"},
-            {id: 200, text: "images.....", name: "~~~~~ IMAGE ~~~~~"},
-            {id: 300, text: "links.....", name: "^^^ LINK ^^^"}
-        ]};
+// let initialState =
+//     {widgets: [
+//             {id: 100, text: "headings.....", name: "**** HEADING ***"},
+//             {id: 200, text: "images.....", name: "~~~~~ IMAGE ~~~~~"},
+//             {id: 300, text: "links.....", name: "^^^ LINK ^^^"}
+//         ]};
 
-const stateToPropsMapper = (state) => {
-    return (
-        { widgets: state.widgets}
-    );
-}
 
-const dispatcherToPropsMapper =
-    (dispatch) =>
-        (
-            {addWidget: () => addWidget(dispatch),
-            findAllWidgets: () => findAllWidgets(dispatch)})
-
-const findAllWidgets = dispatch => {
-    fetch('http://localhost:8080/api/widget')
-        .then(response => (response.json()))
-        .then(widgets => dispatch({
-            type: constants.FIND_ALL_WIDGETS,
-            widgets: widgets }))
-}
-
-const addWidget = dispatch => (dispatch({type: constants.ADD_WIDGET}))
 
 
 
@@ -248,7 +286,7 @@ const Widget = ({widget,dispatch}) => {
                     </div>
                 </div>
             <div>
-                {widget.widgetType === "Heading" && <HeadingWidget widget={widget}/>}
+                {widget.widgetType === "Heading" && <HeadingContainer widget={widget}/>}
                 {widget.widgetType === "Link" && <LinkWidget widget={widget}/>}
                 {widget.widgetType === "Image" && <ImageWidget widget={widget}/>}
                 {widget.widgetType === "List" && <ListWidget widget={widget}/>}
@@ -345,11 +383,11 @@ const widgetReducer = (state={widgets: []}, action) => {
 
             if(index !== 0){
 
-                console.log("original");
-                console.log("upOrder.widgets[index-1].widgetType :",
-                    upOrder.widgets[index-1].widgetType, upOrder.widgets[index-1].widgetOrder );
-                console.log("upOrder.widgets[index].widgetType :",
-                    upOrder.widgets[index].widgetType , upOrder.widgets[index].widgetOrder);
+                // console.log("original");
+                // console.log("upOrder.widgets[index-1].widgetType :",
+                //     upOrder.widgets[index-1].widgetType, upOrder.widgets[index-1].widgetOrder );
+                // console.log("upOrder.widgets[index].widgetType :",
+                //     upOrder.widgets[index].widgetType , upOrder.widgets[index].widgetOrder);
 
 
 
@@ -358,12 +396,12 @@ const widgetReducer = (state={widgets: []}, action) => {
 
                 upOrder.widgets[index-1].widgetOrder = index;
                 upOrder.widgets[index].widgetOrder = index+1;
-                console.log("Move up and re-render widgets");
+                // console.log("Move up and re-render widgets");
 
-                console.log("upDorder.widgets[index-1].widgetType :",
-                    upOrder.widgets[index-1].widgetType, upOrder.widgets[index-1].widgetOrder );
-                console.log("upOrder.widgets[index].widgetType :",
-                    upOrder.widgets[index].widgetType , upOrder.widgets[index].widgetOrder);
+                // console.log("upDorder.widgets[index-1].widgetType :",
+                //     upOrder.widgets[index-1].widgetType, upOrder.widgets[index-1].widgetOrder );
+                // console.log("upOrder.widgets[index].widgetType :",
+                //     upOrder.widgets[index].widgetType , upOrder.widgets[index].widgetOrder);
 
 
 
@@ -388,22 +426,22 @@ const widgetReducer = (state={widgets: []}, action) => {
 
             if(index !== state.widgets.length-1){
 
-                console.log("original");
-                console.log("downOrder.widgets[index].widgetType :",
-                    downOrder.widgets[index].widgetType , downOrder.widgets[index].widgetOrder);
-                console.log("downOrder.widgets[index+1].widgetType :",
-                    downOrder.widgets[index+1].widgetType, downOrder.widgets[index+1].widgetOrder );
+                // console.log("original");
+                // console.log("downOrder.widgets[index].widgetType :",
+                //     downOrder.widgets[index].widgetType , downOrder.widgets[index].widgetOrder);
+                // console.log("downOrder.widgets[index+1].widgetType :",
+                //     downOrder.widgets[index+1].widgetType, downOrder.widgets[index+1].widgetOrder );
 
                 downOrder.widgets = reorder(downOrder.widgets, index, index + 1);
 
                 downOrder.widgets[index].widgetOrder = index+1;
                 downOrder.widgets[index+1].widgetOrder = index+2;
-                console.log("Move up and re-render widgets");
+                // console.log("Move up and re-render widgets");
 
-                console.log("downOrder.widgets[index].widgetType :",
-                    downOrder.widgets[index].widgetType , downOrder.widgets[index].widgetOrder);
-                console.log("downOrder.widgets[index+1].widgetType :",
-                    downOrder.widgets[index+1].widgetType, downOrder.widgets[index+1].widgetOrder );
+                // console.log("downOrder.widgets[index].widgetType :",
+                //     downOrder.widgets[index].widgetType , downOrder.widgets[index].widgetOrder);
+                // console.log("downOrder.widgets[index+1].widgetType :",
+                //     downOrder.widgets[index+1].widgetType, downOrder.widgets[index+1].widgetOrder );
 
 
                 // console.log("NEW ORDER done: ", upOrder.widgets);
@@ -419,12 +457,32 @@ const widgetReducer = (state={widgets: []}, action) => {
             return (state);
 
 
+        case constants.HEADING_SIZE_CHANGED:
+            // console.log(action.size);
+            // alert(" heading size Changed: "+action.size);
+            return {
+                widgets: state.widgets.map(widget => {
+                    if(widget.id === action.id) {
+                        widget.size = action.size
+                    }
+                    return Object.assign({}, widget)
+                })
+            }
 
+        case constants.HEADING_TEXT_CHANGED:
+            return {
+                widgets: state.widgets.map(widget => {
+                    if(widget.id === action.id) {
+                        widget.text = action.text
+                    }
+                    return Object.assign({}, widget)
+                })
+            }
 
         case constants.ADD_WIDGET:
             console.log("Added locally but not saved to DB.")
 
-
+            // console.log("TOPIC ID: ", topicId);
 
             return (
                 {
@@ -434,7 +492,8 @@ const widgetReducer = (state={widgets: []}, action) => {
                             widgetType: 'Heading',
                             text:'... lorem epsum ....',
                             name: 'NEW WIDGET',
-                            widgetOrder: state.widgets.length+1
+                            widgetOrder: state.widgets.length+1,
+                            topicId: topicId
                         }]
                 }
             );
@@ -490,6 +549,11 @@ class WidgetListContainer extends Component{
         super(props);
         this.props.findAllWidgets()
         console.log("WidgetListContainer PROPS : ", this.props)
+        url = window.location.href;
+        // console.log("url:" ,url);
+        topicId = url.substring(url.indexOf('topic')+6);
+        topicId = topicId.substring(0,topicId.indexOf('/'));
+        // console.log("Topic ID: ", topicId);
     }
 
     render()

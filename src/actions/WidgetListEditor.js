@@ -26,6 +26,14 @@ export const addWidget = dispatch => (
     dispatch({type: constants.ADD_WIDGET})
 )
 
+export const headingSizeChanged = (dispatch, widgetId, newSize) => {
+    dispatch({
+        type: constants.HEADING_SIZE_CHANGED,
+        id: widgetId,
+        size: newSize
+    })
+}
+
 //
 // export const save = dispatch => (
 //     dispatch({type: constants.SAVE})
