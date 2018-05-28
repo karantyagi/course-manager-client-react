@@ -31,11 +31,11 @@
       <file leaf-file-name="WidgetListEditor.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/containers/WidgetListEditor.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="36" column="36" lean-forward="true" selection-start-line="36" selection-start-column="36" selection-end-line="36" selection-end-column="36" />
+            <state relative-caret-position="497">
+              <caret line="112" column="53" selection-start-line="112" selection-start-column="53" selection-end-line="112" selection-end-column="53" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
-                <marker date="1527542213989" expanded="true" signature="13883:13972" ph="..." />
+                <marker date="1527544547305" expanded="true" signature="14410:14499" ph="..." />
               </folding>
             </state>
           </provider>
@@ -58,6 +58,7 @@
       <find>DELETE</find>
       <find>topic</find>
       <find>add</find>
+      <find>mapper</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -216,12 +217,12 @@
       <workItem from="1527199901572" duration="8000" />
       <workItem from="1527276376752" duration="42000" />
       <workItem from="1527370466132" duration="1686000" />
-      <workItem from="1527435695586" duration="56798000" />
+      <workItem from="1527435695586" duration="59123000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="193433000" />
+    <option name="totallyTimeSpent" value="195758000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -609,11 +610,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/containers/WidgetListEditor.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="36" column="36" lean-forward="true" selection-start-line="36" selection-start-column="36" selection-end-line="36" selection-end-column="36" />
+        <state relative-caret-position="497">
+          <caret line="112" column="53" selection-start-line="112" selection-start-column="53" selection-end-line="112" selection-end-column="53" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
-            <marker date="1527542213989" expanded="true" signature="13883:13972" ph="..." />
+            <marker date="1527544547305" expanded="true" signature="14410:14499" ph="..." />
           </folding>
         </state>
       </provider>

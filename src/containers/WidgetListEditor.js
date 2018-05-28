@@ -17,7 +17,9 @@ import './sample.jpg'
 
 const stateToPropsMapper = (state) => {
     return (
-        { widgets: state.widgets}
+        {
+            widgets: state.widgets,
+            preview: state.preview}
     );
 }
 
@@ -26,8 +28,8 @@ const dispatcherToPropsMapper =
         (
             {
                 addWidget: () => addWidget(dispatch),
-                save: () => saveWidgetList(dispatch),
-                preview: () => previewWidgetList(dispatch),
+                saveWidgetList: () => saveWidgetList(dispatch),
+                previewWidgetList: () => previewWidgetList(dispatch),
                 findAllWidgets: () => findAllWidgets(dispatch),
                 headingSizeChanged: (widgetId, newSize) => headingSizeChanged(dispatch, widgetId, newSize),
                 headingTextChanged: (widgetId, newText) => headingTextChanged(dispatch, widgetId, newText),
@@ -69,42 +71,48 @@ const headingNameChanged = (dispatch, widgetId, newName) => (
         name: newName})
 )
 
-const HeadingWidget = ({widget,headingSizeChanged, headingTextChanged, headingNameChanged }) => {
+const HeadingWidget = ({widget, preview, headingSizeChanged, headingTextChanged, headingNameChanged,}) => {
     let selectHeadingSize;
     let inputElem;
     let inputName;
+    console.log("preview inside Heading Widget: ", preview);
+
     return (
       <div>
-          <div className={'mb-2'}>
-              <input type="text" id="headingText" className="form-control"
-                     placeholder="Heading Text"
-                     onChange={() => headingTextChanged(widget.id, inputElem.value)}
-                     value={widget.text}
-                     ref={node => inputElem = node}>
-              </input>
+          <div hidden={preview}>
+              {/*<p>*/}
+                 {/*Final Preview mode: {preview.toString()}*/}
+              {/*</p>*/}
+              <div className={'mb-2'}>
+                  <input type="text" id="headingText" className="form-control"
+                         placeholder="Heading Text"
+                         onChange={() => headingTextChanged(widget.id, inputElem.value)}
+                         value={widget.text}
+                         ref={node => inputElem = node}>
+                  </input>
+              </div>
+              <div className={'mb-2'}>
+                  {/*<p> "heading size:" {widget.size} </p>*/}
+                  <select
+                      ref={node => selectHeadingSize  = node}
+                      onChange={() => headingSizeChanged(widget.id, selectHeadingSize.value)}
+                      className="custom-select">
+                      <option disabled>Choose size</option>
+                      <option value="1">Heading 1</option>
+                      <option value="2">Heading 2</option>
+                      <option value="3">Heading 3</option>
+                  </select>
+              </div>
+              <div className={'mb-3'}>
+                  <input type="text" className="form-control"
+                         placeholder="Widget Name"
+                         onChange={() => headingNameChanged(widget.id, inputName.value)}
+                         value={widget.name}
+                         ref={node => inputName = node}></input>
+              </div>
+              <h4 style={{color:"Gray"}}>Preview</h4>
           </div>
-          <div className={'mb-2'}>
-              {/*<p> "heading size:" {widget.size} </p>*/}
-              <select
-                  ref={node => selectHeadingSize  = node}
-                  onChange={() => headingSizeChanged(widget.id, selectHeadingSize.value)}
-                  className="custom-select">
-                  <option disabled>Choose size</option>
-                  <option value="1">Heading 1</option>
-                  <option value="2">Heading 2</option>
-                  <option value="3">Heading 3</option>
-              </select>
-          </div>
-          <div className={'mb-3'}>
-              <input type="text" className="form-control"
-                     placeholder="Widget Name"
-                     onChange={() => headingNameChanged(widget.id, inputName.value)}
-                     value={widget.name}
-                     ref={node => inputName = node}></input>
-          </div>
-          {/*<div className={'border rounded border-gray p-1'}> {widget.text}</div>*/}
-          {/*<br/>*/}
-          <h5 style={{color:"Gray"}}>Preview</h5>
+
           <div>
               {widget.size == 1 && <h1>{widget.text}</h1>}
               {widget.size == 2 && <h2>{widget.text}</h2>}
@@ -260,9 +268,10 @@ const moveDown = widget => {
 }
 
 
-const Widget = ({widget,dispatch}) => {
+const Widget = ({widget,preview,dispatch}) => {
 
     let selectElement;
+    // console.log("preview inside Widget: ", preview);
 
     return(
         <li key={widget.id*7} className="list-group-item rounded shadow">
@@ -305,11 +314,11 @@ const Widget = ({widget,dispatch}) => {
                     </div>
                 </div>
             <div>
-                {widget.widgetType === "Heading" && <HeadingContainer widget={widget}/>}
-                {widget.widgetType === "Link" && <LinkWidget widget={widget}/>}
-                {widget.widgetType === "Image" && <ImageWidget widget={widget}/>}
-                {widget.widgetType === "List" && <ListWidget widget={widget}/>}
-                {widget.widgetType === "Paragraph" && <ParagraphWidget widget={widget}/>}
+                {widget.widgetType === "Heading" && <HeadingContainer widget={widget} preview={preview}/>}
+                {widget.widgetType === "Link" && <LinkWidget widget={widget} preview={preview}/>}
+                {widget.widgetType === "Image" && <ImageWidget widget={widget} preview={preview}/>}
+                {widget.widgetType === "List" && <ListWidget widget={widget} preview={preview}/>}
+                {widget.widgetType === "Paragraph" && <ParagraphWidget widget={widget} preview={preview}/>}
             </div>
 
             {/*<div className={'border rounded border-gray p-1'}> {widget.text}</div>*/}
@@ -321,7 +330,7 @@ const Widget = ({widget,dispatch}) => {
     );
 }
 
-const WidgetContainer = connect()(Widget);
+const WidgetContainer = connect(stateToPropsMapper)(Widget);
 
 //
 // const WidgetList = ({widgets, dispatch}) => {
@@ -358,6 +367,7 @@ class WidgetList extends Component
                          <div key={widget.id*23}>
                              <WidgetContainer key={widget.id}
                                               widget={widget}
+                                              preview={this.props.preview}
                              />
                              <br/>
                          </div>)}
@@ -392,6 +402,7 @@ const widgetReducer = (state = {widgets: [], preview: false}, action) => {
     switch(action.type){
 
         case constants.PREVIEW:
+            console.log("preview fired ! awesome");
             return {
                 widgets: state.widgets,
                 preview: !state.preview
@@ -399,7 +410,7 @@ const widgetReducer = (state = {widgets: [], preview: false}, action) => {
 
         case constants.MOVE_UP:
 
-            let upOrder = {widgets: [...state.widgets]}
+            let upOrder = {widgets: [...state.widgets], preview: state.preview}
             // console.log(newState);
             // rank = action.widget.widgetOrder
             index = action.widget.widgetOrder - 1;
@@ -442,7 +453,7 @@ const widgetReducer = (state = {widgets: [], preview: false}, action) => {
 
         case constants.MOVE_DOWN:
 
-            let downOrder = {widgets: [...state.widgets]}
+            let downOrder = {widgets: [...state.widgets], preview: state.preview}
             // console.log(newState);
             // rank = action.widget.widgetOrder
             index = action.widget.widgetOrder - 1;
@@ -491,7 +502,8 @@ const widgetReducer = (state = {widgets: [], preview: false}, action) => {
                         widget.size = action.size
                     }
                     return Object.assign({}, widget)
-                })
+                }),
+                preview: state.preview
             }
 
         case constants.HEADING_TEXT_CHANGED:
@@ -501,7 +513,8 @@ const widgetReducer = (state = {widgets: [], preview: false}, action) => {
                         widget.text = action.text
                     }
                     return Object.assign({}, widget)
-                })
+                }),
+                preview: state.preview
             }
 
         case constants.HEADING_NAME_CHANGED:
@@ -511,7 +524,8 @@ const widgetReducer = (state = {widgets: [], preview: false}, action) => {
                         widget.name = action.name
                     }
                     return Object.assign({}, widget)
-                })
+                }),
+                preview: state.preview
             }
 
         case constants.ADD_WIDGET:
@@ -532,7 +546,8 @@ const widgetReducer = (state = {widgets: [], preview: false}, action) => {
                             name: '',
                             widgetOrder: state.widgets.length+1,
                             topicId: topicId
-                        }]
+                        }],
+                    preview: state.preview
                 }
             );
 
@@ -543,8 +558,8 @@ const widgetReducer = (state = {widgets: [], preview: false}, action) => {
                     if(widget.id === action.id) {
                         widget.widgetType = action.widgetType
                     }
-                    return true;
-                })
+                    return true;}),
+                preview: state.preview
             }
             return (JSON.parse(JSON.stringify(newState)));
 
@@ -565,7 +580,11 @@ const widgetReducer = (state = {widgets: [], preview: false}, action) => {
 
         case constants.FIND_ALL_WIDGETS:
             // console.log("Action widgets: ",action.widgets)
-            return ({widgets: action.widgets});
+            // return ({widgets: action.widgets});
+            let newState1;
+            newState1 = Object.assign({}, state)
+            newState1.widgets = action.widgets
+            return newState1;
 
 
         case constants.DELETE_WIDGET:
@@ -575,7 +594,8 @@ const widgetReducer = (state = {widgets: [], preview: false}, action) => {
                         return (
                             widget.id !== action.id
                         );
-                    })}
+                }),
+                    preview: state.preview}
             );
 
         default:
@@ -611,6 +631,7 @@ class WidgetListContainer extends Component{
                     </div>
                     <div className={'col-1 ml-1'}>
                         <button
+                            hidden={this.props.preview}
                             onClick={this.props.saveWidgetList}
                             className={'btn btn-success'}>
                             Save
@@ -621,7 +642,7 @@ class WidgetListContainer extends Component{
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id={"editWidgets"}
                                                                                                           style={{color:"gray", fontSize:'22px'}}>Preview</span>
                             <input type="checkbox"
-                            />
+                                   onChange={this.props.previewWidgetList}/>
                             <span className="slider round"></span>
                         </label>
                     </div>
