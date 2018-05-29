@@ -75,7 +75,7 @@ const HeadingWidget = ({widget, preview, headingSizeChanged, headingTextChanged,
     let selectHeadingSize;
     let inputElem;
     let inputName;
-    console.log("preview inside Heading Widget: ", preview);
+    // console.log("preview inside Heading Widget: ", preview);
 
     return (
       <div>
@@ -119,7 +119,6 @@ const HeadingWidget = ({widget, preview, headingSizeChanged, headingTextChanged,
               {widget.size == 3 && <h3>{widget.text}</h3>}
           </div>
           {/*<h3> Actual widget displayed as html rendering</h3>*/}
-          <hr/>
       </div>
     );
 }
@@ -140,7 +139,6 @@ const ParagraphWidget = ({widget}) => {
             </div>
             <h5 style={{color:"Gray"}}>Preview</h5>
             <h3> Actual widget displayed as html rendering</h3>
-            <hr/>
         </div>
     );
 }
@@ -158,7 +156,6 @@ const LinkWidget = ({widget}) => {
             </div>
             <h5 style={{color:"Gray"}}>Preview</h5>
             <h3> Actual widget displayed as html rendering</h3>
-            <hr/>
         </div>
     );
 }
@@ -175,8 +172,7 @@ const ImageWidget = ({widget}) => {
                        placeholder="Widget Name"></input>
             </div>
             <h5 style={{color:"Gray"}}>Preview</h5>
-            <img  src={require('./sample.jpg')} alt="imagePreview"/>
-            <hr/>
+            <img  src={require('./sample.jpg')} alt="imagePreview" className="img-thumbnail" />
         </div>
     );
 }
@@ -200,7 +196,6 @@ const ListWidget = ({widget}) => {
             </div>
             <h5 style={{color:"Gray"}}>Preview</h5>
             <h3> Actual widget displayed as html rendering</h3>
-            <hr/>
         </div>
     );
 }
@@ -395,14 +390,19 @@ const reorder = (arr, to ,from) => {
     // = function (from, to) {
     // this.splice(to, 0, this.splice(from, 1)[0]);
 
+var addIds = [];
+var deleteIds = [];
+var updateIds = [];
 
 const widgetReducer = (state = {widgets: [], preview: false}, action) => {
+
+    var deletePending = {widgets: []}
 
     let index;
     switch(action.type){
 
         case constants.PREVIEW:
-            console.log("preview fired ! awesome");
+            // console.log("preview fired ! awesome");
             return {
                 widgets: state.widgets,
                 preview: !state.preview
@@ -496,6 +496,8 @@ const widgetReducer = (state = {widgets: [], preview: false}, action) => {
         case constants.HEADING_SIZE_CHANGED:
             // console.log(action.size);
             // alert(" heading size Changed: "+action.size);
+
+
             return {
                 widgets: state.widgets.map(widget => {
                     if(widget.id === action.id) {
@@ -507,6 +509,7 @@ const widgetReducer = (state = {widgets: [], preview: false}, action) => {
             }
 
         case constants.HEADING_TEXT_CHANGED:
+
             return {
                 widgets: state.widgets.map(widget => {
                     if(widget.id === action.id) {
@@ -532,14 +535,13 @@ const widgetReducer = (state = {widgets: [], preview: false}, action) => {
             console.log("Added locally but not saved to DB.")
 
             // console.log("TOPIC ID: ", topicId);
-
-
+            addIds.push(state.widgets[state.widgets.length -1].id + 8231);
 
             return (
                 {
                     widgets: [...state.widgets,
                         {
-                            id: state.widgets[state.widgets.length -1].id + 10,
+                            id: state.widgets[state.widgets.length -1].id + 8231,
                             widgetType: 'Heading',
                             size: '1',
                             text:'',
@@ -566,16 +568,91 @@ const widgetReducer = (state = {widgets: [], preview: false}, action) => {
 
 
         case constants.SAVE:
+
             console.log("save fired !");
 
-            // fetch('http://localhost:8080/api/widget/save', {
-            //     method: 'post',
-            //     body: JSON.stringify(state.widgets),
+            // console.log("Update pending IDs: ", updatePendingIds)
+
+            // let widgetURL;
+            // for(var i=0; i < state.widgets.length; i++) {
+            //     widgetURL = 'http://localhost:8080/api/widget/'+state.widgets[i].id.toString()+'/save';
+            //     console.log(widgetURL)
+            //     fetch(widgetURL,
+            //         {
+            //             method: 'put',
+            //             body: JSON.stringify(state.widgets[i]),
+            //             headers: {
+            //                 'content-type': 'application/json'}
+            //         }).then(function(response){
+            //         console.log(response);
+            //         // return response.json();
+            //     });
+            // }
+
+            // for(var j=0; j < deletePending.widgets.length; j++) {
+            //     widgetURL = 'http://localhost:8080/api/widget/'+ deletePending.widgets[i].id.toString();
+            //     console.log("deleting extra");
+            //
+            //     fetch(widgetURL, {
+            //         method: 'delete'
+            //     }).then(function(response){
+            //         console.log(response);
+            //         // return response.json();
+            //     });
+            // }
+
+            console.log("Add pending IDs: ", addIds)
+            console.log("Delete pending IDs: ", deleteIds)
+
+            // for(var k=0; k < addPending.widgets.length; k++) {
+            //     widgetURL = 'http://localhost:8080/api/topic/'+ topicId.toString() + '/widget';
+            //     console.log("adding to DB - pending ones");
+            //
+            //     fetch(widgetURL, {
+            //             method: 'post',
+            //             body: JSON.stringify(addPending.widgets[k]),
+            //             headers: {
+            //                 'content-type': 'application/json'
+            //             }
+            //         }
+            //     ).then(function(response){
+            //         console.log(response);
+            //         // return response.json();
+            //     });
+            // }
+
+
+            alert("All widgets saved !")
+
+            // widgetURL = 'http://localhost:8080/api/widget/'+state.widgets[0].id.toString()+'/save';
+            // console.log(widgetURL)
+            // fetch(widgetURL,
+            //     {
+            //     method: 'put',
+            //     body: JSON.stringify(state.widgets[0]),
             //     headers: {
             //         'content-type': 'application/json'}
-            // })
+            //     }).then(function(response){
+            //         // console.log(response);
+            //     alert("All widgets saved !")
+            //         return response.json();
+            //     });
 
             return state;
+
+        // function updateUser(userId, user) {
+        //     return fetch(self.url + '/' + userId, {
+        //         method: 'put',
+        //         body: JSON.stringify(user),
+        //         headers: {
+        //             'content-type': 'application/json'
+        //         }
+        //     })
+        //         .then(function(response){
+        //             console.log(response);
+        //             return response.json();
+        //         });
+        // }
 
 
         case constants.FIND_ALL_WIDGETS:
@@ -589,6 +666,8 @@ const widgetReducer = (state = {widgets: [], preview: false}, action) => {
 
         case constants.DELETE_WIDGET:
             console.log("Deleted locally but not saved to DB.")
+
+            deleteIds.push(action.id);
             return(
                 {widgets: state.widgets.filter(widget => {
                         return (
@@ -611,9 +690,10 @@ class WidgetListContainer extends Component{
         this.props.findAllWidgets()
         console.log("WidgetListContainer PROPS : ", this.props)
         url = window.location.href;
-        // console.log("url:" ,url);
         topicId = url.substring(url.indexOf('topic')+6);
         topicId = topicId.substring(0,topicId.indexOf('/'));
+
+        // console.log("url:" ,url);
         // console.log("Topic ID: ", topicId);
     }
 
