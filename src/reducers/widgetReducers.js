@@ -12,12 +12,10 @@ const reorder = (arr, to ,from) => {
 var addIds = [];
 var deleteIds = [];
 var updateIds = [];
-
+var widgetURL;
 var topicId = getTopicId;
 
 export const widgetReducer = (state = {widgets: [], preview: false}, action) => {
-
-    var deletePending = {widgets: []}
 
     let index;
     switch(action.type){
@@ -28,6 +26,10 @@ export const widgetReducer = (state = {widgets: [], preview: false}, action) => 
                 widgets: state.widgets,
                 preview: !state.preview
             }
+
+        case constants.WIDGET_DROPPED:
+            console.log(" WIDGET DROPPED: ", action.id, action.name);
+            return state;
 
         case constants.MOVE_UP:
 
@@ -54,6 +56,10 @@ export const widgetReducer = (state = {widgets: [], preview: false}, action) => 
                 upOrder.widgets[index-1].widgetOrder = index;
                 upOrder.widgets[index].widgetOrder = index+1;
                 // console.log("Move up and re-render widgets");
+
+                updateIds.push(upOrder.widgets[index-1].id);
+                updateIds.push(upOrder.widgets[index].id);
+                console.log("Move Up - added to updateIds");
 
                 // console.log("upDorder.widgets[index-1].widgetType :",
                 //     upOrder.widgets[index-1].widgetType, upOrder.widgets[index-1].widgetOrder );
@@ -93,6 +99,11 @@ export const widgetReducer = (state = {widgets: [], preview: false}, action) => 
 
                 downOrder.widgets[index].widgetOrder = index+1;
                 downOrder.widgets[index+1].widgetOrder = index+2;
+
+                updateIds.push(downOrder.widgets[index].id);
+                updateIds.push(downOrder.widgets[index+1].id);
+                console.log("Move Down - added to updateIds")
+
                 // console.log("Move up and re-render widgets");
 
                 // console.log("downOrder.widgets[index].widgetType :",
@@ -117,7 +128,8 @@ export const widgetReducer = (state = {widgets: [], preview: false}, action) => 
         case constants.HEADING_SIZE_CHANGED:
             // console.log(action.size);
             // alert(" heading size Changed: "+action.size);
-
+            updateIds.push(action.id);
+            console.log("Heading Size changed - added to updateIds");
 
             return {
                 widgets: state.widgets.map(widget => {
@@ -130,7 +142,8 @@ export const widgetReducer = (state = {widgets: [], preview: false}, action) => 
             }
 
         case constants.HEADING_TEXT_CHANGED:
-
+            updateIds.push(action.id);
+            console.log("Heading Text changed - added to updateIds");
             return {
                 widgets: state.widgets.map(widget => {
                     if(widget.id === action.id) {
@@ -142,6 +155,8 @@ export const widgetReducer = (state = {widgets: [], preview: false}, action) => 
             }
 
         case constants.HEADING_NAME_CHANGED:
+            updateIds.push(action.id);
+            console.log("Heading Name changed - added to updateIds");
             return {
                 widgets: state.widgets.map(widget => {
                     if(widget.id === action.id) {
@@ -153,10 +168,11 @@ export const widgetReducer = (state = {widgets: [], preview: false}, action) => 
             }
 
         case constants.ADD_WIDGET:
-            console.log("Added locally but not saved to DB.")
+
 
             // console.log("TOPIC ID: ", topicId);
             addIds.push(state.widgets[state.widgets.length -1].id + 8231);
+            console.log("Added locally but not saved to DB - added to addIds")
 
             return (
                 {
@@ -181,7 +197,9 @@ export const widgetReducer = (state = {widgets: [], preview: false}, action) => 
             );
 
         case constants.SELECT_WIDGET_TYPE:
-            console.log(action);
+            updateIds.push(action.id);
+            console.log("Heading Name changed - added to updateIds");
+            console.log("WIDGET TYPE CHANGED:  ", action.widgetType);
             let newState = {
                 widgets: state.widgets.filter((widget) => {
                     if(widget.id === action.id) {
@@ -198,7 +216,21 @@ export const widgetReducer = (state = {widgets: [], preview: false}, action) => 
 
             console.log("save fired !");
 
-            // console.log("Update pending IDs: ", updatePendingIds)
+            widgetURL = 'http://localhost:8080/api/widget/'+state.widgets[0].id.toString()+'/save';
+            console.log(widgetURL)
+            fetch(widgetURL,
+                {
+                method: 'put',
+                body: JSON.stringify(state.widgets[0]),
+                headers: {
+                    'content-type': 'application/json'}
+                }).then(function(response){
+                    // console.log(response);
+                alert("All widgets saved !")
+                    return response.json();
+                });
+
+
 
             // let widgetURL;
             // for(var i=0; i < state.widgets.length; i++) {
@@ -228,8 +260,6 @@ export const widgetReducer = (state = {widgets: [], preview: false}, action) => 
             //     });
             // }
 
-            console.log("Add pending IDs: ", addIds)
-            console.log("Delete pending IDs: ", deleteIds)
 
             // for(var k=0; k < addPending.widgets.length; k++) {
             //     widgetURL = 'http://localhost:8080/api/topic/'+ topicId.toString() + '/widget';
@@ -249,21 +279,14 @@ export const widgetReducer = (state = {widgets: [], preview: false}, action) => 
             // }
 
 
-            alert("All widgets saved !")
 
-            // widgetURL = 'http://localhost:8080/api/widget/'+state.widgets[0].id.toString()+'/save';
-            // console.log(widgetURL)
-            // fetch(widgetURL,
-            //     {
-            //     method: 'put',
-            //     body: JSON.stringify(state.widgets[0]),
-            //     headers: {
-            //         'content-type': 'application/json'}
-            //     }).then(function(response){
-            //         // console.log(response);
-            //     alert("All widgets saved !")
-            //         return response.json();
-            //     });
+
+
+            //
+            // console.log("Add IDs from Add Queue: ", addIds);
+            // console.log("Delete IDs from Delete Queue: ", deleteIds);
+            // console.log("Update IDs from Update Queue: ", updateIds);
+            alert("All widgets saved !");
 
             return state;
 

@@ -42,7 +42,7 @@ const Widget = ({widget,preview,dispatch}) => {
     // console.log("preview inside Widget: ", preview);
 
     return(
-        <li key={widget.id*7} className="list-group-item rounded shadow">
+        <li key={widget.id*7} className="list-group-item rounded shadow" draggable="true">
                 <div className={"row mt-2 mb-1 mb-2"} hidden={preview}>
                     <div className={'col-7 mr-4 ml-1 pt-1'}>
                         <h4>{widget.widgetOrder} &nbsp;
@@ -130,7 +130,8 @@ class WidgetList extends Component
      render(){
          return(
              <div>
-                 <ul className={"list-group"}>
+                 <ul className={"list-group"}
+                     onDragOver={() => { console.log(" drag ended in ul")}}>
                      {this.props.widgets.map(widget =>
                          <div key={widget.id*23}>
                              <WidgetContainer key={widget.id}
@@ -170,6 +171,15 @@ class WidgetListContainer extends Component{
 
         // console.log("url:" ,url);
         // console.log("Topic ID: ", topicId);
+    }
+
+    componentWillUnmount(){
+        console.log(" navigating away")
+        alert("\nnavigating away");
+    }
+
+    componentWillUpdate(nextProps, nextState){
+        console.log(" Widgets Updating")
     }
 
     render()

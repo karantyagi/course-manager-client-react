@@ -21,6 +21,12 @@ export const moveDown = widget => {
     }
 }
 
+export const drop = widget => {
+    return {
+        type: constants.WIDGET_DROPPED, widget: widget
+    }
+}
+
 
 export const addWidget = dispatch => (dispatch({type: constants.ADD_WIDGET}))
 
