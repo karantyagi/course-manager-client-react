@@ -1,3 +1,4 @@
+import React from 'react';
 import * as constants from "../constants/WidgetListEditor"
 
 export const findAllWidgets = dispatch => {
@@ -68,3 +69,26 @@ export const paragraphNameChanged = (dispatch, widgetId, newName) => (
         id: widgetId,
         name: newName})
 )
+
+export const listTextChanged = (dispatch, widgetId, newText) => (
+    dispatch({
+        type: constants.LIST_TEXT_CHANGED,
+        id: widgetId,
+        text: newText})
+)
+
+
+export const listNameChanged = (dispatch, widgetId, newName) => (
+    dispatch({
+        type: constants.LIST_NAME_CHANGED,
+        id: widgetId,
+        name: newName})
+)
+
+export const listTypeChanged = (dispatch, widgetId, newType) => (
+    dispatch({
+        type: constants.LIST_TYPE_CHANGED,
+        id: widgetId,
+        listType: newType})
+)
+

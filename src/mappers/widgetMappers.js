@@ -22,7 +22,11 @@ export const dispatcherToPropsMapper =
                 headingNameChanged: (widgetId, newName) => actions.headingNameChanged(dispatch, widgetId, newName),
 
                 paragraphTextChanged: (widgetId, newText) => actions.paragraphTextChanged(dispatch, widgetId, newText),
-                paragraphNameChanged: (widgetId, newName) => actions.paragraphNameChanged(dispatch, widgetId, newName)
+                paragraphNameChanged: (widgetId, newName) => actions.paragraphNameChanged(dispatch, widgetId, newName),
+
+                listTextChanged: (widgetId, newText) => actions.listTextChanged(dispatch, widgetId, newText),
+                listNameChanged: (widgetId, newName) => actions.listNameChanged(dispatch, widgetId, newName),
+                listTypeChanged: (widgetId, newType) => actions.listTypeChanged(dispatch, widgetId, newType)
                 //
                 // headingSizeChanged: (widgetId, newSize) => actions.headingSizeChanged(dispatch, widgetId, newSize),
                 // headingTextChanged: (widgetId, newText) => actions.headingTextChanged(dispatch, widgetId, newText),

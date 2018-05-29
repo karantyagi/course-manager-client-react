@@ -28,6 +28,7 @@ const HeadingWidget = ({widget, preview, headingSizeChanged, headingTextChanged,
                     <select
                         ref={node => selectHeadingSize  = node}
                         onChange={() => headingSizeChanged(widget.id, selectHeadingSize.value)}
+                        defaultValue={widget.size}
                         className="custom-select">
                         <option disabled>Choose size</option>
                         <option value="1">Heading 1</option>

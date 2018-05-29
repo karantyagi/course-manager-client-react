@@ -4,7 +4,9 @@
     <list default="true" id="0c47336f-4c12-4454-a936-5ba7a46e5277" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/src/actions/WidgetListEditor.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/WidgetListEditor.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/constants/WidgetListEditor.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/constants/WidgetListEditor.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/containers/WidgetListEditor.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/WidgetListEditor.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/HeadingContainer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/HeadingContainer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/ListContainer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/ListContainer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mappers/widgetMappers.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/mappers/widgetMappers.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/reducers/widgetReducers.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/reducers/widgetReducers.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -23,22 +25,22 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file leaf-file-name="WidgetListEditor.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/containers/WidgetListEditor.js">
+        <entry file="file://$PROJECT_DIR$/src/actions/WidgetListEditor.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="173">
-              <caret line="46" column="60" lean-forward="true" selection-start-line="46" selection-start-column="60" selection-end-line="46" selection-end-column="60" />
+            <state relative-caret-position="432">
+              <caret line="94" selection-start-line="94" selection-end-line="94" />
               <folding>
-                <element signature="e#0#39#0" expanded="true" />
+                <element signature="e#0#26#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="widgetReducers.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="widgetReducers.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/reducers/widgetReducers.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="310" column="38" lean-forward="true" selection-start-line="310" selection-start-column="38" selection-end-line="310" selection-end-column="38" />
+            <state relative-caret-position="1415">
+              <caret line="328" column="20" lean-forward="true" selection-start-line="328" selection-start-column="20" selection-end-line="328" selection-end-column="20" />
               <folding>
                 <element signature="e#0#58#0" expanded="true" />
               </folding>
@@ -46,20 +48,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="WidgetListEditor.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/actions/WidgetListEditor.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="381">
-              <caret line="62" lean-forward="true" selection-start-line="62" selection-end-line="62" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="widgetMappers.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/mappers/widgetMappers.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="18" selection-start-line="18" selection-end-line="18" />
+            <state relative-caret-position="323">
+              <caret line="28" column="108" selection-start-line="28" selection-start-column="108" selection-end-line="28" selection-end-column="108" />
             </state>
           </provider>
         </entry>
@@ -67,8 +60,8 @@
       <file leaf-file-name="HeadingContainer.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/containers/HeadingContainer.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="42" column="57" selection-start-line="40" selection-start-column="27" selection-end-line="42" selection-end-column="57" />
+            <state relative-caret-position="357">
+              <caret line="30" column="24" selection-start-line="30" selection-start-column="24" selection-end-line="30" selection-end-column="50" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
               </folding>
@@ -76,13 +69,25 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ParagraphContainer.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/containers/ParagraphContainer.js">
+      <file leaf-file-name="ListContainer.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/containers/ListContainer.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="18" column="22" lean-forward="true" selection-start-line="18" selection-start-column="22" selection-end-line="18" selection-end-column="22" />
+            <state relative-caret-position="119">
+              <caret line="7" column="4" selection-start-line="7" selection-start-column="4" selection-end-line="7" selection-end-column="4" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="WidgetListEditor.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/containers/WidgetListEditor.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-595">
+              <caret line="46" column="60" lean-forward="true" selection-start-line="46" selection-start-column="60" selection-end-line="46" selection-end-column="60" />
+              <folding>
+                <element signature="e#0#39#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -106,6 +111,7 @@
       <find>topic</find>
       <find>add</find>
       <find>mapper</find>
+      <find>ADD</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -150,16 +156,16 @@
         <option value="$PROJECT_DIR$/src/components/CourseCard.js" />
         <option value="$PROJECT_DIR$/src/components/TopicPill.js" />
         <option value="$PROJECT_DIR$/src/containers/TopicEditor.js" />
-        <option value="$PROJECT_DIR$/src/containers/HeadingContainer.js" />
-        <option value="$PROJECT_DIR$/src/containers/ListContainer.js" />
         <option value="$PROJECT_DIR$/src/containers/LinkContainer.js" />
         <option value="$PROJECT_DIR$/src/containers/ImageContainer.js" />
         <option value="$PROJECT_DIR$/src/containers/WidgetListEditor.js" />
-        <option value="$PROJECT_DIR$/src/actions/WidgetListEditor.js" />
-        <option value="$PROJECT_DIR$/src/constants/WidgetListEditor.js" />
-        <option value="$PROJECT_DIR$/src/mappers/widgetMappers.js" />
         <option value="$PROJECT_DIR$/src/containers/ParagraphContainer.js" />
+        <option value="$PROJECT_DIR$/src/constants/WidgetListEditor.js" />
+        <option value="$PROJECT_DIR$/src/actions/WidgetListEditor.js" />
+        <option value="$PROJECT_DIR$/src/mappers/widgetMappers.js" />
         <option value="$PROJECT_DIR$/src/reducers/widgetReducers.js" />
+        <option value="$PROJECT_DIR$/src/containers/HeadingContainer.js" />
+        <option value="$PROJECT_DIR$/src/containers/ListContainer.js" />
       </list>
     </option>
   </component>
@@ -210,31 +216,13 @@
               <item name="course-manager-client-react" type="b2602c69:ProjectViewProjectNode" />
               <item name="course-manager-client-react" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="actions" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="course-manager-client-react" type="b2602c69:ProjectViewProjectNode" />
-              <item name="course-manager-client-react" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="constants" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="course-manager-client-react" type="b2602c69:ProjectViewProjectNode" />
               <item name="course-manager-client-react" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="mappers" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="course-manager-client-react" type="b2602c69:ProjectViewProjectNode" />
-              <item name="course-manager-client-react" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="reducers" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="course-manager-client-react" type="b2602c69:ProjectViewProjectNode" />
-              <item name="course-manager-client-react" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="services" type="462c0819:PsiDirectoryNode" />
+              <item name="containers" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -288,12 +276,12 @@
       <workItem from="1527199901572" duration="8000" />
       <workItem from="1527276376752" duration="42000" />
       <workItem from="1527370466132" duration="1686000" />
-      <workItem from="1527435695586" duration="71288000" />
+      <workItem from="1527435695586" duration="75532000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="207923000" />
+    <option name="totallyTimeSpent" value="212167000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -568,16 +556,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/containers/TopicEditor.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="182">
-          <caret line="230" column="21" selection-start-line="230" selection-start-column="21" selection-end-line="230" selection-end-column="21" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external/react.d.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="176">
@@ -616,16 +594,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/containers/ListContainer.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="25" column="1" selection-start-line="25" selection-start-column="1" selection-end-line="25" selection-end-column="1" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/containers/LinkContainer.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="391">
@@ -646,37 +614,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/constants/WidgetListEditor.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="14" column="63" lean-forward="true" selection-start-line="14" selection-start-column="63" selection-end-line="14" selection-end-column="63" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/actions/WidgetListEditor.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="381">
-          <caret line="62" lean-forward="true" selection-start-line="62" selection-end-line="62" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/mappers/widgetMappers.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="18" selection-start-line="18" selection-end-line="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/containers/HeadingContainer.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="42" column="57" selection-start-line="40" selection-start-column="27" selection-end-line="42" selection-end-column="57" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/containers/ParagraphContainer.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
@@ -687,9 +624,26 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/constants/WidgetListEditor.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="18" column="42" selection-start-line="18" selection-start-column="42" selection-end-line="18" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/containers/TopicEditor.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="193">
+          <caret line="182" column="10" selection-start-line="182" selection-start-column="10" selection-end-line="191" selection-end-column="15" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/containers/WidgetListEditor.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="173">
+        <state relative-caret-position="-595">
           <caret line="46" column="60" lean-forward="true" selection-start-line="46" selection-start-column="60" selection-end-line="46" selection-end-column="60" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
@@ -699,10 +653,47 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/reducers/widgetReducers.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="310" column="38" lean-forward="true" selection-start-line="310" selection-start-column="38" selection-end-line="310" selection-end-column="38" />
+        <state relative-caret-position="1415">
+          <caret line="328" column="20" lean-forward="true" selection-start-line="328" selection-start-column="20" selection-end-line="328" selection-end-column="20" />
           <folding>
             <element signature="e#0#58#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/mappers/widgetMappers.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="28" column="108" selection-start-line="28" selection-start-column="108" selection-end-line="28" selection-end-column="108" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/actions/WidgetListEditor.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="432">
+          <caret line="94" selection-start-line="94" selection-end-line="94" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/containers/HeadingContainer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="30" column="24" selection-start-line="30" selection-start-column="24" selection-end-line="30" selection-end-column="50" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/containers/ListContainer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="4" selection-start-line="7" selection-start-column="4" selection-end-line="7" selection-end-column="4" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
           </folding>
         </state>
       </provider>
