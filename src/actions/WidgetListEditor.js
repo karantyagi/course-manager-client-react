@@ -8,6 +8,18 @@ export const findAllWidgets = dispatch => {
             widgets: widgets }))
 }
 
+export const moveUp = widget => {
+    return {
+        type: constants.MOVE_UP, widget: widget
+    }
+}
+
+export const moveDown = widget => {
+    return {
+        type: constants.MOVE_DOWN, widget: widget
+    }
+}
+
 
 export const addWidget = dispatch => (dispatch({type: constants.ADD_WIDGET}))
 
@@ -37,6 +49,22 @@ export const headingTextChanged = (dispatch, widgetId, newText) => (
 export const headingNameChanged = (dispatch, widgetId, newName) => (
     dispatch({
         type: constants.HEADING_NAME_CHANGED,
+        id: widgetId,
+        name: newName})
+)
+
+
+export const paragraphTextChanged = (dispatch, widgetId, newText) => (
+    dispatch({
+        type: constants.PARAGRAPH_TEXT_CHANGED,
+        id: widgetId,
+        text: newText})
+)
+
+
+export const paragraphNameChanged = (dispatch, widgetId, newName) => (
+    dispatch({
+        type: constants.PARAGRAPH_NAME_CHANGED,
         id: widgetId,
         name: newName})
 )
