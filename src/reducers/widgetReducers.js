@@ -167,6 +167,10 @@ export const widgetReducer = (state = {widgets: [], preview: false}, action) => 
                             size: '1',
                             text:'',
                             name: '',
+                            href: '',
+                            src: '',
+                            height: '500',
+                            width: '500',
                             listType: 'Unordered',
                             listItems: '',
                             widgetOrder: state.widgets.length+1,
@@ -377,7 +381,7 @@ export const widgetReducer = (state = {widgets: [], preview: false}, action) => 
             return {
                 widgets: state.widgets.map(widget => {
                     if(widget.id === action.id) {
-                        widget.listItems = action.text
+                        widget.text = action.text
                     }
                     return Object.assign({}, widget)
                 }),
@@ -395,8 +399,28 @@ export const widgetReducer = (state = {widgets: [], preview: false}, action) => 
                 preview: state.preview
             }
 
+        case constants.IMAGE_NAME_CHANGED:
+            return {
+                widgets: state.widgets.map(widget => {
+                    if(widget.id === action.id) {
+                        widget.name = action.name
+                    }
+                    return Object.assign({}, widget)
+                }),
+                preview: state.preview
+            }
 
+        case constants.IMAGE_SRC_CHANGED:
 
+            return {
+                widgets: state.widgets.map(widget => {
+                    if(widget.id === action.id) {
+                        widget.src = action.src
+                    }
+                    return Object.assign({}, widget)
+                }),
+                preview: state.preview
+            }
 
 
 

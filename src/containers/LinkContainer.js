@@ -16,7 +16,7 @@ const LinkWidget =  ({widget, preview, linkTextChanged, linkHrefChanged, linkNam
                     <input type="text" className="form-control"
                            placeholder="Link URL"
                            onChange={() => linkHrefChanged(widget.id, inputHref.value)}
-                           value={widget.text}
+                           value={widget.href}
                            ref={node => inputHref = node}></input>
                 </div>
                 <div className={'mb-3'}>
@@ -36,9 +36,7 @@ const LinkWidget =  ({widget, preview, linkTextChanged, linkHrefChanged, linkNam
                 </div>
                 <h5 style={{color:"Gray"}}>Preview</h5>
             </div>
-
-
-            <a href={widget.href}> </a>
+            <a href={widget.href}> {widget.text}</a>
         </div>
     );
 }

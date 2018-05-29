@@ -113,3 +113,17 @@ export const linkHrefChanged = (dispatch, widgetId, newHref) => (
         id: widgetId,
         href: newHref})
 )
+
+export const imageNameChanged = (dispatch, widgetId, newName) => (
+    dispatch({
+        type: constants.IMAGE_NAME_CHANGED,
+        id: widgetId,
+        name: newName})
+)
+
+export const imageSrcChanged = (dispatch, widgetId, newSrc) => (
+    dispatch({
+        type: constants.IMAGE_SRC_CHANGED,
+        id: widgetId,
+        src: newSrc})
+)
