@@ -9,8 +9,9 @@ import {BrowserRouter as Router, Route, Link} from 'react-router-dom'
 import {Provider, connect} from 'react-redux';
 import { createStore } from 'redux';
 import * as constants from "../constants/WidgetListEditor"
+import * as actions from "../actions/WidgetListEditor";
 import './sample.jpg'
-// import {findAllWidgets} from "../actions/WidgetListEditor";
+// import {findAllWidgets} from
 // import {addWidget} from "../actions/WidgetListEditor";
 //  import {headingSizeChanged} from "../actions/WidgetListEditor";
 // import {widgetReducer} from "./reducers/widgetReducer"
@@ -27,49 +28,16 @@ const dispatcherToPropsMapper =
     (dispatch) =>
         (
             {
-                addWidget: () => addWidget(dispatch),
-                saveWidgetList: () => saveWidgetList(dispatch),
-                previewWidgetList: () => previewWidgetList(dispatch),
-                findAllWidgets: () => findAllWidgets(dispatch),
-                headingSizeChanged: (widgetId, newSize) => headingSizeChanged(dispatch, widgetId, newSize),
-                headingTextChanged: (widgetId, newText) => headingTextChanged(dispatch, widgetId, newText),
-                headingNameChanged: (widgetId, newName) => headingNameChanged(dispatch, widgetId, newName)
+                addWidget: () => actions.addWidget(dispatch),
+                saveWidgetList: () => actions.saveWidgetList(dispatch),
+                previewWidgetList: () => actions.previewWidgetList(dispatch),
+                findAllWidgets: () => actions.findAllWidgets(dispatch),
+                headingSizeChanged: (widgetId, newSize) => actions.headingSizeChanged(dispatch, widgetId, newSize),
+                headingTextChanged: (widgetId, newText) => actions.headingTextChanged(dispatch, widgetId, newText),
+                headingNameChanged: (widgetId, newName) => actions.headingNameChanged(dispatch, widgetId, newName)
             })
 
-const findAllWidgets = dispatch => {
-    fetch('http://localhost:8080/api/widget')
-        .then(response => (response.json()))
-        .then(widgets => dispatch({
-            type: constants.FIND_ALL_WIDGETS,
-            widgets: widgets }))
-}
 
-const addWidget = dispatch => (dispatch({type: constants.ADD_WIDGET}))
-
-const saveWidgetList = dispatch => (dispatch({type: constants.SAVE}))
-
-const previewWidgetList = dispatch => (dispatch({type: constants.PREVIEW}))
-
-const headingSizeChanged = (dispatch, widgetId, newSize) => (
-    dispatch({
-        type: constants.HEADING_SIZE_CHANGED,
-        id: widgetId,
-        size: newSize})
-)
-
-const headingTextChanged = (dispatch, widgetId, newText) => (
-    dispatch({
-        type: constants.HEADING_TEXT_CHANGED,
-        id: widgetId,
-        text: newText})
-)
-
-const headingNameChanged = (dispatch, widgetId, newName) => (
-    dispatch({
-        type: constants.HEADING_NAME_CHANGED,
-        id: widgetId,
-        name: newName})
-)
 
 const HeadingWidget = ({widget, preview, headingSizeChanged, headingTextChanged, headingNameChanged,}) => {
     let selectHeadingSize;
