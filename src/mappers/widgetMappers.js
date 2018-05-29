@@ -24,13 +24,13 @@ export const dispatcherToPropsMapper =
                 paragraphTextChanged: (widgetId, newText) => actions.paragraphTextChanged(dispatch, widgetId, newText),
                 paragraphNameChanged: (widgetId, newName) => actions.paragraphNameChanged(dispatch, widgetId, newName),
 
-                listTextChanged: (widgetId, newText) => actions.listTextChanged(dispatch, widgetId, newText),
+                listItemChanged: (widgetId, newListItems) => actions.listItemChanged(dispatch, widgetId, newListItems),
                 listNameChanged: (widgetId, newName) => actions.listNameChanged(dispatch, widgetId, newName),
-                listTypeChanged: (widgetId, newType) => actions.listTypeChanged(dispatch, widgetId, newType)
+                listTypeChanged: (widgetId, newType) => actions.listTypeChanged(dispatch, widgetId, newType),
                 //
-                // headingSizeChanged: (widgetId, newSize) => actions.headingSizeChanged(dispatch, widgetId, newSize),
-                // headingTextChanged: (widgetId, newText) => actions.headingTextChanged(dispatch, widgetId, newText),
-                // headingNameChanged: (widgetId, newName) => actions.headingNameChanged(dispatch, widgetId, newName)
+                linkHrefChanged: (widgetId, newHref) => actions.linkHrefChanged(dispatch, widgetId, newHref),
+                linkTextChanged: (widgetId, newText) => actions.linkTextChanged(dispatch, widgetId, newText),
+                linkNameChanged: (widgetId, newName) => actions.linkNameChanged(dispatch, widgetId, newName)
                 //
                 // headingSizeChanged: (widgetId, newSize) => actions.headingSizeChanged(dispatch, widgetId, newSize),
                 // headingTextChanged: (widgetId, newText) => actions.headingTextChanged(dispatch, widgetId, newText),

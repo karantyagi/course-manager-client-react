@@ -324,12 +324,12 @@ export const widgetReducer = (state = {widgets: [], preview: false}, action) => 
                 preview: state.preview
             }
 
-        case constants.LIST_TEXT_CHANGED:
+        case constants.LIST_ITEMS_CHANGED:
             // console.log("ACTION TEXT: ", action.text)
             return {
                 widgets: state.widgets.map(widget => {
                     if(widget.id === action.id) {
-                        widget.listItems = action.text
+                        widget.listItems = action.listItems
                     }
                     return Object.assign({}, widget)
                 }),
@@ -359,6 +359,41 @@ export const widgetReducer = (state = {widgets: [], preview: false}, action) => 
                 preview: state.preview
             }
 
+
+        case constants.LINK_HREF_CHANGED:
+
+            return {
+                widgets: state.widgets.map(widget => {
+                    if(widget.id === action.id) {
+                        widget.href = action.href
+                    }
+                    return Object.assign({}, widget)
+                }),
+                preview: state.preview
+            }
+
+        case constants.LINK_TEXT_CHANGED:
+            // console.log("ACTION TEXT: ", action.text)
+            return {
+                widgets: state.widgets.map(widget => {
+                    if(widget.id === action.id) {
+                        widget.listItems = action.text
+                    }
+                    return Object.assign({}, widget)
+                }),
+                preview: state.preview
+            }
+
+        case constants.LINK_NAME_CHANGED:
+            return {
+                widgets: state.widgets.map(widget => {
+                    if(widget.id === action.id) {
+                        widget.name = action.name
+                    }
+                    return Object.assign({}, widget)
+                }),
+                preview: state.preview
+            }
 
 
 

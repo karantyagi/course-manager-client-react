@@ -70,11 +70,11 @@ export const paragraphNameChanged = (dispatch, widgetId, newName) => (
         name: newName})
 )
 
-export const listTextChanged = (dispatch, widgetId, newText) => (
+export const listItemChanged = (dispatch, widgetId, newListItems) => (
     dispatch({
-        type: constants.LIST_TEXT_CHANGED,
+        type: constants.LIST_ITEMS_CHANGED,
         id: widgetId,
-        text: newText})
+        listItems: newListItems})
 )
 
 
@@ -92,3 +92,24 @@ export const listTypeChanged = (dispatch, widgetId, newType) => (
         listType: newType})
 )
 
+
+export const linkTextChanged = (dispatch, widgetId, newText) => (
+    dispatch({
+        type: constants.LINK_TEXT_CHANGED,
+        id: widgetId,
+        text: newText})
+)
+
+export const linkNameChanged = (dispatch, widgetId, newName) => (
+    dispatch({
+        type: constants.LINK_NAME_CHANGED,
+        id: widgetId,
+        name: newName})
+)
+
+export const linkHrefChanged = (dispatch, widgetId, newHref) => (
+    dispatch({
+        type: constants.LINK_HREF_CHANGED,
+        id: widgetId,
+        href: newHref})
+)

@@ -13,7 +13,7 @@ const newListItems = (listItems) => {
 }
 
 
-const ListWidget = ({widget, preview, listTypeChanged, listTextChanged, listNameChanged}) => {
+const ListWidget = ({widget, preview, listTypeChanged, listItemChanged, listNameChanged}) => {
     let selectedType;
     let inputText;
     let inputName;
@@ -24,7 +24,7 @@ const ListWidget = ({widget, preview, listTypeChanged, listTextChanged, listName
                 <div className={'mb-2'}>
                 <textarea className="form-control" rows="4"
                           placeholder={'Put each\nitem in\na seperate row'}
-                          onChange={() => listTextChanged(widget.id, inputText.value)}
+                          onChange={() => listItemChanged(widget.id, inputText.value)}
                           value={widget.listItems}
                           ref={node => inputText = node}></textarea>
                 </div>
