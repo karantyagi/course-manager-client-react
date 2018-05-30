@@ -102,6 +102,11 @@ export default class Description
                         : Web service endpoint for topics
                     </li>
                     {/*&nbsp;&nbsp;&nbsp;*/}
+                    <li>
+                        {/*<a href="http://localhost:8080/api/topic">Topics&nbsp;</a>*/}
+                        <a href="https://kt-course-manager-server.herokuapp.com/api/widget">Widgets&nbsp;</a>
+                        : Web service endpoint for widgets
+                    </li>
 
                 </ul>
 

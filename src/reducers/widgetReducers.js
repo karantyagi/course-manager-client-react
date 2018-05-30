@@ -13,18 +13,17 @@ var addIds = [];
 var deleteIds = [];
 var updateIds = [];
 var widgetURL;
-var listLen = 0;
-
-
+var autoIncrement = 100000;
 
 export const widgetReducer = (state , action) => {
 
     let index;
-    listLen = state.widgets.length
     switch(action.type){
 
         case constants.PREVIEW:
             // console.log("preview fired ! awesome");
+
+
             return {
                 widgets: state.widgets,
                 preview: !state.preview,
@@ -171,59 +170,115 @@ export const widgetReducer = (state , action) => {
                 topicId: state.topicId
             }
 
-        case constants.ADD_WIDGET:
-
-
-            console.log("TOPIC ID: ", state.topicId);
-            console.log("Added locally but not saved to DB - added to addIds")
-            if(listLen === 0 ){
-                return (
-                    {
-                        widgets: [...state.widgets,
-                            {
-                                id: 9909901,
-                                widgetType: 'Heading',
-                                size: '1',
-                                text:'',
-                                name: '',
-                                href: '',
-                                src: '',
-                                height: '500',
-                                width: '500',
-                                listType: 'Unordered',
-                                listItems: '',
-                                topicId: state.topicId,
-                                widgetOrder: listLen+1
-                            }],
-                        preview: state.preview,
-                        topicId: state.topicId
-                    }
-                );
-            }
-            else{
-                return (
-                    {
-                        widgets: [...state.widgets,
-                            {
-                                id: state.widgets[state.widgets.length -1].id + 823123,
-                                widgetType: 'Heading',
-                                size: '1',
-                                text:'',
-                                name: '',
-                                href: '',
-                                src: '',
-                                height: '500',
-                                width: '500',
-                                listType: 'Unordered',
-                                listItems: '',
-                                topicId: state.topicId,
-                                widgetOrder: listLen+1
-                            }],
-                        preview: state.preview,
-                        topicId: state.topicId
-                    }
-                );
-            }
+        // case constants.ADD_WIDGET:
+        //
+        //
+        //     console.log("TOPIC ID: ", state.topicId);
+        //     console.log("Added locally but not saved to DB - added to addIds")
+        //
+        //     let newAddition;
+        //
+        //
+        //
+        //
+        //     if(listLen === 0 ){
+        //
+        //         newAddition = {
+        //             widget:
+        //                 {
+        //                     // id: 9909901,
+        //                     widgetType: 'Heading',
+        //                     size: '1',
+        //                     text:'',
+        //                     name: '',
+        //                     href: '',
+        //                     src: '',
+        //                     height: '500',
+        //                     width: '500',
+        //                     listType: 'Unordered',
+        //                     listItems: '',
+        //                     topicId: state.topicId,
+        //                     widgetOrder: listLen+1
+        //                 }
+        //         }
+        //
+        //         widgetURL = 'http://localhost:8080/api/topic/'+ state.topicId.toString() + '/widget';
+        //         console.log("adding instantly");
+        //
+        //         fetch(widgetURL, {
+        //                 method: 'post',
+        //                 body: JSON.stringify(newAddition),
+        //                 headers: {
+        //                     'content-type': 'application/json'
+        //                 }
+        //             }
+        //         ).then(function(response){
+        //             return response.json();
+        //         }).then(function(widget)
+        //         {
+        //             console.log("NEWLY ADDED widget id: ", widget.id);
+        //             newAddition.widget.id = widget.id;
+        //             console.log("NEW ADDITION ID UPDATED: ", newAddition.widget.id)
+        //         });
+        //         console.log("ADDED instantly");
+        //
+        //         return
+        //         (JSON.parse(JSON.stringify({
+        //             widgets: [...state.widgets, newAddition],
+        //             preview: state.preview,
+        //             topicId: state.topicId
+        //         })));
+        //     }
+        //     else{
+        //
+        //         newAddition = {
+        //             widget:
+        //                 {
+        //                     // id: state.widgets[state.widgets.length -1].id + 823123,
+        //                     widgetType: 'Heading',
+        //                     size: '1',
+        //                     text:'',
+        //                     name: 'HEADING NAME',
+        //                     href: '',
+        //                     src: '',
+        //                     height: '500',
+        //                     width: '500',
+        //                     listType: 'Unordered',
+        //                     listItems: '',
+        //                     topicId: state.topicId,
+        //                     widgetOrder: listLen+1
+        //                 }
+        //         }
+        //
+        //         widgetURL = 'http://localhost:8080/api/topic/'+ state.topicId.toString() + '/widget';
+        //         console.log("adding instantly");
+        //
+        //         fetch(widgetURL, {
+        //                 method: 'post',
+        //                 body: JSON.stringify(newAddition),
+        //                 headers: {
+        //                     'content-type': 'application/json'
+        //                 }
+        //             }
+        //         ).then(function(response){
+        //             return response.json();
+        //         }).then(function(widget)
+        //         {
+        //             console.log("NEWLY ADDED widget id: ", widget.id);
+        //             newAddition.widget.id = widget.id;
+        //             console.log("NEW ADDITION ID UPDATED: ", newAddition.widget.id)
+        //         });
+        //         console.log("ADDED instantly");
+        //
+        //         return
+        //         (JSON.parse(JSON.stringify({
+        //             widgets: [...state.widgets, newAddition],
+        //             preview: state.preview,
+        //             topicId: state.topicId
+        //         })));
+        //
+        //
+        //     }
 
 
         case constants.SELECT_WIDGET_TYPE:
@@ -245,40 +300,76 @@ export const widgetReducer = (state , action) => {
         case constants.SAVE:
 
             console.log("save fired !");
+            console.log(state.widgets);
+            console.log("just create new widgets and add them to DB");
+
+            // delete all WIDGETS for this topic which are lying in DB
+            console.log("Starting expunge");
+
+                fetch('https://kt-course-manager-server.herokuapp.com/api/topic/' + state.topicId.toString()+'/widget/delete',
+                    {
+                        method: 'delete',
+                        headers: {
+                            'content-type': 'application/json'}
+                    })
+                    .then(function (response) {
+                       return response.json();
+                    }).then(function (deletedWidgets)
+                {
+                    console.log("DB has deleted: \n",deletedWidgets )
+                    console.log("Expunge complete");
+                    console.log("Saving current state now");
+                    let widgetURL;
+                    for(var i=0; i < state.widgets.length; i++) {
+                        widgetURL = 'https://kt-course-manager-server.herokuapp.com/api/topic/' + state.topicId.toString()+'/widget';
+                        console.log(widgetURL)
+                        fetch(widgetURL,
+                            {
+                                method: 'post',
+                                body: JSON.stringify(state.widgets[i]),
+                                headers: {
+                                    'content-type': 'application/json'}
+                            }).then(function(response){
+                            return response.json();
+                        }).then(function(widget){
+                            console.log(widget);
+                        });
+                    }
+                    console.log("All widgets saved !");
+                    alert("\nAll widgets saved !")
+                });
+
+
             // console.log("TOPIC ID: ", state.topicId);
 
-            for(var c=0; c< state.widgets.length; c++){
-                
-
-            }
+            // for(var c=0; c< state.widgets.length; c++){
+            //     console.log("Deleting id: ", state.widgets[c])
+            //         widgetURL = 'http://localhost:8080/api/widget/delete';
+            //         // console.log(widgetURL);
+            //         fetch(widgetURL, {
+            //             method: 'delete',
+            //             body: JSON.stringify(state.widgets[c]),
+            //             headers: {
+            //                 'content-type': 'application/json'}
+            //         })
+            //             .then(function (response) {
+            //                 console.log("deleted\n");
+            //             });
+            // }
 
             // delete all for topic
 
-            widgetURL = 'http://localhost:8080/api/topic/' + state.topicId.toString()+'/widget/save';
-            // console.log(widgetURL);
-            fetch(widgetURL, {
-                method: 'post',
-                body: JSON.stringify(state.widgets),
-                headers: {
-                    'content-type': 'application/json'}
-            })
+            // widgetURL = 'http://localhost:8080/api/topic/' + state.topicId.toString()+'/widget/save';
+            // // console.log(widgetURL);
+            // fetch(widgetURL, {
+            //     method: 'post',
+            //     body: JSON.stringify(state.widgets),
+            //     headers: {
+            //         'content-type': 'application/json'}
+            // })
 
 
-               // let widgetURL;
-            // for(var i=0; i < state.widgets.length; i++) {
-            //     widgetURL = 'http://localhost:8080/api/widget/'+state.widgets[i].id.toString()+'/save';
-            //     console.log(widgetURL)
-            //     fetch(widgetURL,
-            //         {
-            //             method: 'put',
-            //             body: JSON.stringify(state.widgets[i]),
-            //             headers: {
-            //                 'content-type': 'application/json'}
-            //         }).then(function(response){
-            //         console.log(response);
-            //         // return response.json();
-            //     });
-            // }
+
 
             // for(var j=0; j < deletePending.widgets.length; j++) {
             //     widgetURL = 'http://localhost:8080/api/widget/'+ deletePending.widgets[i].id.toString();
@@ -315,9 +406,54 @@ export const widgetReducer = (state , action) => {
             // console.log("Add IDs from Add Queue: ", addIds);
             // console.log("Delete IDs from Delete Queue: ", deleteIds);
             // console.log("Update IDs from Update Queue: ", updateIds);
-           console.log("All widgets saved !");
-           alert("\nAll widgets saved !")
+
            return state;
+
+        case constants.ADD_WIDGET:
+
+            console.log("TOPIC ID: ", state.topicId);
+            console.log("Added locally but not saved to DB - added to addIds")
+            autoIncrement =autoIncrement+10;
+            console.log("Length: ", state.widgets.length)
+            console.log("ID", autoIncrement);
+            return (
+                {
+                    widgets: [...state.widgets,
+                        {
+                            id: autoIncrement,
+                            widgetType: 'Heading',
+                            size: '1',
+                            text:'',
+                            name: '',
+                            href: '',
+                            src: '',
+                            height: '500',
+                            width: '500',
+                            listType: 'Unordered',
+                            listItems: '',
+                            topicId: state.topicId,
+                            widgetOrder: state.widgets.length+1
+                        }],
+                    preview: state.preview,
+                    topicId: state.topicId
+                }
+            );
+
+
+        case constants.DELETE_WIDGET:
+            console.log("Deleted locally : deleteID : ", action.id)
+
+            deleteIds.push(action.id);
+            return(
+                {widgets: state.widgets.filter(widget => {
+                        return (
+                            widget.id !== action.id
+                        );
+                    }),
+                    preview: state.preview,
+                    topicId: state.topicId
+                }
+            );
 
         // function updateUser(userId, user) {
         //     return fetch(self.url + '/' + userId, {
@@ -351,20 +487,7 @@ export const widgetReducer = (state , action) => {
             return newState2;
 
 
-        case constants.DELETE_WIDGET:
-            console.log("Deleted locally but not saved to DB.")
 
-            deleteIds.push(action.id);
-            return(
-                {widgets: state.widgets.filter(widget => {
-                        return (
-                            widget.id !== action.id
-                        );
-                    }),
-                    preview: state.preview,
-                    topicId: state.topicId
-                }
-            );
 
 
         case constants.PARAGRAPH_TEXT_CHANGED:

@@ -124,7 +124,6 @@ class WidgetList extends Component
 
      render(){
          return(
-             <div>
                  <ul className={"list-group"}>
                      {this.props.widgets.map(widget =>
                          <div key={widget.id*23}>
@@ -135,8 +134,6 @@ class WidgetList extends Component
                              <br/>
                          </div>)}
                  </ul>
-
-             </div>
          );
      }
 
@@ -164,7 +161,28 @@ class WidgetListContainer extends Component{
         topicId = url.substring(url.indexOf('topic')+6);
         topicId = topicId.substring(0,topicId.indexOf('/'));
 
-        this.props.findAllWidgetsByTopic('http://localhost:8080/api/topic/'+topicId.toString()+'/widget')
+        this.props.findAllWidgetsByTopic('https://kt-course-manager-server.herokuapp.com/api/topic/'+topicId.toString()+'/widget')
+
+        // delete all WIDGETS for this topic from DB
+        console.log("Starting expunge");
+        for(var c=0; c < this.props.widgets.length; c++){
+            console.log("Deleting id: ", this.props.widgets[c].id)
+                fetch('https://kt-course-manager-server.herokuapp.com/api/widget/delete', {
+                    method: 'delete',
+                    body: JSON.stringify(this.props.widgets[c]),
+                    headers: {
+                        'content-type': 'application/json'}
+                })
+                    .then(function (response) {
+                        console.log("deleted\n");
+                    });
+        }
+        console.log("Expunge complete");
+
+
+
+
+
         // console.log("url:" ,url);
         // console.log("Topic ID: ", topicId);
     }

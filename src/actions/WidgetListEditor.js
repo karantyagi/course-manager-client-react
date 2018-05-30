@@ -2,11 +2,12 @@ import React from 'react';
 import * as constants from "../constants/WidgetListEditor"
 
 export const findAllWidgets = dispatch => {
-    fetch('http://localhost:8080/api/widget')
+    fetch('https://kt-course-manager-server.herokuapp.com/api/widget')
         .then(response => (response.json()))
         .then(widgets => dispatch({
             type: constants.FIND_ALL_WIDGETS,
             widgets: widgets }))
+
 }
 
 export const findAllWidgetsByTopic = (dispatch,widgetUrl) => {
