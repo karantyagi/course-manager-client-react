@@ -4,7 +4,9 @@ export const stateToPropsMapper = (state) => {
     return (
         {
             widgets: state.widgets,
-            preview: state.preview}
+            preview: state.preview,
+            topicId: state.topicId
+        }
     );
 }
 
@@ -15,6 +17,7 @@ export const dispatcherToPropsMapper =
                 addWidget: () => actions.addWidget(dispatch),
                 saveWidgetList: () => actions.saveWidgetList(dispatch),
                 previewWidgetList: () => actions.previewWidgetList(dispatch),
+                findAllWidgetsByTopic: (widgetUrl) => actions.findAllWidgetsByTopic(dispatch,widgetUrl),
                 findAllWidgets: () => actions.findAllWidgets(dispatch),
 
                 headingSizeChanged: (widgetId, newSize) => actions.headingSizeChanged(dispatch, widgetId, newSize),

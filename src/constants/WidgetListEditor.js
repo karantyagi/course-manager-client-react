@@ -1,5 +1,7 @@
 export const SAVE = 'SAVE';
 export const FIND_ALL_WIDGETS = 'FIND_ALL_WIDGETS';
+export const FIND_ALL_WIDGETS_BY_TOPIC = 'FIND_ALL_WIDGETS_BY_TOPIC';
+
 export const DELETE_WIDGET = 'DELETE_WIDGET';
 export const ADD_WIDGET = 'ADD_WIDGET';
 export const HEADING_SIZE_CHANGED = 'HEADING_SIZE_CHANGED';
@@ -10,8 +12,10 @@ export const PREVIEW = 'PREVIEW';
 export const MOVE_UP = 'MOVE_UP';
 export const MOVE_DOWN = 'MOVE_DOWN';
 
-export const WIDGET_DRAGGED = 'WIDGET_DRAGGED';
-export const WIDGET_DROPPED = 'WIDGET_DROPPED';
+// export const WIDGET_DRAGGED = 'WIDGET_DRAGGED';
+// export const WIDGET_DROPPED = 'WIDGET_DROPPED';
+
+
 
 export const PARAGRAPH_TEXT_CHANGED = 'PARAGRAPH_TEXT_CHANGED';
 export const PARAGRAPH_NAME_CHANGED = 'PARAGRAPH_NAME_CHANGED';

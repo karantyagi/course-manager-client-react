@@ -1,5 +1,5 @@
 import * as constants from "../constants/WidgetListEditor"
-import {getTopicId} from "../containers/WidgetListEditor"
+
 
 const reorder = (arr, to ,from) => {
     arr.splice(to, 0, arr.splice(from, 1)[0]);
@@ -13,27 +13,28 @@ var addIds = [];
 var deleteIds = [];
 var updateIds = [];
 var widgetURL;
-var topicId = getTopicId;
+var listLen = 0;
 
-export const widgetReducer = (state = {widgets: [], preview: false}, action) => {
+
+
+export const widgetReducer = (state , action) => {
 
     let index;
+    listLen = state.widgets.length
     switch(action.type){
 
         case constants.PREVIEW:
             // console.log("preview fired ! awesome");
             return {
                 widgets: state.widgets,
-                preview: !state.preview
+                preview: !state.preview,
+                topicId: state.topicId
             }
 
-        case constants.WIDGET_DROPPED:
-            console.log(" WIDGET DROPPED: ", action.id, action.name);
-            return state;
 
         case constants.MOVE_UP:
 
-            let upOrder = {widgets: [...state.widgets], preview: state.preview}
+            let upOrder = {widgets: [...state.widgets], preview: state.preview, topicId: state.topicId}
             // console.log(newState);
             // rank = action.widget.widgetOrder
             index = action.widget.widgetOrder - 1;
@@ -80,7 +81,7 @@ export const widgetReducer = (state = {widgets: [], preview: false}, action) => 
 
         case constants.MOVE_DOWN:
 
-            let downOrder = {widgets: [...state.widgets], preview: state.preview}
+            let downOrder = {widgets: [...state.widgets], preview: state.preview, topicId: state.topicId}
             // console.log(newState);
             // rank = action.widget.widgetOrder
             index = action.widget.widgetOrder - 1;
@@ -138,7 +139,8 @@ export const widgetReducer = (state = {widgets: [], preview: false}, action) => 
                     }
                     return Object.assign({}, widget)
                 }),
-                preview: state.preview
+                preview: state.preview,
+                topicId: state.topicId
             }
 
         case constants.HEADING_TEXT_CHANGED:
@@ -151,7 +153,8 @@ export const widgetReducer = (state = {widgets: [], preview: false}, action) => 
                     }
                     return Object.assign({}, widget)
                 }),
-                preview: state.preview
+                preview: state.preview,
+                topicId: state.topicId
             }
 
         case constants.HEADING_NAME_CHANGED:
@@ -164,41 +167,67 @@ export const widgetReducer = (state = {widgets: [], preview: false}, action) => 
                     }
                     return Object.assign({}, widget)
                 }),
-                preview: state.preview
+                preview: state.preview,
+                topicId: state.topicId
             }
 
         case constants.ADD_WIDGET:
 
 
-            // console.log("TOPIC ID: ", topicId);
-            addIds.push(state.widgets[state.widgets.length -1].id + 8231);
+            console.log("TOPIC ID: ", state.topicId);
             console.log("Added locally but not saved to DB - added to addIds")
+            if(listLen === 0 ){
+                return (
+                    {
+                        widgets: [...state.widgets,
+                            {
+                                id: 9909901,
+                                widgetType: 'Heading',
+                                size: '1',
+                                text:'',
+                                name: '',
+                                href: '',
+                                src: '',
+                                height: '500',
+                                width: '500',
+                                listType: 'Unordered',
+                                listItems: '',
+                                topicId: state.topicId,
+                                widgetOrder: listLen+1
+                            }],
+                        preview: state.preview,
+                        topicId: state.topicId
+                    }
+                );
+            }
+            else{
+                return (
+                    {
+                        widgets: [...state.widgets,
+                            {
+                                id: state.widgets[state.widgets.length -1].id + 823123,
+                                widgetType: 'Heading',
+                                size: '1',
+                                text:'',
+                                name: '',
+                                href: '',
+                                src: '',
+                                height: '500',
+                                width: '500',
+                                listType: 'Unordered',
+                                listItems: '',
+                                topicId: state.topicId,
+                                widgetOrder: listLen+1
+                            }],
+                        preview: state.preview,
+                        topicId: state.topicId
+                    }
+                );
+            }
 
-            return (
-                {
-                    widgets: [...state.widgets,
-                        {
-                            id: state.widgets[state.widgets.length -1].id + 8231,
-                            widgetType: 'Heading',
-                            size: '1',
-                            text:'',
-                            name: '',
-                            href: '',
-                            src: '',
-                            height: '500',
-                            width: '500',
-                            listType: 'Unordered',
-                            listItems: '',
-                            widgetOrder: state.widgets.length+1,
-                            topicId: topicId
-                        }],
-                    preview: state.preview
-                }
-            );
 
         case constants.SELECT_WIDGET_TYPE:
-            updateIds.push(action.id);
-            console.log("Heading Name changed - added to updateIds");
+
             console.log("WIDGET TYPE CHANGED:  ", action.widgetType);
             let newState = {
                 widgets: state.widgets.filter((widget) => {
@@ -206,7 +235,8 @@ export const widgetReducer = (state = {widgets: [], preview: false}, action) => 
                         widget.widgetType = action.widgetType
                     }
                     return true;}),
-                preview: state.preview
+                preview: state.preview,
+                topicId: state.topicId
             }
             return (JSON.parse(JSON.stringify(newState)));
 
@@ -215,24 +245,26 @@ export const widgetReducer = (state = {widgets: [], preview: false}, action) => 
         case constants.SAVE:
 
             console.log("save fired !");
+            // console.log("TOPIC ID: ", state.topicId);
 
-            widgetURL = 'http://localhost:8080/api/widget/'+state.widgets[0].id.toString()+'/save';
-            console.log(widgetURL)
-            fetch(widgetURL,
-                {
-                method: 'put',
-                body: JSON.stringify(state.widgets[0]),
+            for(var c=0; c< state.widgets.length; c++){
+                
+
+            }
+
+            // delete all for topic
+
+            widgetURL = 'http://localhost:8080/api/topic/' + state.topicId.toString()+'/widget/save';
+            // console.log(widgetURL);
+            fetch(widgetURL, {
+                method: 'post',
+                body: JSON.stringify(state.widgets),
                 headers: {
                     'content-type': 'application/json'}
-                }).then(function(response){
-                    // console.log(response);
-                alert("All widgets saved !")
-                    return response.json();
-                });
+            })
 
 
-
-            // let widgetURL;
+               // let widgetURL;
             // for(var i=0; i < state.widgets.length; i++) {
             //     widgetURL = 'http://localhost:8080/api/widget/'+state.widgets[i].id.toString()+'/save';
             //     console.log(widgetURL)
@@ -279,16 +311,13 @@ export const widgetReducer = (state = {widgets: [], preview: false}, action) => 
             // }
 
 
-
-
-
             //
             // console.log("Add IDs from Add Queue: ", addIds);
             // console.log("Delete IDs from Delete Queue: ", deleteIds);
             // console.log("Update IDs from Update Queue: ", updateIds);
-            alert("All widgets saved !");
-
-            return state;
+           console.log("All widgets saved !");
+           alert("\nAll widgets saved !")
+           return state;
 
         // function updateUser(userId, user) {
         //     return fetch(self.url + '/' + userId, {
@@ -313,6 +342,14 @@ export const widgetReducer = (state = {widgets: [], preview: false}, action) => 
             newState1.widgets = action.widgets
             return newState1;
 
+        case constants.FIND_ALL_WIDGETS_BY_TOPIC:
+            // console.log("Action widgets: ",action.widgets)
+            // return ({widgets: action.widgets});
+            let newState2;
+            newState2 = Object.assign({}, state)
+            newState2.widgets = action.widgets
+            return newState2;
+
 
         case constants.DELETE_WIDGET:
             console.log("Deleted locally but not saved to DB.")
@@ -324,7 +361,9 @@ export const widgetReducer = (state = {widgets: [], preview: false}, action) => 
                             widget.id !== action.id
                         );
                     }),
-                    preview: state.preview}
+                    preview: state.preview,
+                    topicId: state.topicId
+                }
             );
 
 
@@ -337,7 +376,8 @@ export const widgetReducer = (state = {widgets: [], preview: false}, action) => 
                     }
                     return Object.assign({}, widget)
                 }),
-                preview: state.preview
+                preview: state.preview,
+                topicId: state.topicId
             }
 
         case constants.PARAGRAPH_NAME_CHANGED:
@@ -348,7 +388,8 @@ export const widgetReducer = (state = {widgets: [], preview: false}, action) => 
                     }
                     return Object.assign({}, widget)
                 }),
-                preview: state.preview
+                preview: state.preview,
+                topicId: state.topicId
             }
 
         case constants.LIST_ITEMS_CHANGED:
@@ -360,7 +401,8 @@ export const widgetReducer = (state = {widgets: [], preview: false}, action) => 
                     }
                     return Object.assign({}, widget)
                 }),
-                preview: state.preview
+                preview: state.preview,
+                topicId: state.topicId
             }
 
         case constants.LIST_NAME_CHANGED:
@@ -371,7 +413,8 @@ export const widgetReducer = (state = {widgets: [], preview: false}, action) => 
                     }
                     return Object.assign({}, widget)
                 }),
-                preview: state.preview
+                preview: state.preview,
+                topicId: state.topicId
             }
 
         case constants.LIST_TYPE_CHANGED:
@@ -383,7 +426,8 @@ export const widgetReducer = (state = {widgets: [], preview: false}, action) => 
                     }
                     return Object.assign({}, widget)
                 }),
-                preview: state.preview
+                preview: state.preview,
+                topicId: state.topicId
             }
 
 
@@ -396,7 +440,8 @@ export const widgetReducer = (state = {widgets: [], preview: false}, action) => 
                     }
                     return Object.assign({}, widget)
                 }),
-                preview: state.preview
+                preview: state.preview,
+                topicId: state.topicId
             }
 
         case constants.LINK_TEXT_CHANGED:
@@ -408,7 +453,8 @@ export const widgetReducer = (state = {widgets: [], preview: false}, action) => 
                     }
                     return Object.assign({}, widget)
                 }),
-                preview: state.preview
+                preview: state.preview,
+                topicId: state.topicId
             }
 
         case constants.LINK_NAME_CHANGED:
@@ -419,7 +465,8 @@ export const widgetReducer = (state = {widgets: [], preview: false}, action) => 
                     }
                     return Object.assign({}, widget)
                 }),
-                preview: state.preview
+                preview: state.preview,
+                topicId: state.topicId
             }
 
         case constants.IMAGE_NAME_CHANGED:
@@ -430,7 +477,8 @@ export const widgetReducer = (state = {widgets: [], preview: false}, action) => 
                     }
                     return Object.assign({}, widget)
                 }),
-                preview: state.preview
+                preview: state.preview,
+                topicId: state.topicId
             }
 
         case constants.IMAGE_SRC_CHANGED:
@@ -442,7 +490,8 @@ export const widgetReducer = (state = {widgets: [], preview: false}, action) => 
                     }
                     return Object.assign({}, widget)
                 }),
-                preview: state.preview
+                preview: state.preview,
+                topicId: state.topicId
             }
 
 

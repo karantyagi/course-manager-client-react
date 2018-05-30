@@ -20,20 +20,15 @@ import {stateToPropsMapper, dispatcherToPropsMapper} from "../mappers/widgetMapp
 import {widgetReducer} from "../reducers/widgetReducers";
 
 
-let url;
-// = window.location.href;
-let topicId;
-// = url.substring(url.indexOf('topic')+6);
+let url = window.location.href;
+let topicId = url.substring(url.indexOf('topic')+6);
 
-// let initialState =
-//     {widgets: [
-//             {id: 100, text: "headings.....", name: "**** HEADING ***"},
-//             {id: 200, text: "images.....", name: "~~~~~ IMAGE ~~~~~"},
-//             {id: 300, text: "links.....", name: "^^^ LINK ^^^"}
-//         ]};
-
-
-
+const initialState =
+    {
+        widgets: [],
+        preview: false,
+        topicId: topicId.substring(0,topicId.indexOf('/'))
+    }
 
 
 const Widget = ({widget,preview,dispatch}) => {
@@ -42,7 +37,7 @@ const Widget = ({widget,preview,dispatch}) => {
     // console.log("preview inside Widget: ", preview);
 
     return(
-        <li key={widget.id*7} className="list-group-item rounded shadow" draggable="true">
+        <li key={widget.id*7} className="list-group-item rounded shadow">
                 <div className={"row mt-2 mb-1 mb-2"} hidden={preview}>
                     <div className={'col-7 mr-4 ml-1 pt-1'}>
                         <h4>{widget.widgetOrder} &nbsp;
@@ -130,8 +125,7 @@ class WidgetList extends Component
      render(){
          return(
              <div>
-                 <ul className={"list-group"}
-                     onDragOver={() => { console.log(" drag ended in ul")}}>
+                 <ul className={"list-group"}>
                      {this.props.widgets.map(widget =>
                          <div key={widget.id*23}>
                              <WidgetContainer key={widget.id}
@@ -158,24 +152,26 @@ class WidgetList extends Component
 
 
 
-let store = createStore(widgetReducer);
+
+let store = createStore(widgetReducer,initialState);
 
 class WidgetListContainer extends Component{
     constructor(props){
         super(props);
-        this.props.findAllWidgets()
+
         console.log("WidgetListContainer PROPS : ", this.props)
         url = window.location.href;
         topicId = url.substring(url.indexOf('topic')+6);
         topicId = topicId.substring(0,topicId.indexOf('/'));
 
+        this.props.findAllWidgetsByTopic('http://localhost:8080/api/topic/'+topicId.toString()+'/widget')
         // console.log("url:" ,url);
         // console.log("Topic ID: ", topicId);
     }
 
     componentWillUnmount(){
         console.log(" navigating away")
-        alert("\nnavigating away");
+        // alert("\nnavigating away");
     }
 
     componentWillUpdate(nextProps, nextState){
@@ -188,11 +184,12 @@ class WidgetListContainer extends Component{
         if(this.props.widgets !== null){ len = this.props.widgets.length}
         return(
             <div className={"p-1"}>
-                <p> Total Widgets :
-                    {this.props.widgets.length}
-                 </p>
+
                 <div className={'row mb-2 mt-0'}>
                     <div className={'col-8 mr-4'}>
+                        <p hidden={this.props.preview}>&nbsp;&nbsp;Total Widgets :&nbsp;
+                            {this.props.widgets.length}
+                        </p>
                     </div>
                     <div className={'col-1 ml-1'}>
                         <button
@@ -245,9 +242,4 @@ export default class WidgetListEditor
             </Provider>
         );
     }
-}
-
-
-export const getTopicId = () => {
-    return topicId;
 }

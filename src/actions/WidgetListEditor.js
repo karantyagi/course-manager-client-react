@@ -9,6 +9,15 @@ export const findAllWidgets = dispatch => {
             widgets: widgets }))
 }
 
+export const findAllWidgetsByTopic = (dispatch,widgetUrl) => {
+    fetch(widgetUrl)
+        .then(response => (response.json()))
+        .then(widgets => dispatch({
+            type: constants.FIND_ALL_WIDGETS_BY_TOPIC,
+            widgets: widgets }))
+}
+
+
 export const moveUp = widget => {
     return {
         type: constants.MOVE_UP, widget: widget
@@ -18,12 +27,6 @@ export const moveUp = widget => {
 export const moveDown = widget => {
     return {
         type: constants.MOVE_DOWN, widget: widget
-    }
-}
-
-export const drop = widget => {
-    return {
-        type: constants.WIDGET_DROPPED, widget: widget
     }
 }
 
