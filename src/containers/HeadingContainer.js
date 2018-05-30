@@ -61,7 +61,6 @@ const HeadingWidget = ({widget, preview, headingSizeChanged, headingTextChanged,
                 {widget.size == 2 && <h2>{widget.text}</h2>}
                 {widget.size == 3 && <h3>{widget.text}</h3>}
             </div>
-            {/*<h3> Actual widget displayed as html rendering</h3>*/}
         </div>
     );
 }

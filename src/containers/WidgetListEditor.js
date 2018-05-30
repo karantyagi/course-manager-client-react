@@ -7,7 +7,6 @@ import {Provider, connect} from 'react-redux';
 import { createStore } from 'redux';
 import * as constants from "../constants/WidgetListEditor"
 import * as actions from "../actions/WidgetListEditor";
-import './sample.jpg'
 
 import {HeadingContainer} from "../containers/HeadingContainer";
 import {ParagraphContainer} from "../containers/ParagraphContainer"
@@ -16,9 +15,7 @@ import {ImageContainer} from "../containers/ImageContainer"
 import {ListContainer} from "../containers/ListContainer"
 
 import {stateToPropsMapper, dispatcherToPropsMapper} from "../mappers/widgetMappers";
-
 import {widgetReducer} from "../reducers/widgetReducers";
-
 
 let url = window.location.href;
 let topicId = url.substring(url.indexOf('topic')+6);
@@ -35,7 +32,6 @@ const Widget = ({widget,preview,dispatch}) => {
 
     let selectElement;
     // console.log("preview inside Widget: ", preview);
-
     return(
         <li key={widget.id*7} className="list-group-item rounded shadow">
                 <div className={"row mt-2 mb-1 mb-2"} hidden={preview}>
@@ -83,37 +79,11 @@ const Widget = ({widget,preview,dispatch}) => {
                 {widget.widgetType === "List" && <ListContainer widget={widget} preview={preview}/>}
                 {widget.widgetType === "Paragraph" && <ParagraphContainer widget={widget} preview={preview}/>}
             </div>
-
-            {/*<div className={'border rounded border-gray p-1'}> {widget.text}</div>*/}
-            {/*<br/>*/}
-            {/*<h5 style={{color:"Gray"}}>Preview</h5>*/}
-            {/*<h3> Actual widget displayed as html rendering</h3>*/}
-            {/*<hr/>*/}
         </li>
     );
 }
 
 const WidgetContainer = connect(stateToPropsMapper)(Widget);
-
-//
-// const WidgetList = ({widgets, dispatch}) => {
-//     console.log("inside widget list: ", typeof(widgets), widgets)
-//     return(
-//         <div>
-//             <ul className={"list-group"}>
-//                 {widgets.map(widget =>
-//                     <div key={widget.id*23}>
-//                         <WidgetContainer key={widget.id}
-//                                  widget={widget}
-//                         />
-//                         <br/>
-//                     </div>)}
-//             </ul>
-//
-//         </div>
-//     );
-// }
-
 
 class WidgetList extends Component
  {
@@ -138,17 +108,6 @@ class WidgetList extends Component
      }
 
 }
-
-// const orderWidgetList = (arr, from, to) =>  {
-//     console.log("array before reordering : ", arr);
-//     arr.splice(to, 0, arr.splice(from, 1)[0]);
-//     console.log("array after reordering : ", arr);
-//     return(
-//        arr);
-// }
-
-
-
 
 let store = createStore(widgetReducer,initialState);
 
@@ -179,12 +138,6 @@ class WidgetListContainer extends Component{
         }
         console.log("Expunge complete");
 
-
-
-
-
-        // console.log("url:" ,url);
-        // console.log("Topic ID: ", topicId);
     }
 
     componentWillUnmount(){
@@ -227,11 +180,7 @@ class WidgetListContainer extends Component{
                         </label>
                     </div>
                 </div>
-
-                {/*{this.props.widgets.map(widget =>*/}
-                {/*(*/}
-                {/*<WidgetContainer key={widget.id} widget={widget}/>*/}
-                {/*))}*/}
+                
                 <WidgetList widgets={this.props.widgets}/>
                 <div className={"text-right mt-3 mb-3"}>
                     <button

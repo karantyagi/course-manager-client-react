@@ -38,5 +38,4 @@ export const dispatcherToPropsMapper =
                 imageSrcChanged: (widgetId, newSrc) => actions.imageSrcChanged(dispatch, widgetId, newSrc),
                 imageNameChanged: (widgetId, newName) => actions.imageNameChanged(dispatch, widgetId, newName)
 
-
             })
