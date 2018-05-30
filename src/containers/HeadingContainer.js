@@ -7,6 +7,8 @@ const HeadingWidget = ({widget, preview, headingSizeChanged, headingTextChanged,
     let selectHeadingSize;
     let inputElem;
     let inputName;
+    var editMode = preview;
+
     // console.log("preview inside Heading Widget: ", preview);
 
     return (
@@ -45,22 +47,11 @@ const HeadingWidget = ({widget, preview, headingSizeChanged, headingTextChanged,
                 </div>
                 <h4 style={{color:"Gray"}}>Preview</h4>
             </div>
-            {/*<div className={'row'}>*/}
-                {/*<div className={'col-11'}>*/}
-                    {/**/}
-                {/*</div>*/}
-
-                {/*<div className={'col-1'}>*/}
-                    {/*<button className={"btn btn-outline-dark"}>*/}
-                        {/*<i className="fa fa-pencil fa-1x"></i></button>*/}
-                {/*</div>*/}
-
-            {/*</div>*/}
-            <div>
-                {widget.size == 1 && <h1>{widget.text}</h1>}
-                {widget.size == 2 && <h2>{widget.text}</h2>}
-                {widget.size == 3 && <h3>{widget.text}</h3>}
-            </div>
+                    <div>
+                        {widget.size == 1 && <h1>{widget.text}</h1>}
+                        {widget.size == 2 && <h2>{widget.text}</h2>}
+                        {widget.size == 3 && <h3>{widget.text}</h3>}
+                    </div>
         </div>
     );
 }
