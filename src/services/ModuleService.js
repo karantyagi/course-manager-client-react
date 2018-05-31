@@ -1,9 +1,9 @@
 
-const MODULE_API_URL =
-    'http://localhost:8080/api/course/CID/module';
-
 // const MODULE_API_URL =
-//     'https://kt-course-manager-server.herokuapp.com/api/course/CID/module';
+//     'http://localhost:8080/api/course/CID/module';
+
+const MODULE_API_URL =
+    'https://kt-course-manager-server.herokuapp.com/api/course/CID/module';
 
 let _singleton = Symbol();
 export default class ModuleService {

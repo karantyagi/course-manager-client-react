@@ -1,9 +1,9 @@
 
-const TOPIC_API_URL =
-    'http://localhost:8080/api/course/CID/module/MID/lesson/LID/topic';
-
 // const TOPIC_API_URL =
-//     'https://kt-course-manager-server.herokuapp.com/api/course/CID/module/MID/lesson/LID/topic';
+//     'http://localhost:8080/api/course/CID/module/MID/lesson/LID/topic';
+
+const TOPIC_API_URL =
+    'https://kt-course-manager-server.herokuapp.com/api/course/CID/module/MID/lesson/LID/topic';
 
 let _singleton = Symbol();
 export default class TopicService {
